@@ -872,6 +872,31 @@ a {
   gap: 16px;
 }
 
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+/* Table scroll wrapper — prevents overflow on mobile */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Data tables scroll naturally inside wrapper */
+.data-table {
+  min-width: 600px;
+}
+
+
 /* ─────────────────────────────────────────────────────────────────────
    BUTTONS
    ───────────────────────────────────────────────────────────────────── */
@@ -1621,6 +1646,459 @@ code,
   gap: 16px;
   transition: background 0.3s ease;
 }
+
+[data-theme="light"] .marketing-nav {
+  background: rgba(250, 250, 250, 0.92);
+}
+
+.marketing-nav-links {
+  display: flex;
+  gap: 6px;
+  flex: 1;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.marketing-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.marketing-hamburger {
+  display: none;
+  flex-direction: column;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+}
+
+.marketing-mobile-menu {
+  position: sticky;
+  top: 68px;
+  z-index: 199;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+.marketing-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 48px;
+  margin-bottom: 60px;
+}
+
+/* ═══════════════════════════════════════════════════════════════════════
+   RESPONSIVE — Full Mobile + Tablet + Desktop Coverage
+   ═══════════════════════════════════════════════════════════════════════
+
+   Breakpoints:
+     xs  : ≤ 480px   (small phones)
+     sm  : ≤ 640px   (phones)
+     md  : ≤ 768px   (large phones / small tablets)
+     lg  : ≤ 1024px  (tablets / small laptops)
+     xl  : ≥ 1025px  (desktop)
+*/
+
+/* ─────────────────────────────────────────────────────────────────────
+   DESKTOP (≥ 1025px) — Always show sidebar & full topbar
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: translateX(0) !important;
+  }
+
+  .hamburger-btn {
+    display: none !important;
+  }
+
+  .sidebar-close-btn {
+    display: none !important;
+  }
+
+  .marketing-nav-links {
+    display: flex !important;
+  }
+
+  .marketing-nav-right {
+    display: flex !important;
+  }
+
+  .marketing-hamburger {
+    display: none !important;
+  }
+
+  .topbar-search {
+    display: flex !important;
+  }
+
+  .topbar-clock {
+    display: block !important;
+  }
+
+  .topbar-help {
+    display: flex !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   TABLET (≤ 1024px) — Off-canvas sidebar, hide nav links
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* ── AppLayout Sidebar ── */
+  .sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    z-index: 100;
+    box-shadow: none;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+    box-shadow: 4px 0 48px rgba(0, 0, 0, 0.7);
+  }
+
+  .sidebar-close-btn {
+    display: block;
+  }
+
+  .hamburger-btn {
+    display: flex;
+  }
+
+  /* ── Topbar: stretch full width ── */
+  .topbar {
+    left: 0 !important;
+  }
+
+  .topbar-search {
+    display: none !important;
+  }
+
+  .topbar-clock {
+    display: none !important;
+  }
+
+  /* ── Main content ── */
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  .page-content {
+    padding: 24px 20px;
+  }
+
+  /* ── Metric grid: 4→2 ── */
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+
+  /* ── Marketing nav ── */
+  .marketing-nav {
+    padding: 0 24px;
+  }
+
+  .marketing-nav-links {
+    display: none;
+  }
+
+  .marketing-nav-right {
+    display: none;
+  }
+
+  .marketing-hamburger {
+    display: flex;
+  }
+
+  .marketing-footer-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+  }
+
+  /* ── Cards: tighter on tablet ── */
+  .metric-card {
+    padding: 20px;
+  }
+
+  .card {
+    border-radius: 16px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE-L (≤ 768px) — Single column grids, stacked layouts
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ── Grids → single column ── */
+  .grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ── Page content ── */
+  .page-content {
+    padding: 14px 12px;
+  }
+
+  /* ── App footer: stack ── */
+  .app-footer {
+    flex-direction: column !important;
+    gap: 6px !important;
+    align-items: flex-start !important;
+    padding: 12px 14px !important;
+    font-size: 11px !important;
+  }
+
+  /* ── Cards ── */
+  .metric-card {
+    padding: 16px;
+    border-radius: 14px;
+  }
+
+  .card {
+    border-radius: 14px;
+  }
+
+  /* ── Tables: horizontal scroll ── */
+  .data-table {
+    min-width: 560px;
+    font-size: 12px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 10px 12px;
+  }
+
+  /* ── Topbar ── */
+  .topbar {
+    padding: 0 14px !important;
+  }
+
+  .topbar-help {
+    display: none !important;
+  }
+
+  /* ── Marketing footer ── */
+  .marketing-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+
+  .marketing-mobile-menu {
+    top: 58px;
+  }
+
+  /* ── Landing page ── */
+  .landing-hero {
+    padding: 100px 20px 60px !important;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(32px, 8vw, 52px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  .landing-hero p {
+    font-size: 15px !important;
+  }
+
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  .landing-features-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .landing-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 24px !important;
+  }
+
+  /* ── Login page ── */
+  .login-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .login-left-panel {
+    display: none !important;
+  }
+
+  /* ── Dashboard inline grids ── */
+  /* Override inline style display:grid gridTemplateColumns: '1fr 300px' → stack */
+  .card+.card {
+    margin-top: 0;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE (≤ 640px) — Single column metric grid
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .grid-4 {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+
+  .page-content {
+    padding: 12px 10px;
+  }
+
+  .marketing-nav {
+    padding: 0 16px;
+    height: 58px;
+  }
+
+  .metric-card {
+    padding: 14px;
+    border-radius: 12px;
+  }
+
+  /* ── Topbar — compact ── */
+  .topbar {
+    padding: 0 12px !important;
+    gap: 10px !important;
+  }
+
+  /* ── Data table headers hide less important cols via class ── */
+  .col-hide-sm {
+    display: none !important;
+  }
+
+  /* ── Landing page ── */
+  .landing-footer-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   EXTRA SMALL (≤ 480px) — Minimal, ultra compact
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+  .grid-4 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr !important;
+  }
+
+  .page-content {
+    padding: 10px 8px;
+  }
+
+  .metric-card {
+    padding: 12px;
+    border-radius: 10px;
+  }
+
+  .marketing-nav {
+    height: 54px;
+    padding: 0 14px;
+  }
+
+  /* ── Data table ultra compact ── */
+  .data-table {
+    font-size: 11px;
+  }
+
+  .data-table th,
+  .data-table td {
+    padding: 8px 10px;
+  }
+
+  /* ── Landing page ── */
+  .landing-hero {
+    padding: 80px 16px 48px !important;
+  }
+
+  .landing-hero h1 {
+    font-size: 28px !important;
+  }
+
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   DASHBOARD — Responsive inline-style grid overrides
+   The chart row uses inline style: gridTemplateColumns: '1fr 300px'
+   We override these with a CSS selector approach
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Dashboard chart row: chart left + radar right → stack on tablet */
+@media (max-width: 900px) {
+
+  /* Dashboard chart row — override inline grid via specific class */
+  .dashboard-chart-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Any inline-grid 2-col layouts inside page-content → stack */
+  .page-content>div[style*="gridTemplateColumns"] {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY: Mobile-only visibility helpers
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* Show only on mobile */
+.show-mobile {
+  display: none !important;
+}
+
+@media (max-width: 768px) {
+  .show-mobile {
+    display: block !important;
+  }
+}
+
+/* Hide on desktop */
+@media (min-width: 1025px) {
+  .hide-desktop {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SIDEBAR ALWAYS OPEN ON DESKTOP — ensures CSS specificity wins
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: translateX(0) !important;
+    transition: none !important;
+  }
+}
+
 
 [data-theme="light"] .marketing-nav {
   background: rgba(250, 250, 250, 0.92);

@@ -229,7 +229,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Main charts ── */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 18, marginBottom: 18 }}>
+      <div className="dashboard-chart-row" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 18, marginBottom: 18 }}>
         {/* Network Traffic chart */}
         <div className="card" style={{ padding: '22px 24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
@@ -329,35 +329,38 @@ export default function Dashboard() {
             }} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 14px' }}>⬇ EXPORT LOGS</button>
           </div>
         </div>
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>SEVERITY</th><th>ID</th><th>THREAT TYPE</th><th>ORIGIN</th><th>TIMESTAMP</th><th>ACTION</th>
-            </tr>
-          </thead>
-          <tbody>
-            {events.map((inc) => {
-              const sev = {
-                CRITICAL: { bg: 'var(--red-dim)', c: 'var(--red)', b: 'rgba(239,68,68,.3)' },
-                HIGH: { bg: 'rgba(249,115,22,.12)', c: 'var(--orange)', b: 'rgba(249,115,22,.3)' },
-                MEDIUM: { bg: 'var(--yellow-dim)', c: 'var(--yellow)', b: 'rgba(245,158,11,.3)' },
-                SUCCESS: { bg: 'var(--green-dim)', c: 'var(--green)', b: 'rgba(16,185,129,.3)' },
-                INFO: { bg: 'rgba(99,130,200,0.1)', c: '#6382c8', b: 'rgba(99,130,200,0.3)' }
-              }[inc.sev] || { bg: 'rgba(255,255,255,0.05)', c: '#ccc', b: 'rgba(255,255,255,0.1)' };
-              return (
-                <tr key={inc.id} style={{ animation: 'fadeIn .4s ease' }}>
-                  <td><span style={{ background: sev.bg, color: sev.c, border: `1px solid ${sev.b}`, padding: '3px 10px', borderRadius: 100, fontSize: 11, fontWeight: 700 }}>{inc.sev}</span></td>
-                  <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--text-primary)', fontWeight: 600 }}>{inc.id}</span></td>
-                  <td style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{inc.type}</td>
-                  <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--blue-light)' }}>{inc.origin}</span></td>
-                  <td style={{ color: 'var(--text-muted)', fontSize: 12 }}>{inc.time}</td>
-                  <td><button onClick={() => navigate('/threats')} className="btn btn-primary" style={{ padding: '5px 14px', fontSize: 12 }}>INVESTIGATE</button></td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <div className="table-wrapper">
+          <table className="data-table">
+            <thead>
+              <tr>
+                <th>SEVERITY</th><th>ID</th><th>THREAT TYPE</th><th>ORIGIN</th><th>TIMESTAMP</th><th>ACTION</th>
+              </tr>
+            </thead>
+            <tbody>
+              {events.map((inc) => {
+                const sev = {
+                  CRITICAL: { bg: 'var(--red-dim)', c: 'var(--red)', b: 'rgba(239,68,68,.3)' },
+                  HIGH: { bg: 'rgba(249,115,22,.12)', c: 'var(--orange)', b: 'rgba(249,115,22,.3)' },
+                  MEDIUM: { bg: 'var(--yellow-dim)', c: 'var(--yellow)', b: 'rgba(245,158,11,.3)' },
+                  SUCCESS: { bg: 'var(--green-dim)', c: 'var(--green)', b: 'rgba(16,185,129,.3)' },
+                  INFO: { bg: 'rgba(99,130,200,0.1)', c: '#6382c8', b: 'rgba(99,130,200,0.3)' }
+                }[inc.sev] || { bg: 'rgba(255,255,255,0.05)', c: '#ccc', b: 'rgba(255,255,255,0.1)' };
+                return (
+                  <tr key={inc.id} style={{ animation: 'fadeIn .4s ease' }}>
+                    <td><span style={{ background: sev.bg, color: sev.c, border: `1px solid ${sev.b}`, padding: '3px 10px', borderRadius: 100, fontSize: 11, fontWeight: 700 }}>{inc.sev}</span></td>
+                    <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--text-primary)', fontWeight: 600 }}>{inc.id}</span></td>
+                    <td style={{ color: 'var(--text-primary)', fontWeight: 500 }}>{inc.type}</td>
+                    <td><span style={{ fontFamily: 'JetBrains Mono', color: 'var(--blue-light)' }}>{inc.origin}</span></td>
+                    <td style={{ color: 'var(--text-muted)', fontSize: 12 }}>{inc.time}</td>
+                    <td><button onClick={() => navigate('/threats')} className="btn btn-primary" style={{ padding: '5px 14px', fontSize: 12 }}>INVESTIGATE</button></td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>{/* /table-wrapper */}
       </div>
     </AppLayout>
+
   );
 }
