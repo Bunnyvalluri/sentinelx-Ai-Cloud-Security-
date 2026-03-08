@@ -1,0 +1,10 @@
+﻿
+> sentinelx-platform@0.0.0 lint
+> eslint .
+
+
+C:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\Dashboard.jsx
+  1:31  error  'useRef' is defined but never used. Allowed unused vars must match /^[A-Z_]/u  no-unused-vars
+
+Γ£û 1 problem (1 error, 0 warnings)
+
