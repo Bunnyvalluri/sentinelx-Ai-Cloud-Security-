@@ -23,4 +23,32 @@ dist-ssr
 *.sln
 *.sw?
 
+# Vercel
 .vercel
+
+# Environment variables — NEVER commit secrets
+.env
+.env.local
+.env.production
+.env.*.local
+
+# Temp/scratch files
+build.txt
+build_err2.txt
+build_error.txt
+build_error_utf8.txt
+final-lint.txt
+fix-actions.js
+fix-trans.js
+add-actions.js
+remove-blues.js
+revert.js
+lint-output.json
+lint-output.txt
+lint-results.txt
+lint.txt
+lint_final.txt
+lint_final_u8.txt
+new-lint.txt
+rc_doctor_output.txt
+react-doctor-final.txt
