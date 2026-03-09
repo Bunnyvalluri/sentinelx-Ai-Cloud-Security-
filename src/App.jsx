@@ -13,6 +13,7 @@ import UserManagement from './pages/UserManagement';
 import SecurityAnalytics from './pages/SecurityAnalytics';
 import AlertQueue from './pages/AlertQueue';
 import ChatbotPage from './pages/ChatbotPage';
+import LoadBalancer from './pages/LoadBalancer';
 
 // Marketing pages
 import Features from './pages/marketing/Features';
@@ -44,6 +45,7 @@ export default function App() {
           <Route path="/analytics" element={<SecurityAnalytics />} />
           <Route path="/alerts" element={<AlertQueue />} />
           <Route path="/chat" element={<ChatbotPage />} />
+          <Route path="/load-balancer" element={<LoadBalancer />} />
 
           {/* Product */}
           <Route path="/features" element={<Features />} />

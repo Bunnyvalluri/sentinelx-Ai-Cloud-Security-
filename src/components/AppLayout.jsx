@@ -81,6 +81,14 @@ const Icons = {
       <line x1="9" y1="10" x2="15" y2="10" /><line x1="9" y1="14" x2="13" y2="14" />
     </svg>
   ),
+  Server: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="2" y="2" width="20" height="8" rx="2" ry="2" />
+      <rect x="2" y="14" width="20" height="8" rx="2" ry="2" />
+      <line x1="6" y1="6" x2="6.01" y2="6" />
+      <line x1="6" y1="18" x2="6.01" y2="18" />
+    </svg>
+  ),
 };
 
 const navSections = [
@@ -96,6 +104,7 @@ const navSections = [
   {
     section: 'ANALYTICS', items: [
       { to: '/analytics', Icon: Icons.Analytics, label: 'Security Analytics' },
+      { to: '/load-balancer', Icon: Icons.Server, label: 'LB Matrix' },
     ]
   },
   {
@@ -114,6 +123,7 @@ const PAGE_META = {
   '/analytics': { title: 'Security Analytics', subtitle: 'Threat trend visualisation & intelligence', bg: 'bg-gradient-analytics' },
   '/users': { title: 'User Management', subtitle: 'Role-based access control administration', bg: 'bg-gradient-users' },
   '/chat': { title: 'CEREBRO AI', subtitle: 'Real-time RAG powered assistant for any question', bg: 'bg-gradient-analytics' },
+  '/load-balancer': { title: 'Global Load Balancer', subtitle: 'Active matrix edge-routing overview', bg: 'bg-gradient-security' },
 };
 
 export default function AppLayout({ children, title, subtitle, bgClass }) {

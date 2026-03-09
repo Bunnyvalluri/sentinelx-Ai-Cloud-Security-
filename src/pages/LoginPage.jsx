@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
   signInWithPopup, sendPasswordResetEmail,
 } from '../firebase';
+import ReCAPTCHA from 'react-google-recaptcha';
 
 /* ─── Event pool (streamed in randomly) ─────────────────────────────────── */
 const EVENT_POOL = [
@@ -133,6 +134,7 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(null);
   const [error, setError] = useState('');
   const [resetSent, setResetSent] = useState(false);
+  const [recaptchaToken, setRecaptchaToken] = useState(null);
 
   // Live feed state
   const [events, setEvents] = useState(() => EVENT_POOL.slice(0, 5).map((e, i) => ({ ...e, id: i, ts: `${(i + 1) * 8}s ago`, fresh: false })));
@@ -216,6 +218,12 @@ export default function LoginPage() {
   const handleEmailAuth = async (e) => {
     e.preventDefault();
     setError('');
+
+    if (!recaptchaToken) {
+      setError('Please complete the human verification (reCAPTCHA).');
+      return;
+    }
+
     if (mode === 'signup' && pwd !== confirmPwd) { setError('Passwords do not match.'); return; }
     setLoading('email');
     try {
@@ -457,6 +465,16 @@ export default function LoginPage() {
                 />
               </div>
             )}
+
+            {/* reCAPTCHA validation widget */}
+            <div style={{ marginTop: 6, marginBottom: 14, display: 'flex', justifyContent: 'center' }}>
+              <ReCAPTCHA
+                sitekey="6LeIxAcTAAAAAJcZVRqyHh71UMIEGNQ_MXjiZKhI" // Dummy test key for localhost
+                theme="dark"
+                onChange={(token) => setRecaptchaToken(token)}
+                onExpired={() => setRecaptchaToken(null)}
+              />
+            </div>
 
             <button type="submit" disabled={!!loading}
               style={{ background: loading === 'email' ? 'var(--blue-hover)' : 'linear-gradient(135deg, var(--blue), var(--indigo))', color: '#fff', border: 'none', borderRadius: 9, padding: '13px', fontSize: 14, fontWeight: 700, cursor: loading ? 'not-allowed' : 'pointer', boxShadow: 'var(--shadow-glow-blue)', transition: 'all .2s', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, opacity: loading && loading !== 'email' ? 0.6 : 1 }}>
