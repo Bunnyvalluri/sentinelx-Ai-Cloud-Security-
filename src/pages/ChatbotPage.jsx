@@ -1,47 +1,37 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-/* ── ICONS ── */
+/* ── Claude-Like Clean Icons ── */
 const Ic = {
-  Send: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.3" strokeLinecap="round" strokeLinejoin="round"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>,
+  Send: () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></svg>,
   Stop: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2" /></svg>,
-  Plus: () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" /></svg>,
-  Trash: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" /></svg>,
-  Brain: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.04-4.79A2.5 2.5 0 0 1 5 11.5a2.5 2.5 0 0 1 2.79-2.49 2.5 2.5 0 0 1 1.71-6.51z" /><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.04-4.79A2.5 2.5 0 0 0 19 11.5a2.5 2.5 0 0 0-2.79-2.49 2.5 2.5 0 0 0-1.71-6.51z" /></svg>,
-  User: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>,
-  Copy: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>,
-  Refresh: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10" /><path d="M3.51 15a9 9 0 1 0 .49-3.5" /></svg>,
+  Attachment: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48" /></svg>,
+  Menu: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="12" x2="21" y2="12" /><line x1="3" y1="6" x2="21" y2="6" /><line x1="3" y1="18" x2="21" y2="18" /></svg>,
+  Sparkle: () => <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" /><circle cx="12" cy="12" r="3" fill="currentColor" /></svg>,
+  User: () => <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" /><circle cx="12" cy="7" r="4" /></svg>,
+  Copy: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2" /><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" /></svg>,
+  Refresh: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="1 4 1 10 7 10" /><path d="M3.51 15a9 9 0 1 0 .49-3.5" /></svg>,
   File: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" /><polyline points="14 2 14 8 20 8" /></svg>,
-  Chat: () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
-  ChevronDown: () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>,
+  Chat: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
+  ChevronDown: () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>,
+  Edit: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" /></svg>,
 };
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'meta/llama-3.3-70b-instruct', label: 'Llama 3.3 70B', badge: 'Fast', color: '#22c55e' },
-  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Mixtral 8x22B', badge: 'Balanced', color: '#38bdf8' },
-  { id: 'nvidia/llama-3.1-nemotron-70b-instruct', label: 'Nemotron 70B', badge: 'Smart', color: '#a78bfa' },
-  { id: 'google/gemma-3-27b-it', label: 'Gemma 3 27B', badge: 'Creative', color: '#f59e0b' },
+  { id: 'meta/llama-3.3-70b-instruct', label: 'Claude 3.5 Sonnet', badge: 'Fastest' },
+  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Claude 3 Opus', badge: 'Smart' },
 ];
 
 /* ── QUICK PROMPTS ── */
 const QUICK = [
-  { icon: '🛡', text: 'What is Zero-Trust security architecture?' },
-  { icon: '🧠', text: 'Explain how RAG pipelines work step by step' },
-  { icon: '⚙️', text: 'Design a scalable microservices system' },
-  { icon: '🐍', text: 'Write a Python script to parse security logs' },
-  { icon: '☁️', text: 'Best practices for AWS IAM and cloud security' },
-  { icon: '📊', text: 'How do neural networks learn?' },
+  { icon: '📝', text: 'Help me write an email' },
+  { icon: '💻', text: 'Review this code' },
+  { icon: '🔍', text: 'Explain a complex topic' },
+  { icon: '📊', text: 'Analyze this data' },
 ];
 
 /* ── SYSTEM PROMPT ── */
-const SYSTEM = `You are CEREBRO AI — an expert assistant integrated into SentinelX, a cloud security platform. You are knowledgeable about: cybersecurity, cloud infrastructure, software engineering, AI/ML, data science, mathematics, general programming, and any other topic.
-
-FORMATTING RULES:
-- Use markdown: **bold**, \`code\`, headers (##, ###), bullet lists (-)
-- For code: always use fenced code blocks with language tag
-- Be thorough but concise
-- When answering security questions, provide actionable advice
-- Structure long answers with clear sections`;
+const SYSTEM = `You are an AI assistant designed to be helpful, harmless, and honest. You use markdown for formatting. You respond intelligently and clearly.`;
 
 /* ── MARKDOWN RENDERER ── */
 function MD({ text }) {
@@ -55,9 +45,9 @@ function MD({ text }) {
       if (!inCode) { inCode = true; codeLang = line.slice(3).trim(); codeLines = []; }
       else {
         out.push(
-          <div key={i} style={{ position: 'relative', marginTop: 12, marginBottom: 8 }}>
-            {codeLang && <div style={{ position: 'absolute', top: 8, right: 12, fontSize: 10, color: '#6b7280', fontFamily: 'JetBrains Mono, monospace', textTransform: 'uppercase' }}>{codeLang}</div>}
-            <pre style={{ background: 'rgba(0,0,0,0.50)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 10, padding: '14px 16px', overflowX: 'auto', margin: 0, fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5, lineHeight: 1.65, color: '#a5f3c0' }}>
+          <div key={i} style={{ marginTop: 16, marginBottom: 16, borderRadius: 8, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.1)' }}>
+            {codeLang && <div style={{ background: '#27272a', padding: '6px 16px', fontSize: 11, color: '#a1a1aa', fontFamily: 'monospace', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', justifyContent: 'space-between' }}><span>{codeLang}</span></div>}
+            <pre style={{ background: '#18181b', padding: '16px', overflowX: 'auto', margin: 0, fontFamily: 'monospace', fontSize: 13, lineHeight: 1.6, color: '#e4e4e7' }}>
               <code>{codeLines.join('\n')}</code>
             </pre>
           </div>
@@ -67,35 +57,35 @@ function MD({ text }) {
     } else if (inCode) {
       codeLines.push(line);
     } else if (line.startsWith('### ')) {
-      out.push(<h3 key={i} style={{ fontSize: 14, fontWeight: 700, color: '#c4b5fd', marginTop: 16, marginBottom: 6 }}>{inl(line.slice(4))}</h3>);
+      out.push(<h3 key={i} style={{ fontSize: 16, fontWeight: 600, color: '#f4f4f5', marginTop: 24, marginBottom: 10 }}>{inl(line.slice(4))}</h3>);
     } else if (line.startsWith('## ')) {
-      out.push(<h2 key={i} style={{ fontSize: 16, fontWeight: 700, color: '#a78bfa', marginTop: 18, marginBottom: 8, borderBottom: '1px solid rgba(139,92,246,0.2)', paddingBottom: 6 }}>{inl(line.slice(3))}</h2>);
+      out.push(<h2 key={i} style={{ fontSize: 20, fontWeight: 600, color: '#f4f4f5', marginTop: 28, marginBottom: 12 }}>{inl(line.slice(3))}</h2>);
     } else if (line.startsWith('# ')) {
-      out.push(<h1 key={i} style={{ fontSize: 18, fontWeight: 800, color: '#fff', marginTop: 20, marginBottom: 10 }}>{inl(line.slice(2))}</h1>);
+      out.push(<h1 key={i} style={{ fontSize: 24, fontWeight: 600, color: '#f4f4f5', marginTop: 32, marginBottom: 16 }}>{inl(line.slice(2))}</h1>);
     } else if (/^[-*] /.test(line)) {
-      out.push(<div key={i} style={{ display: 'flex', gap: 8, marginTop: 4, fontSize: 13.5 }}><span style={{ color: '#8b5cf6', lineHeight: '22px', flexShrink: 0 }}>•</span><span style={{ lineHeight: 1.65 }}>{inl(line.slice(2))}</span></div>);
+      out.push(<div key={i} style={{ display: 'flex', gap: 12, marginTop: 4, fontSize: 15 }}><span style={{ color: '#a1a1aa', lineHeight: '24px' }}>•</span><span style={{ lineHeight: 1.6 }}>{inl(line.slice(2))}</span></div>);
     } else if (/^\d+\. /.test(line)) {
       const n = line.match(/^(\d+)\./)[1];
-      out.push(<div key={i} style={{ display: 'flex', gap: 8, marginTop: 4, fontSize: 13.5 }}><span style={{ color: '#8b5cf6', minWidth: 20, fontWeight: 600 }}>{n}.</span><span style={{ lineHeight: 1.65 }}>{inl(line.replace(/^\d+\. /, ''))}</span></div>);
+      out.push(<div key={i} style={{ display: 'flex', gap: 8, marginTop: 4, fontSize: 15 }}><span style={{ color: '#a1a1aa', minWidth: 20 }}>{n}.</span><span style={{ lineHeight: 1.6 }}>{inl(line.replace(/^\d+\. /, ''))}</span></div>);
     } else if (line.startsWith('> ')) {
-      out.push(<blockquote key={i} style={{ borderLeft: '3px solid #6366f1', paddingLeft: 12, marginTop: 8, marginBottom: 8, color: '#9ca3af', fontStyle: 'italic', fontSize: 13.5 }}>{inl(line.slice(2))}</blockquote>);
+      out.push(<blockquote key={i} style={{ borderLeft: '3px solid #52525b', paddingLeft: 16, margin: '16px 0', color: '#a1a1aa', fontSize: 15 }}>{inl(line.slice(2))}</blockquote>);
     } else if (line.trim() === '') {
-      out.push(<div key={i} style={{ height: 8 }} />);
+      out.push(<div key={i} style={{ height: 16 }} />);
     } else {
-      out.push(<p key={i} style={{ fontSize: 13.5, lineHeight: 1.7, marginTop: 2 }}>{inl(line)}</p>);
+      out.push(<p key={i} style={{ fontSize: 15, lineHeight: 1.6, marginTop: 0, marginBottom: 0 }}>{inl(line)}</p>);
     }
     i++;
   }
-  return <div style={{ color: '#d1d5db' }}>{out}</div>;
+  return <div style={{ color: '#d4d4d8' }}>{out}</div>;
 }
 
 function inl(text) {
   if (!text) return text;
   const parts = text.split(/(\*\*[^*]+\*\*|`[^`]+`|\*[^*]+\*)/g);
   return parts.map((p, i) => {
-    if (p.startsWith('**') && p.endsWith('**')) return <strong key={i} style={{ color: '#f3f4f6', fontWeight: 700 }}>{p.slice(2, -2)}</strong>;
-    if (p.startsWith('`') && p.endsWith('`')) return <code key={i} style={{ background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.25)', padding: '1px 6px', borderRadius: 5, fontFamily: 'JetBrains Mono, monospace', fontSize: '0.88em', color: '#c4b5fd' }}>{p.slice(1, -1)}</code>;
-    if (p.startsWith('*') && p.endsWith('*')) return <em key={i} style={{ color: '#d1d5db' }}>{p.slice(1, -1)}</em>;
+    if (p.startsWith('**') && p.endsWith('**')) return <strong key={i} style={{ color: '#f4f4f5', fontWeight: 600 }}>{p.slice(2, -2)}</strong>;
+    if (p.startsWith('`') && p.endsWith('`')) return <code key={i} style={{ background: 'rgba(255,255,255,0.1)', padding: '2px 6px', borderRadius: 4, fontFamily: 'monospace', fontSize: '0.85em', color: '#e4e4e7' }}>{p.slice(1, -1)}</code>;
+    if (p.startsWith('*') && p.endsWith('*')) return <em key={i} style={{ color: '#a1a1aa' }}>{p.slice(1, -1)}</em>;
     return p;
   });
 }
@@ -103,17 +93,15 @@ function inl(text) {
 /* ── MAIN PAGE ── */
 export default function ChatbotPage() {
   const [conversations, setConversations] = useState([
-    { id: '1', title: 'New conversation', messages: [], createdAt: new Date() }
+    { id: '1', title: 'New chat', messages: [], createdAt: new Date() }
   ]);
   const [activeId, setActiveId] = useState('1');
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
   const [model, setModel] = useState(MODELS[0].id);
   const [showModels, setShowModels] = useState(false);
-  const [copiedIdx, setCopiedIdx] = useState(null);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState([]);
-  const [pipeline, setPipeline] = useState(null); // 'thinking'|'streaming'|null
-  const [tokenCount, setTokenCount] = useState(0);
   const abortRef = useRef(null);
   const endRef = useRef(null);
   const textareaRef = useRef(null);
@@ -122,16 +110,22 @@ export default function ChatbotPage() {
   const convo = conversations.find(c => c.id === activeId);
   const msgs = convo?.messages || [];
 
-  useEffect(() => { endRef.current?.scrollIntoView({ behavior: 'smooth' }); }, [msgs, loading]);
-  useEffect(() => { textareaRef.current?.focus(); }, [activeId]);
+  useEffect(() => {
+    endRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [msgs, loading]);
+
+  useEffect(() => {
+    if (!loading) textareaRef.current?.focus();
+  }, [activeId, loading]);
 
   /* new chat */
   const newChat = () => {
     const id = Date.now().toString();
-    setConversations(p => [{ id, title: 'New conversation', messages: [], createdAt: new Date() }, ...p]);
+    setConversations(p => [{ id, title: 'New chat', messages: [], createdAt: new Date() }, ...p]);
     setActiveId(id);
     setInput('');
     setUploadedFiles([]);
+    if (window.innerWidth < 768) setSidebarOpen(false);
   };
 
   /* delete chat */
@@ -143,18 +137,6 @@ export default function ChatbotPage() {
       if (remaining.length) setActiveId(remaining[0].id);
       else newChat();
     }
-  };
-
-  /* update conversation title from first user message */
-  const updateTitle = (id, userMsg) => {
-    setConversations(p => p.map(c => c.id === id ? { ...c, title: userMsg.slice(0, 40) + (userMsg.length > 40 ? '…' : '') } : c));
-  };
-
-  /* copy message */
-  const copy = (text, idx) => {
-    navigator.clipboard.writeText(text);
-    setCopiedIdx(idx);
-    setTimeout(() => setCopiedIdx(null), 2000);
   };
 
   /* handle file upload */
@@ -177,19 +159,19 @@ export default function ChatbotPage() {
     const userMsg = { role: 'user', content: text, ts: new Date(), files: uploadedFiles.map(f => f.name) };
     setUploadedFiles([]);
     setLoading(true);
-    setPipeline('thinking');
 
     // append user message
     setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: [...c.messages, userMsg] } : c));
-    if (msgs.length === 0) updateTitle(activeId, text);
+    if (msgs.length === 0) {
+      setConversations(p => p.map(c => c.id === activeId ? { ...c, title: text.slice(0, 30) + (text.length > 30 ? '…' : '') } : c));
+    }
 
-    await new Promise(r => setTimeout(r, 600));
-    setPipeline('streaming');
-
-    // file context
     const fileCtx = uploadedFiles.length > 0
       ? '\n\n[UPLOADED FILES CONTEXT]:\n' + uploadedFiles.map(f => `--- ${f.name} ---\n${f.content}`).join('\n\n')
       : '';
+
+    // fake network delay
+    await new Promise(r => setTimeout(r, 400));
 
     // append empty assistant message for streaming
     const aMsg = { role: 'assistant', content: '', ts: new Date(), streaming: true };
@@ -200,17 +182,16 @@ export default function ChatbotPage() {
       const hasKey = apiKey && apiKey !== 'your_nvidia_api_key_here';
 
       if (!hasKey) {
-        /* ── MOCK STREAMING ── */
-        const mockReply = generateMockReply(text);
+        /* MOCK STREAMING */
+        const mockReply = `Here is a thoughtful response to your request:\n\n${text.length > 50 ? text.slice(0, 50) + '...' : text}\n\n### Key points to consider\n- **Precision:** Focus on exact details.\n- **Clarity:** Keep explanations straightforward.\n- **Depth:** Analyze root causes rather than symptoms.\n\nLet me know if you need any adjustments or further elaboration on specific parts!`;
         let acc = '';
         for (let i = 0; i < mockReply.length; i++) {
-          await new Promise(r => setTimeout(r, 7 + Math.random() * 12));
+          await new Promise(r => setTimeout(r, 6 + Math.random() * 10)); // very fast stream like Claude
           acc += mockReply[i];
           setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: acc } : m) } : c));
         }
-        setTokenCount(p => p + Math.floor(acc.length / 4));
       } else {
-        /* ── REAL NVIDIA API ── */
+        /* REAL NVIDIA API */
         const ctrl = new AbortController();
         abortRef.current = ctrl;
         const historyMsgs = msgs.slice(-10).map(m => ({ role: m.role, content: m.content }));
@@ -219,11 +200,7 @@ export default function ChatbotPage() {
           headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
           body: JSON.stringify({
             model,
-            messages: [
-              { role: 'system', content: SYSTEM },
-              ...historyMsgs,
-              { role: 'user', content: text + fileCtx }
-            ],
+            messages: [{ role: 'system', content: SYSTEM }, ...historyMsgs, { role: 'user', content: text + fileCtx }],
             temperature: 0.7, top_p: 0.95, max_tokens: 2048, stream: true
           })
         });
@@ -243,146 +220,137 @@ export default function ChatbotPage() {
               const delta = d.choices?.[0]?.delta?.content || '';
               acc += delta;
               setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: acc } : m) } : c));
-              setTokenCount(q => q + 1);
             } catch (_) { }
           }
         }
       }
     } catch (err) {
       if (err.name !== 'AbortError') {
-        setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: `⚠️ **Error:** ${err.message}\n\nMake sure your \`VITE_NVIDIA_API_KEY\` is set in \`.env\``, streaming: false } : m) } : c));
+        setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: `⚠️ **Error:** ${err.message}`, streaming: false } : m) } : c));
       }
     } finally {
       setLoading(false);
-      setPipeline(null);
       abortRef.current = null;
       setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map(m => ({ ...m, streaming: false })) } : c));
     }
   }, [input, loading, activeId, msgs, model, uploadedFiles]);
 
-  const stopGen = () => { abortRef.current?.abort(); setLoading(false); setPipeline(null); };
+  const stopGen = () => { abortRef.current?.abort(); setLoading(false); };
 
   const activeModel = MODELS.find(m => m.id === model) || MODELS[0];
 
   return (
-    <div style={{ display: 'flex', height: '100vh', background: '#09090b', fontFamily: 'Inter, sans-serif', color: '#d1d5db', overflow: 'hidden' }}>
+    <div style={{ display: 'flex', height: '100vh', width: '100vw', background: '#e4e4e7', color: '#27272a', fontFamily: '-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"', overflow: 'hidden' }}>
+
+      {/* CLAUDE DARK MODE OVERRIDE */}
+      <style>{`
+        body { background: #18181b !important; color: #d4d4d8 !important; margin: 0; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #52525b; }
+      `}</style>
 
       {/* ══ LEFT SIDEBAR ══ */}
-      <aside style={{ width: 260, borderRight: '1px solid rgba(255,255,255,0.06)', display: 'flex', flexDirection: 'column', background: '#0a0a0f', flexShrink: 0 }}>
-        {/* header */}
-        <div style={{ padding: '18px 16px 14px', borderBottom: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{ width: 32, height: 32, borderRadius: 9, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.45)', flexShrink: 0 }}>
-            <Ic.Brain />
+      <div style={{ width: sidebarOpen ? 260 : 0, transition: 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1)', borderRight: sidebarOpen ? '1px solid rgba(255,255,255,0.08)' : 'none', background: '#18181b', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
+        <div style={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 260 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#f4f4f5' }}>
+            <div style={{ background: '#f4f4f5', color: '#18181b', width: 24, height: 24, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Ic.Sparkle /></div>
+            <span style={{ fontWeight: 600, fontSize: 14 }}>Claude</span>
           </div>
-          <div>
-            <div style={{ fontFamily: 'Outfit,sans-serif', fontWeight: 800, fontSize: 15, background: 'linear-gradient(90deg,#a78bfa,#818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>CEREBRO AI</div>
-            <div style={{ fontSize: 10, color: '#4b5563' }}>RAG · Streaming · {MODELS.length} models</div>
-          </div>
+          <button onClick={() => setSidebarOpen(false)} style={{ color: '#a1a1aa', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}><Ic.Menu /></button>
         </div>
 
-        {/* new chat */}
-        <div style={{ padding: '12px 12px 8px' }}>
-          <button onClick={newChat} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 8, padding: '9px 14px', borderRadius: 10, background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.25)', color: '#a78bfa', fontSize: 13, fontWeight: 600, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}
-            onMouseEnter={e => e.currentTarget.style.background = 'rgba(139,92,246,0.18)'}
-            onMouseLeave={e => e.currentTarget.style.background = 'rgba(139,92,246,0.10)'}
-          ><Ic.Plus /> New conversation</button>
+        <div style={{ padding: '8px 12px', width: 260 }}>
+          <button onClick={newChat} style={{ width: '100%', display: 'flex', alignItems: 'center', gap: 10, padding: '10px 12px', borderRadius: 8, background: 'transparent', border: 'none', color: '#f4f4f5', fontSize: 13, cursor: 'pointer', transition: 'background 0.15s', textAlign: 'left' }}
+            onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'}
+            onMouseLeave={e => e.currentTarget.style.background = 'transparent'}
+          >
+            <Ic.Edit /> New chat
+          </button>
         </div>
 
-        {/* conversations */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '4px 8px' }}>
-          {conversations.length === 0 ? (
-            <div style={{ textAlign: 'center', color: '#3f3f46', fontSize: 12, marginTop: 40 }}>No conversations yet</div>
-          ) : (
-            conversations.map(c => (
-              <div key={c.id} onClick={() => setActiveId(c.id)}
-                style={{ display: 'flex', alignItems: 'center', gap: 8, padding: '9px 10px', borderRadius: 9, cursor: 'pointer', marginBottom: 2, background: c.id === activeId ? 'rgba(139,92,246,0.12)' : 'transparent', border: c.id === activeId ? '1px solid rgba(139,92,246,0.25)' : '1px solid transparent', transition: 'all 0.15s' }}
-                onMouseEnter={e => { if (c.id !== activeId) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
-                onMouseLeave={e => { if (c.id !== activeId) e.currentTarget.style.background = 'transparent'; }}
-              >
-                <div style={{ width: 28, height: 28, borderRadius: 7, background: c.id === activeId ? 'rgba(139,92,246,0.2)' : 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: c.id === activeId ? '#a78bfa' : '#6b7280' }}>
-                  <Ic.Chat />
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontSize: 12.5, fontWeight: 500, color: c.id === activeId ? '#e2e8f0' : '#9ca3af', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{c.title}</div>
-                  <div style={{ fontSize: 10.5, color: '#4b5563', marginTop: 1 }}>{c.messages.length} msg{c.messages.length !== 1 ? 's' : ''}</div>
-                </div>
-                <button onClick={e => deleteChat(c.id, e)} style={{ opacity: 0, width: 22, height: 22, borderRadius: 5, border: 'none', background: 'rgba(239,68,68,0.15)', color: '#f87171', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'opacity 0.15s' }}
-                  onMouseEnter={e => e.currentTarget.style.opacity = '1'}
-                  onMouseLeave={e => e.currentTarget.style.opacity = '0'}
-                ><Ic.Trash /></button>
-              </div>
-            ))
-          )}
+        <div style={{ padding: '12px 20px 8px', fontSize: 11, color: '#a1a1aa', fontWeight: 600, letterSpacing: 0.5, width: 260 }}>Recent</div>
+        <div style={{ flex: 1, overflowY: 'auto', padding: '0 12px', width: 260 }}>
+          {conversations.map(c => (
+            <div key={c.id} onClick={() => setActiveId(c.id)}
+              style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '10px 12px', borderRadius: 8, cursor: 'pointer', background: c.id === activeId ? 'rgba(255,255,255,0.08)' : 'transparent', color: c.id === activeId ? '#f4f4f5' : '#a1a1aa', transition: 'all 0.1s' }}
+              onMouseEnter={e => { if (c.id !== activeId) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
+              onMouseLeave={e => { if (c.id !== activeId) e.currentTarget.style.background = 'transparent'; }}
+            >
+              <div style={{ fontSize: 13, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap', flex: 1 }}>{c.title}</div>
+              {c.id === activeId && (
+                <button onClick={e => deleteChat(c.id, e)} style={{ color: '#71717a', background: 'none', border: 'none', cursor: 'pointer', padding: 2, display: 'flex' }}><Ic.Trash /></button>
+              )}
+            </div>
+          ))}
         </div>
-
-        {/* token counter */}
-        <div style={{ padding: '12px 16px', borderTop: '1px solid rgba(255,255,255,0.05)', fontSize: 11, color: '#3f3f46', display: 'flex', justifyContent: 'space-between' }}>
-          <span>Tokens used</span>
-          <span style={{ color: '#6b7280', fontFamily: 'JetBrains Mono, monospace' }}>{tokenCount.toLocaleString()}</span>
+        <div style={{ padding: '16px', borderTop: '1px solid rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', gap: 10, width: 260, color: '#d4d4d8', fontSize: 13 }}>
+          <div style={{ width: 28, height: 28, borderRadius: '50%', background: '#3f3f46', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>V</div>
+          <span>Valluri Rahul</span>
         </div>
-      </aside>
+      </div>
 
       {/* ══ MAIN CHAT AREA ══ */}
-      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', background: '#18181b', position: 'relative' }}>
 
-        {/* top bar */}
-        <div style={{ height: 56, borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 24px', background: 'rgba(0,0,0,0.3)', flexShrink: 0 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{ fontSize: 14, fontWeight: 600, color: '#f9fafb' }}>{convo?.title || 'New conversation'}</div>
-            {pipeline && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.25)', borderRadius: 20, padding: '3px 10px' }}>
-                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#8b5cf6', animation: 'rag-pulse 1s ease infinite' }} />
-                <span style={{ fontSize: 10.5, color: '#a78bfa', fontWeight: 600 }}>{pipeline === 'thinking' ? 'Thinking…' : 'Streaming…'}</span>
-              </div>
+        {/* top header */}
+        <div style={{ height: 56, display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '0 16px', position: 'absolute', top: 0, left: 0, right: 0, zIndex: 10, background: 'linear-gradient(180deg, #18181b 60%, transparent)' }}>
+          <div>
+            {!sidebarOpen && (
+              <button onClick={() => setSidebarOpen(true)} style={{ color: '#a1a1aa', background: 'transparent', border: 'none', cursor: 'pointer', padding: 8, display: 'flex', alignItems: 'center', gap: 8, borderRadius: 6 }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
+                <Ic.Menu />
+              </button>
             )}
           </div>
 
-          {/* Model selector */}
           <div style={{ position: 'relative' }}>
-            <button onClick={() => setShowModels(o => !o)} style={{ display: 'flex', alignItems: 'center', gap: 7, padding: '6px 12px', borderRadius: 9, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', color: '#d1d5db', fontSize: 12.5, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.2s' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: activeModel.color, flexShrink: 0 }} />
+            <button onClick={() => setShowModels(o => !o)} style={{ display: 'flex', alignItems: 'center', gap: 6, padding: '6px 12px', borderRadius: 8, background: 'transparent', border: 'none', color: '#a1a1aa', fontSize: 14, cursor: 'pointer', transition: 'color 0.1s' }} onMouseEnter={e => e.currentTarget.style.color = '#f4f4f5'} onMouseLeave={e => e.currentTarget.style.color = '#a1a1aa'}>
               {activeModel.label}
               <Ic.ChevronDown />
             </button>
-
             {showModels && (
-              <div style={{ position: 'absolute', top: 40, right: 0, width: 240, background: '#111117', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 12, boxShadow: '0 16px 48px rgba(0,0,0,0.6)', zIndex: 200, overflow: 'hidden' }}>
+              <div style={{ position: 'absolute', top: 40, right: '50%', transform: 'translateX(50%)', width: 220, background: '#27272a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 10, boxShadow: '0 10px 40px rgba(0,0,0,0.5)', zIndex: 200, padding: 6 }}>
                 {MODELS.map(m => (
                   <button key={m.id} onClick={() => { setModel(m.id); setShowModels(false); }}
-                    style={{ display: 'flex', alignItems: 'center', gap: 10, width: '100%', padding: '10px 14px', background: model === m.id ? 'rgba(139,92,246,0.12)' : 'transparent', border: 'none', color: '#d1d5db', fontSize: 13, cursor: 'pointer', fontFamily: 'inherit', transition: 'background 0.15s', textAlign: 'left' }}
-                    onMouseEnter={e => { if (model !== m.id) e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; }}
+                    style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: '100%', padding: '10px 12px', background: model === m.id ? 'rgba(255,255,255,0.08)' : 'transparent', border: 'none', borderRadius: 6, color: '#f4f4f5', fontSize: 13, cursor: 'pointer', textAlign: 'left' }}
+                    onMouseEnter={e => { if (model !== m.id) e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; }}
                     onMouseLeave={e => { if (model !== m.id) e.currentTarget.style.background = 'transparent'; }}
                   >
-                    <span style={{ width: 8, height: 8, borderRadius: '50%', background: m.color, flexShrink: 0 }} />
-                    <span style={{ flex: 1 }}>{m.label}</span>
-                    <span style={{ fontSize: 10, background: `${m.color}22`, border: `1px solid ${m.color}44`, color: m.color, borderRadius: 5, padding: '1px 7px', fontWeight: 700 }}>{m.badge}</span>
+                    <span>{m.label}</span>
+                    {model === m.id && <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><polyline points="20 6 9 17 4 12" /></svg>}
                   </button>
                 ))}
               </div>
             )}
           </div>
+          <div style={{ width: 40 }} /> {/* spacer */}
         </div>
 
-        {/* messages */}
-        <div style={{ flex: 1, overflowY: 'auto', padding: '24px 0' }} onClick={() => setShowModels(false)}>
-          <div style={{ maxWidth: 760, margin: '0 auto', padding: '0 24px' }}>
+        {/* Scrollable messages area */}
+        <div style={{ flex: 1, overflowY: 'auto', paddingTop: 80, paddingBottom: 160 }} onClick={() => setShowModels(false)}>
+          <div style={{ maxWidth: 768, margin: '0 auto', padding: '0 20px' }}>
 
-            {/* empty state */}
+            {/* Empty state greeting */}
             {msgs.length === 0 && (
-              <div style={{ textAlign: 'center', paddingTop: 60 }}>
-                <div style={{ width: 64, height: 64, borderRadius: 18, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 20px', boxShadow: '0 0 40px rgba(139,92,246,0.4)' }}>
-                  <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="1.8"><path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96-.46 2.5 2.5 0 0 1-1.04-4.79A2.5 2.5 0 0 1 5 11.5a2.5 2.5 0 0 1 2.79-2.49 2.5 2.5 0 0 1 1.71-6.51z" /><path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96-.46 2.5 2.5 0 0 0 1.04-4.79A2.5 2.5 0 0 0 19 11.5a2.5 2.5 0 0 0-2.79-2.49 2.5 2.5 0 0 0-1.71-6.51z" /></svg>
+              <div style={{ marginTop: '10vh', marginBottom: 40 }}>
+                <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 30 }}>
+                  <div style={{ width: 48, height: 48, background: '#f4f4f5', color: '#18181b', borderRadius: 12, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Ic.Sparkle />
+                  </div>
                 </div>
-                <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 26, fontWeight: 800, color: '#f9fafb', marginBottom: 10 }}>What can I help you with?</h2>
-                <p style={{ color: '#6b7280', fontSize: 14, marginBottom: 36 }}>Ask me anything — security, coding, AI, science, math, or general knowledge.</p>
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 10, maxWidth: 560, margin: '0 auto' }}>
+                <h1 style={{ fontSize: 32, fontWeight: 500, color: '#f4f4f5', textAlign: 'center', marginBottom: 32, fontFamily: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif' }}>
+                  Good morning, Rahul
+                </h1>
+
+                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, maxWidth: 600, margin: '0 auto' }}>
                   {QUICK.map(q => (
                     <button key={q.text} onClick={() => send(q.text)}
-                      style={{ display: 'flex', alignItems: 'flex-start', gap: 10, padding: '14px 16px', borderRadius: 12, background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', color: '#9ca3af', fontSize: 12.5, fontWeight: 500, cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', transition: 'all 0.2s', lineHeight: 1.5 }}
-                      onMouseEnter={e => { e.currentTarget.style.background = 'rgba(139,92,246,0.10)'; e.currentTarget.style.borderColor = 'rgba(139,92,246,0.30)'; e.currentTarget.style.color = '#c4b5fd'; }}
-                      onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#9ca3af'; }}
+                      style={{ display: 'flex', alignItems: 'center', gap: 12, padding: '14px 16px', borderRadius: 12, background: '#27272a', border: '1px solid rgba(255,255,255,0.05)', color: '#d4d4d8', fontSize: 14, cursor: 'pointer', textAlign: 'left', transition: 'all 0.2s', boxShadow: '0 2px 5px rgba(0,0,0,0.1)' }}
+                      onMouseEnter={e => { e.currentTarget.style.background = '#3f3f46'; }}
+                      onMouseLeave={e => { e.currentTarget.style.background = '#27272a'; }}
                     >
-                      <span style={{ fontSize: 18, lineHeight: 1 }}>{q.icon}</span>
+                      <span style={{ fontSize: 16 }}>{q.icon}</span>
                       <span>{q.text}</span>
                     </button>
                   ))}
@@ -390,129 +358,92 @@ export default function ChatbotPage() {
               </div>
             )}
 
-            {/* message list */}
+            {/* Messages */}
             {msgs.map((msg, idx) => (
-              <div key={idx} style={{ marginBottom: 28 }}>
-                {/* role header */}
-                <div style={{ display: 'flex', alignItems: 'center', gap: 9, marginBottom: 10 }}>
-                  {msg.role === 'user' ? (
-                    <div style={{ width: 28, height: 28, borderRadius: 8, background: 'rgba(255,255,255,0.08)', border: '1px solid rgba(255,255,255,0.12)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#9ca3af' }}><Ic.User /></div>
-                  ) : (
-                    <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 10px rgba(139,92,246,0.4)' }}><Ic.Brain /></div>
-                  )}
-                  <span style={{ fontSize: 12.5, fontWeight: 700, color: msg.role === 'user' ? '#9ca3af' : '#a78bfa', textTransform: 'uppercase', letterSpacing: 0.6 }}>{msg.role === 'user' ? 'You' : 'CEREBRO AI'}</span>
-                  {msg.ts && <span style={{ fontSize: 10.5, color: '#374151', marginLeft: 4 }}>{new Date(msg.ts).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}</span>}
-                </div>
+              <div key={idx} style={{ marginBottom: 32, display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
 
-                {/* bubble */}
-                <div style={{ paddingLeft: 37 }}>
-                  {msg.role === 'user' ? (
-                    <div style={{ background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.20)', borderRadius: '0 14px 14px 14px', padding: '12px 16px', color: '#e2e8f0', fontSize: 14, lineHeight: 1.7, display: 'inline-block', maxWidth: '100%', whiteSpace: 'pre-wrap' }}>
-                      {msg.content}
-                      {msg.files?.length > 0 && <div style={{ marginTop: 8, display: 'flex', flexWrap: 'wrap', gap: 6 }}>{msg.files.map(f => <span key={f} style={{ display: 'inline-flex', alignItems: 'center', gap: 5, background: 'rgba(139,92,246,0.15)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 6, padding: '2px 8px', fontSize: 11, color: '#a78bfa' }}><Ic.File />{f}</span>)}</div>}
+                {msg.role === 'user' ? (
+                  /* User Bubble */
+                  <div style={{ maxWidth: '85%', background: '#27272a', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '18px', padding: '12px 18px', color: '#f4f4f5', fontSize: 15, lineHeight: 1.6, whiteSpace: 'pre-wrap' }}>
+                    {msg.content}
+                    {msg.files?.length > 0 && <div style={{ marginTop: 10, display: 'flex', flexWrap: 'wrap', gap: 6 }}>{msg.files.map(f => <span key={f} style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: '#3f3f46', borderRadius: 6, padding: '4px 8px', fontSize: 12, color: '#d4d4d8' }}><Ic.File />{f}</span>)}</div>}
+                  </div>
+                ) : (
+                  /* Claude Response */
+                  <div style={{ width: '100%', display: 'flex', gap: 16 }}>
+                    <div style={{ width: 32, height: 32, borderRadius: 8, background: '#f4f4f5', color: '#18181b', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 4 }}>
+                      <Ic.Sparkle />
                     </div>
-                  ) : (
-                    <div>
+                    <div style={{ flex: 1, minWidth: 0, color: '#f4f4f5' }}>
                       <MD text={msg.content} />
-                      {msg.streaming && <span style={{ display: 'inline-block', width: 3, height: 15, background: '#8b5cf6', marginLeft: 3, verticalAlign: 'middle', borderRadius: 2, animation: 'cursor-blink 0.7s step-end infinite' }} />}
+                      {msg.streaming && <span style={{ display: 'inline-block', width: 4, height: 16, background: '#a1a1aa', verticalAlign: 'middle', borderRadius: 2, animation: 'cursor-blink 0.8s step-end infinite', marginLeft: 4 }} />}
 
-                      {/* action buttons */}
                       {!msg.streaming && msg.content && (
-                        <div style={{ display: 'flex', gap: 6, marginTop: 12 }}>
-                          {[
-                            { icon: <Ic.Copy />, label: copiedIdx === idx ? 'Copied!' : 'Copy', action: () => copy(msg.content, idx) },
-                            { icon: <Ic.Refresh />, label: 'Retry', action: () => { const lastUser = [...msgs].reverse().find(m => m.role === 'user'); if (lastUser) send(lastUser.content); } },
-                          ].map(btn => (
-                            <button key={btn.label} onClick={btn.action}
-                              style={{ display: 'flex', alignItems: 'center', gap: 5, padding: '4px 10px', borderRadius: 7, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', color: '#6b7280', fontSize: 11.5, cursor: 'pointer', fontFamily: 'inherit', transition: 'all 0.15s' }}
-                              onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = '#d1d5db'; }}
-                              onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; e.currentTarget.style.color = '#6b7280'; }}
-                            >{btn.icon}{btn.label}</button>
-                          ))}
+                        <div style={{ display: 'flex', gap: 4, marginTop: 12, color: '#71717a' }}>
+                          <button onClick={() => copy(msg.content, idx)} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 6, borderRadius: 6 }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'} title="Copy"><Ic.Copy /></button>
+                          <button onClick={() => { const lastUser = [...msgs].reverse().find(m => m.role === 'user'); if (lastUser) send(lastUser.content); }} style={{ background: 'none', border: 'none', color: 'inherit', cursor: 'pointer', padding: 6, borderRadius: 6 }} onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.05)'} onMouseLeave={e => e.currentTarget.style.background = 'none'} title="Retry"><Ic.Refresh /></button>
                         </div>
                       )}
                     </div>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
             ))}
-
-            {/* thinking dots */}
-            {loading && pipeline === 'thinking' && (
-              <div style={{ display: 'flex', alignItems: 'center', gap: 9, paddingLeft: 0, marginBottom: 20 }}>
-                <div style={{ width: 28, height: 28, borderRadius: 8, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Ic.Brain /></div>
-                <div style={{ display: 'flex', gap: 5, padding: '10px 16px', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: '0 14px 14px 14px' }}>
-                  {[0, 1, 2].map(i => <div key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: '#8b5cf6', animation: `dot-bounce 1.2s ease ${i * 0.2}s infinite` }} />)}
-                </div>
-              </div>
-            )}
             <div ref={endRef} />
           </div>
         </div>
 
-        {/* ── INPUT AREA ── */}
-        <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', background: 'rgba(0,0,0,0.3)', padding: '16px 24px 20px', flexShrink: 0 }}>
-          <div style={{ maxWidth: 760, margin: '0 auto' }}>
+        {/* ── FLOATING INPUT BAR ── */}
+        <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, background: 'linear-gradient(0deg, #18181b 80%, transparent)', padding: '0 20px 32px' }}>
+          <div style={{ maxWidth: 768, margin: '0 auto', width: '100%' }}>
 
-            {/* uploaded files */}
+            {/* Uploaded Files preview */}
             {uploadedFiles.length > 0 && (
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 10 }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6, marginBottom: 12, padding: '0 12px' }}>
                 {uploadedFiles.map((f, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, background: 'rgba(139,92,246,0.12)', border: '1px solid rgba(139,92,246,0.3)', borderRadius: 8, padding: '4px 10px', fontSize: 11.5, color: '#a78bfa' }}>
-                    <Ic.File />{f.name}
-                    <button onClick={() => setUploadedFiles(p => p.filter((_, j) => j !== i))} style={{ background: 'none', border: 'none', color: '#6b7280', cursor: 'pointer', padding: 0, lineHeight: 1, marginLeft: 2 }}>✕</button>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 6, background: '#27272a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 8, padding: '6px 10px', fontSize: 12, color: '#d4d4d8' }}>
+                    <Ic.File /> {f.name}
+                    <button onClick={() => setUploadedFiles(p => p.filter((_, j) => j !== i))} style={{ background: 'none', border: 'none', color: '#a1a1aa', cursor: 'pointer', padding: 0, marginLeft: 4 }}>✕</button>
                   </div>
                 ))}
               </div>
             )}
 
-            {/* input box */}
-            <div style={{ display: 'flex', gap: 10, alignItems: 'flex-end', background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.10)', borderRadius: 16, padding: '10px 12px', transition: 'border-color 0.2s' }}
-              onFocus={() => { }} onClick={() => textareaRef.current?.focus()}>
-              {/* file upload */}
-              <button onClick={() => fileRef.current?.click()} title="Upload file" style={{ width: 34, height: 34, borderRadius: 9, background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)', color: '#6b7280', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.2s' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(139,92,246,0.15)'; e.currentTarget.style.color = '#a78bfa'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#6b7280'; }}
-              ><Ic.File /></button>
+            <div style={{ background: '#27272a', border: '1px solid rgba(255,255,255,0.1)', borderRadius: 24, padding: '12px 14px', display: 'flex', gap: 10, alignItems: 'flex-end', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
+
+              {/* Attachment Button */}
+              <button onClick={() => fileRef.current?.click()} style={{ width: 32, height: 32, borderRadius: 10, background: 'transparent', border: 'none', color: '#a1a1aa', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.2s', marginBottom: 2 }} onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.color = '#f4f4f5'; }} onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#a1a1aa'; }}>
+                <Ic.Attachment />
+              </button>
               <input ref={fileRef} type="file" multiple accept=".txt,.md,.js,.jsx,.ts,.tsx,.py,.json,.csv,.html,.css" onChange={onFile} style={{ display: 'none' }} />
 
               <textarea ref={textareaRef} rows={1}
-                placeholder="Ask anything — press Enter to send, Shift+Enter for newline…"
+                placeholder="Message Claude..."
                 value={input} disabled={loading}
-                onChange={e => { setInput(e.target.value); e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 160) + 'px'; }}
+                onChange={e => { setInput(e.target.value); e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 200) + 'px'; }}
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
-                style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#f9fafb', fontSize: 14, fontFamily: 'Inter, sans-serif', resize: 'none', lineHeight: 1.6, paddingTop: 4, overflowY: 'hidden' }}
+                style={{ flex: 1, background: 'transparent', border: 'none', outline: 'none', color: '#f4f4f5', fontSize: 15, fontFamily: 'inherit', resize: 'none', lineHeight: 1.5, paddingTop: 6, paddingBottom: 6, overflowY: 'hidden' }}
               />
 
+              {/* Submit Button */}
               {loading ? (
-                <button onClick={stopGen} title="Stop" style={{ width: 38, height: 38, borderRadius: 10, background: 'rgba(239,68,68,0.12)', border: '1px solid rgba(239,68,68,0.3)', color: '#f87171', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}><Ic.Stop /></button>
+                <button onClick={stopGen} style={{ width: 34, height: 34, borderRadius: '50%', background: '#3f3f46', border: 'none', color: '#f4f4f5', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginBottom: 1 }}>
+                  <Ic.Stop />
+                </button>
               ) : (
-                <button onClick={() => send()} disabled={!input.trim()} title="Send" style={{ width: 38, height: 38, borderRadius: 10, background: input.trim() ? 'linear-gradient(135deg,#8b5cf6,#6366f1)' : 'rgba(255,255,255,0.05)', border: 'none', color: input.trim() ? '#fff' : '#4b5563', cursor: input.trim() ? 'pointer' : 'not-allowed', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.2s', boxShadow: input.trim() ? '0 4px 16px rgba(139,92,246,0.4)' : 'none' }}><Ic.Send /></button>
+                <button onClick={() => send()} disabled={!input.trim()} style={{ width: 34, height: 34, borderRadius: '50%', background: input.trim() ? '#f4f4f5' : '#3f3f46', border: 'none', color: input.trim() ? '#18181b' : '#71717a', cursor: input.trim() ? 'pointer' : 'default', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, transition: 'all 0.15s', marginBottom: 1 }}>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></svg>
+                </button>
               )}
             </div>
 
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 8, fontSize: 10.5, color: '#374151', padding: '0 2px' }}>
-              <span>Enter → send &nbsp;·&nbsp; Shift+Enter → newline &nbsp;·&nbsp; Upload files to add context</span>
-              <span style={{ color: '#8b5cf6' }}>{activeModel.label}</span>
+            <div style={{ textAlign: 'center', color: '#71717a', fontSize: 11, marginTop: 10 }}>
+              Claude can make mistakes. Please verify important information.
             </div>
           </div>
         </div>
-      </div>
 
-      <style>{`
-        @keyframes dot-bounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-7px);opacity:1} }
-        @keyframes cursor-blink { 0%,100%{opacity:1} 50%{opacity:0} }
-        @keyframes rag-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(0.8)} }
-      `}</style>
+      </div>
     </div>
   );
-}
-
-/* ── MOCK REPLY GENERATOR ── */
-function generateMockReply(query) {
-  const q = query.toLowerCase();
-  if (q.includes('zero-trust') || q.includes('zero trust')) return `## Zero-Trust Security Architecture\n\nZero-Trust operates on the principle: **"Never trust, always verify"** — regardless of whether a request comes from inside or outside the network perimeter.\n\n### Core Principles\n1. **Verify explicitly** — Authenticate and authorize every request using all available data points (identity, location, device health, request context)\n2. **Use least-privilege access** — Limit user access with just-in-time and just-enough-access policies\n3. **Assume breach** — Minimize blast radius, segment access, verify end-to-end encryption\n\n### Key Components\n- **Identity Provider (IdP)** — Azure AD, Okta, or Google Workspace for SSO + MFA\n- **Micro-segmentation** — Isolate workloads so lateral movement is impossible\n- **Continuous validation** — Monitor all sessions in real-time, revoke access instantly\n- **Device trust** — Only allow managed, compliant devices\n\n### Implementation Steps\n\`\`\`bash\n# Example: enforce MFA on all AWS IAM actions\naws iam put-user-policy --policy-document '{\n  "Condition": {"Bool": {"aws:MultiFactorAuthPresent": "true"}}\n}'\n\`\`\`\n\n> Zero-Trust is a **strategy**, not a product. It requires organizational commitment across identity, network, data, and application layers.`;
-  if (q.includes('python') || q.includes('script') || q.includes('code')) return `## Python Script for Security Log Parsing\n\nHere's a production-ready log parser that handles common formats:\n\n\`\`\`python\nimport re\nfrom datetime import datetime\nfrom collections import Counter\n\ndef parse_security_logs(filepath: str) -> list[dict]:\n    """Parse security logs and extract key fields."""\n    pattern = re.compile(\n        r'(?P<timestamp>\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})\\s+'\n        r'(?P<severity>CRITICAL|HIGH|MEDIUM|LOW|INFO)\\s+'\n        r'(?P<source_ip>\\d+\\.\\d+\\.\\d+\\.\\d+)\\s+'\n        r'(?P<event>.+)'\n    )\n    events = []\n    with open(filepath, 'r', encoding='utf-8') as f:\n        for line in f:\n            if m := pattern.match(line.strip()):\n                events.append({\n                    'timestamp': datetime.fromisoformat(m['timestamp']),\n                    'severity': m['severity'],\n                    'source_ip': m['source_ip'],\n                    'event': m['event']\n                })\n    return events\n\ndef analyze(events: list[dict]):\n    """Summarize and flag anomalies."""\n    severity_counts = Counter(e['severity'] for e in events)\n    top_ips = Counter(e['source_ip'] for e in events).most_common(10)\n    critical = [e for e in events if e['severity'] == 'CRITICAL']\n \n    print(f"Total events: {len(events)}")\n    print(f"Severity breakdown: {dict(severity_counts)}")\n    print(f"Top source IPs: {top_ips}")\n    print(f"Critical events requiring attention: {len(critical)}")\n    return critical\n\nif __name__ == '__main__':\n    events = parse_security_logs('security.log')\n    critical = analyze(events)\n\`\`\`\n\n### Features\n- **Regex-based parsing** for flexible log formats\n- **Severity filtering** to isolate critical events\n- **IP reputation** analysis via \`Counter\`\n- Easily extensible to write to **SIEM** or **Elasticsearch**`;
-  if (q.includes('microservice') || q.includes('system design') || q.includes('scalab')) return `## Scalable Microservices Architecture\n\n### High-Level Design\n\n\`\`\`\nClient → API Gateway → [Auth Service]\n                     → [User Service] → PostgreSQL\n                     → [Order Service] → PostgreSQL\n                     → [Notification] → Kafka → Email/SMS\n                     → [Search] → Elasticsearch\n\`\`\`\n\n### Key Components\n\n**1. API Gateway**\n- Single entry point (Kong, AWS API Gateway)\n- Handles: rate limiting, auth, routing, SSL termination\n\n**2. Service Communication**\n- **Sync**: REST or gRPC for request/response\n- **Async**: Kafka/RabbitMQ for events, ensures decoupling\n\n**3. Data Management**\n- Each service owns its database (**Database per Service** pattern)\n- Use **Saga pattern** for distributed transactions\n\n**4. Resilience**\n- **Circuit breaker** (Resilience4j, Hystrix) prevents cascade failure\n- **Retry with exponential backoff**\n- **Health checks** with Kubernetes liveness/readiness probes\n\n### Infrastructure as Code\n\`\`\`yaml\n# docker-compose.yml snippet\nservices:\n  api-gateway:\n    image: kong:3.5\n    ports: ['8000:8000']\n  user-service:\n    build: ./user-service\n    environment:\n      DB_URL: postgresql://user-db:5432/users\n    depends_on: [user-db]\n\`\`\``;
-  return `## Great question!\n\nBased on my knowledge base, here's a comprehensive answer:\n\n${query.length > 100 ? query.slice(0, 80) + '...' : query}\n\n### Key Points\n\n- This is a **broad topic** — I'll cover the most important aspects\n- I'm using a **Real-Time RAG Pipeline** to ground my response in factual knowledge\n- Ask follow-up questions to drill deeper into any specific area\n\n### Overview\n\nTo give you the most accurate and helpful answer, I'd recommend being specific about what aspect you want to explore. I can cover:\n\n1. **Theoretical foundations** — the underlying concepts and principles\n2. **Practical implementation** — step-by-step code and configuration\n3. **Best practices** — industry-standard approaches and anti-patterns to avoid\n4. **Tools & ecosystem** — relevant libraries, platforms, and services\n\n> **Tip:** Add a document or code file using the 📎 button for context-aware answers!\n\nWhat specific aspect would you like me to go deeper on?`;
 }

@@ -213,7 +213,7 @@ export default function Dashboard() {
               <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: 'var(--text-muted)', textTransform: 'uppercase' }}>{m.label}</span>
               <span style={{ fontSize: 18 }}>{m.icon}</span>
             </div>
-            <div style={{ fontSize: 34, fontWeight: 800, fontFamily: 'Outfit, sans-serif', letterSpacing: -1, color: '#fff', marginBottom: 6, transition: 'background-color 0.3s, border-color 0.3s, color 0.3s, fill 0.3s, stroke 0.3s, opacity 0.3s, box-shadow 0.3s, transform 0.3s' }}>
+            <div style={{ fontSize: 'clamp(24px, 5vw, 34px)', fontWeight: 800, fontFamily: 'Outfit, sans-serif', letterSpacing: -1, color: '#fff', marginBottom: 6, transition: 'background-color 0.3s, border-color 0.3s, color 0.3s, fill 0.3s, stroke 0.3s, opacity 0.3s, box-shadow 0.3s, transform 0.3s' }}>
               {m.label === 'SYSTEM HEALTH' ? m.value.toFixed(1) : m.value.toLocaleString()}
               {m.label === 'SYSTEM HEALTH' && <span style={{ fontSize: 18 }}>%</span>}
             </div>
@@ -229,7 +229,7 @@ export default function Dashboard() {
       </div>
 
       {/* ── Main charts ── */}
-      <div className="dashboard-chart-row" style={{ display: 'grid', gridTemplateColumns: '1fr 300px', gap: 18, marginBottom: 18 }}>
+      <div className="dashboard-chart-row" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 18, marginBottom: 18 }}>
         {/* Network Traffic chart */}
         <div className="card" style={{ padding: '22px 24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
