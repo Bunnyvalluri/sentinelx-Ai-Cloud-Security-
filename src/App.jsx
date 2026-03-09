@@ -12,6 +12,7 @@ import ComplianceAudit from './pages/ComplianceAudit';
 import UserManagement from './pages/UserManagement';
 import SecurityAnalytics from './pages/SecurityAnalytics';
 import AlertQueue from './pages/AlertQueue';
+import ChatbotPage from './pages/ChatbotPage';
 
 // Marketing pages
 import Features from './pages/marketing/Features';
@@ -42,6 +43,7 @@ export default function App() {
           <Route path="/users" element={<UserManagement />} />
           <Route path="/analytics" element={<SecurityAnalytics />} />
           <Route path="/alerts" element={<AlertQueue />} />
+          <Route path="/chat" element={<ChatbotPage />} />
 
           {/* Product */}
           <Route path="/features" element={<Features />} />

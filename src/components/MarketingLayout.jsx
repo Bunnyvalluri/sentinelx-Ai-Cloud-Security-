@@ -20,38 +20,98 @@ export default function MarketingLayout({ children }) {
   return (
     <div style={{ minHeight: '100vh', background: 'var(--bg-primary)', color: 'var(--text-primary)', fontFamily: 'Inter, sans-serif', transition: 'background 0.3s ease, color 0.3s ease' }}>
 
+      {/* ── Announcement banner ── */}
+      <div style={{
+        background: 'linear-gradient(90deg, rgba(139,92,246,0.15) 0%, rgba(99,102,241,0.15) 50%, rgba(56,189,248,0.1) 100%)',
+        borderBottom: '1px solid rgba(139,92,246,0.2)',
+        padding: '9px 24px',
+        textAlign: 'center',
+        fontSize: 12.5,
+        color: 'var(--text-secondary)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: 10,
+      }}>
+        <span style={{ background: 'linear-gradient(90deg,#8b5cf6,#38bdf8)', color: '#fff', borderRadius: 100, padding: '2px 10px', fontSize: 10, fontWeight: 800, letterSpacing: 0.5 }}>NEW</span>
+        SentinelX 4.0 is here — CEREBRO AI with real-time threat correlation.
+        <Link to="/features" style={{ color: 'var(--blue-light)', fontWeight: 700, textDecoration: 'none', display: 'flex', alignItems: 'center', gap: 4 }}>
+          See what's new
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </Link>
+      </div>
+
       {/* ── Navbar ── */}
-      <nav className="marketing-nav">
-        <Link to="/" className="marketing-logo" style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 900, textDecoration: 'none' }}>
-          <div style={{ width: 34, height: 34, borderRadius: 9, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, boxShadow: '0 0 20px rgba(139,92,246,0.4)', flexShrink: 0 }}>🛡</div>
-          <span style={{ background: 'linear-gradient(90deg,#8b5cf6,#6366f1,#38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>SentinelX</span>
+      <nav className="marketing-nav" style={{ borderBottom: '1px solid var(--border)' }}>
+        <Link to="/" className="marketing-logo" style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'Outfit, sans-serif', fontSize: 19, fontWeight: 900, textDecoration: 'none', flexShrink: 0 }}>
+          <div style={{ width: 32, height: 32, borderRadius: 9, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.45)', flexShrink: 0 }}>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+          </div>
+          <span style={{ background: 'linear-gradient(90deg,#a78bfa,#818cf8,#38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>SentinelX</span>
         </Link>
 
-        {/* Desktop nav links */}
+        {/* Desktop nav */}
         <div className="marketing-nav-links">
           {NAV_LINKS.map(l => (
-            <Link key={l.to} to={l.to} style={{
-              padding: '6px 14px', borderRadius: 8, fontSize: 13.5, fontWeight: 500,
-              color: pathname === l.to ? 'var(--blue-light)' : 'var(--text-secondary)',
-              background: pathname === l.to ? 'var(--blue-dim)' : 'transparent',
-              transition: 'all .2s', textDecoration: 'none',
-            }}
-              onMouseEnter={e => { if (pathname !== l.to) { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; } }}
-              onMouseLeave={e => { if (pathname !== l.to) { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'transparent'; } }}
+            <Link
+              key={l.to}
+              to={l.to}
+              style={{
+                position: 'relative',
+                padding: '6px 14px',
+                borderRadius: 8,
+                fontSize: 13.5,
+                fontWeight: 500,
+                color: pathname === l.to ? 'var(--blue-light)' : 'var(--text-secondary)',
+                background: pathname === l.to ? 'var(--blue-dim)' : 'transparent',
+                transition: 'color 0.2s, background 0.2s',
+                textDecoration: 'none',
+              }}
+              onMouseEnter={e => {
+                if (pathname !== l.to) {
+                  e.currentTarget.style.color = 'var(--text-primary)';
+                  e.currentTarget.style.background = 'rgba(255,255,255,0.05)';
+                }
+              }}
+              onMouseLeave={e => {
+                if (pathname !== l.to) {
+                  e.currentTarget.style.color = 'var(--text-secondary)';
+                  e.currentTarget.style.background = 'transparent';
+                }
+              }}
             >{l.label}</Link>
           ))}
         </div>
 
         {/* Desktop right */}
         <div className="marketing-nav-right">
-          <Link to="/login" style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Log In</Link>
+          <Link to="/login" style={{ fontSize: 13.5, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color 0.2s' }}
+            onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
+            onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+          >
+            Sign In
+          </Link>
           <button className="theme-toggle" onClick={toggleTheme} title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}>
             <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
             <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
           </button>
-          <Link to="/dashboard">
-            <button style={{ background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', color: '#fff', border: 'none', borderRadius: 8, padding: '9px 22px', fontSize: 14, fontWeight: 700, cursor: 'pointer', boxShadow: '0 0 20px rgba(139,92,246,0.35)', transition: 'all 0.3s ease' }}>
+          <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+            <button style={{
+              background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
+              color: '#fff', border: 'none', borderRadius: 9,
+              padding: '9px 22px', fontSize: 13.5, fontWeight: 700,
+              cursor: 'pointer',
+              boxShadow: '0 0 20px rgba(139,92,246,0.30)',
+              transition: 'all 0.2s ease',
+              display: 'flex', alignItems: 'center', gap: 6,
+            }}
+              onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 4px 24px rgba(139,92,246,0.45)'; }}
+              onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 0 20px rgba(139,92,246,0.30)'; }}
+            >
               Get a Demo
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
             </button>
           </Link>
         </div>
@@ -68,7 +128,7 @@ export default function MarketingLayout({ children }) {
         </button>
       </nav>
 
-      {/* Mobile dropdown menu */}
+      {/* Mobile menu */}
       {mobileOpen && (
         <div className="marketing-mobile-menu">
           {NAV_LINKS.map(l => (
@@ -77,7 +137,7 @@ export default function MarketingLayout({ children }) {
             >{l.label}</Link>
           ))}
           <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16 }}>
-            <Link to="/login" onClick={() => setMobileOpen(false)} style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Log In</Link>
+            <Link to="/login" onClick={() => setMobileOpen(false)} style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Sign In</Link>
             <button onClick={toggleTheme} className="theme-toggle">
               <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
               <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
@@ -92,27 +152,43 @@ export default function MarketingLayout({ children }) {
       {/* ── Content ── */}
       <main>{children}</main>
 
-      {/* ── Footer ── */}
-      <footer style={{ background: 'rgba(3,5,15,0.98)', borderTop: '1px solid var(--border)', padding: '64px 0 32px' }}>
-        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 24px' }}>
+      {/* ── Premium Footer ── */}
+      <footer style={{ background: 'rgba(3,3,10,0.98)', borderTop: '1px solid rgba(139,92,246,0.12)', padding: '72px 0 36px' }}>
+        {/* Top glow line */}
+        <div className="glow-line" style={{ marginBottom: 0 }} />
+
+        <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 40px' }}>
           <div className="marketing-footer-grid">
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16, fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 800, color: '#fff' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.4)' }}>🛡</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18, fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 800, color: '#fff' }}>
+                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.4)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
+                </div>
                 SentinelX
               </div>
-              <p style={{ fontSize: 13.5, color: 'var(--text-muted)', lineHeight: 1.8, maxWidth: 280 }}>
+              <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.35)', lineHeight: 1.8, maxWidth: 280, marginBottom: 24 }}>
                 AI-powered cloud security platform protecting enterprise infrastructure from advanced threats — in real time.
               </p>
-              <div style={{ display: 'flex', gap: 10, marginTop: 20 }}>
-                {['𝕏', 'in', '𝔾', '▶'].map(s => (
-                  <div key={s} style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid var(--border)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 14, color: 'var(--text-muted)', cursor: 'pointer', transition: 'all .2s' }}
-                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'var(--blue)'; e.currentTarget.style.color = 'var(--blue-light)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.color = 'var(--text-muted)'; }}
-                  >{s}</div>
+              {/* Status */}
+              <div style={{ display: 'flex', alignItems: 'center', gap: 7, background: 'rgba(34,197,94,0.06)', border: '1px solid rgba(34,197,94,0.15)', borderRadius: 8, padding: '7px 12px', display: 'inline-flex', marginBottom: 20 }}>
+                <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 8px #22c55e', display: 'inline-block', animation: 'liveRing 2s infinite' }} />
+                <span style={{ fontSize: 12, color: '#22c55e', fontWeight: 600 }}>All systems operational</span>
+              </div>
+              {/* Socials */}
+              <div style={{ display: 'flex', gap: 8 }}>
+                {[
+                  { icon: '𝕏', label: 'Twitter' },
+                  { icon: 'in', label: 'LinkedIn' },
+                  { icon: '⌥', label: 'GitHub' },
+                ].map(s => (
+                  <div key={s.icon} title={s.label} style={{ width: 36, height: 36, borderRadius: 8, border: '1px solid rgba(255,255,255,0.08)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 13, color: 'rgba(255,255,255,0.35)', cursor: 'pointer', transition: 'all .2s', fontWeight: 700 }}
+                    onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(139,92,246,0.45)'; e.currentTarget.style.color = '#a78bfa'; e.currentTarget.style.background = 'rgba(139,92,246,0.08)'; }}
+                    onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.08)'; e.currentTarget.style.color = 'rgba(255,255,255,0.35)'; e.currentTarget.style.background = 'transparent'; }}
+                  >{s.icon}</div>
                 ))}
               </div>
             </div>
+
             {[
               { title: 'Product', links: [{ l: 'Features', to: '/features' }, { l: 'Integrations', to: '/integrations' }, { l: 'Pricing', to: '/pricing' }, { l: 'Roadmap', to: '/roadmap' }] },
               { title: 'Resources', links: [{ l: 'Documentation', to: '/docs' }, { l: 'API Reference', to: '/api-reference' }, { l: 'Blog', to: '/blog' }, { l: 'Community', to: '/community' }] },
@@ -120,21 +196,30 @@ export default function MarketingLayout({ children }) {
               { title: 'Security', links: [{ l: 'SOC2 Report', to: '/legal' }, { l: 'Privacy Policy', to: '/legal' }, { l: 'Status Page', to: '/contact' }, { l: 'Bug Bounty', to: '/contact' }] },
             ].map(col => (
               <div key={col.title}>
-                <h5 style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.2, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 18 }}>{col.title}</h5>
+                <h5 style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: 1.4, textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 20 }}>{col.title}</h5>
                 {col.links.map(l => (
-                  <Link key={l.l} to={l.to} style={{ display: 'block', marginBottom: 12, fontSize: 14, color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color .2s' }}
-                    onMouseEnter={e => e.currentTarget.style.color = 'var(--blue-light)'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
+                  <Link key={l.l} to={l.to} style={{ display: 'block', marginBottom: 12, fontSize: 13.5, color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color .2s' }}
+                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
                   >{l.l}</Link>
                 ))}
               </div>
             ))}
           </div>
-          <div style={{ borderTop: '1px solid var(--border)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 12, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
+
+          {/* Bottom bar */}
+          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>
             <div>© 2024 SentinelX Security Inc. All rights reserved.</div>
-            <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-              <span style={{ width: 8, height: 8, borderRadius: '50%', background: 'var(--green)', boxShadow: '0 0 6px var(--green)', display: 'inline-block' }} />
-              <span style={{ color: 'var(--green)', fontWeight: 600 }}>All systems operational</span>
+            <div style={{ display: 'flex', gap: 20 }}>
+              {[
+                { icon: '🔒', text: 'SOC2 Type II' },
+                { icon: '🌐', text: 'ISO 27001' },
+                { icon: '🛡', text: 'GDPR Compliant' },
+              ].map(b => (
+                <span key={b.text} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
+                  {b.icon} {b.text}
+                </span>
+              ))}
             </div>
           </div>
         </div>
