@@ -65,7 +65,7 @@ export default function LandingPage() {
 
   return (
     <MarketingLayout>
-      <div style={{ background: '#05080f', color: '#fff', fontFamily: 'Inter, sans-serif', overflowX: 'hidden' }}>
+      <div className="landing-page-wrapper" style={{ overflowX: 'hidden' }}>
 
         {/* Background glow orbs */}
         <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0, overflow: 'hidden' }}>
@@ -86,18 +86,18 @@ export default function LandingPage() {
           </div>
 
           <h1 style={{ fontSize: 'clamp(48px, 8vw, 80px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-2.5px', marginBottom: 24, fontFamily: 'Outfit, Inter, sans-serif' }}>
-            <span style={{ color: '#fff' }}>Security Infrastructure</span><br />
+            <span className="hero-text-primary">Security Infrastructure</span><br />
             <span style={{ background: 'linear-gradient(90deg, #a78bfa, #818cf8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
               for Modern Teams
             </span>
           </h1>
 
-          <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.50)', maxWidth: 580, margin: '0 auto 44px', lineHeight: 1.75 }}>
+          <p className="hero-text-secondary" style={{ fontSize: 18, maxWidth: 580, margin: '0 auto 44px', lineHeight: 1.75 }}>
             Monitor, detect, and automatically remediate threats across your entire cloud stack — powered by CEREBRO AI processing 1.2B events/hour.
           </p>
 
           <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Link to="/dashboard">
+            <Link to="/login">
               <button style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)', color: '#fff', border: 'none', borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 6px 28px rgba(139,92,246,0.38)', transition: 'all 0.25s ease', fontFamily: 'inherit' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 36px rgba(139,92,246,0.50)'; }}
                 onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 6px 28px rgba(139,92,246,0.38)'; }}
@@ -107,10 +107,7 @@ export default function LandingPage() {
               </button>
             </Link>
             <Link to="/docs">
-              <button style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.75)', border: '1px solid rgba(255,255,255,0.12)', borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease', fontFamily: 'inherit' }}
-                onMouseEnter={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.09)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.22)'; e.currentTarget.style.color = '#fff'; }}
-                onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.05)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'rgba(255,255,255,0.75)'; }}
-              >
+              <button className="btn-outline" style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease', fontFamily: 'inherit' }}>
                 Read the Docs
               </button>
             </Link>
@@ -120,7 +117,7 @@ export default function LandingPage() {
           <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 12.5, color: 'rgba(255,255,255,0.35)' }}>
             <div style={{ display: 'flex' }}>
               {['#8b5cf6', '#6366f1', '#38bdf8', '#22c55e', '#f59e0b'].map((c, i) => (
-                <div key={i} style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: i === 0 ? 0 : -8, boxShadow: `0 0 8px ${c}55` }} />
+                <div className="marquee-item" key={i} style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: i === 0 ? 0 : -8, boxShadow: `0 0 8px ${c}55` }} />
               ))}
             </div>
             <span>Trusted by <strong style={{ color: 'rgba(255,255,255,0.65)' }}>10,000+</strong> security teams worldwide</span>
@@ -129,11 +126,11 @@ export default function LandingPage() {
 
         {/* Stats Bar */}
         <section style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', padding: '0 32px 80px' }}>
-          <div className="landing-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, background: 'rgba(255,255,255,0.06)', borderRadius: 16, overflow: 'hidden', border: '1px solid rgba(255,255,255,0.06)' }}>
+          <div className="landing-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, borderRadius: 16, overflow: 'hidden' }}>
             {STATS.map((s) => (
-              <div key={s.label} style={{ padding: '28px 24px', textAlign: 'center', background: 'rgba(5,8,15,0.8)', backdropFilter: 'blur(8px)' }}>
+              <div key={s.label} className="stats-card" style={{ padding: '28px 24px', textAlign: 'center' }}>
                 <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 34, fontWeight: 900, color: s.color, marginBottom: 6, textShadow: `0 0 20px ${s.color}55` }}>{s.val}</div>
-                <div style={{ fontSize: 12, color: 'rgba(255,255,255,0.4)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>{s.label}</div>
+                <div className="stats-label" style={{ fontSize: 12, fontWeight: 600, textTransform: 'uppercase', letterSpacing: 1 }}>{s.label}</div>
               </div>
             ))}
           </div>
@@ -153,7 +150,7 @@ export default function LandingPage() {
             {/* Terminal body */}
             <div style={{ background: '#070d1a', padding: '28px 32px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13.5, lineHeight: 2 }}>
               {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-                <div key={i} style={{ display: 'flex', opacity: 1, animation: 'fadeInLine .3s ease' }}>
+                <div className="marquee-item" key={i} style={{ display: 'flex', opacity: 1, animation: 'fadeInLine .3s ease' }}>
                   <span style={{ color: 'rgba(255,255,255,0.25)', minWidth: 18 }}>{line.prefix}</span>
                   <span style={{ color: line.color }}>{line.text}</span>
                 </div>
@@ -166,9 +163,9 @@ export default function LandingPage() {
         </section>
 
         {/* Trusted By — Marquee */}
-        <section style={{ position: 'relative', zIndex: 1, borderTop: '1px solid rgba(255,255,255,0.05)', borderBottom: '1px solid rgba(255,255,255,0.05)', padding: '60px 0', overflow: 'hidden' }}>
+        <section style={{ position: 'relative', zIndex: 1, borderTop: '1px solid var(--border-light)', borderBottom: '1px solid var(--border-light)', padding: '60px 0', overflow: 'hidden' }}>
           <div style={{ textAlign: 'center', marginBottom: 36, padding: '0 32px' }}>
-            <p style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.22)', letterSpacing: 3, textTransform: 'uppercase' }}>Trusted by the best engineering teams worldwide</p>
+            <p className="hero-text-secondary" style={{ fontSize: 11, fontWeight: 700, letterSpacing: 3, textTransform: 'uppercase' }}>Trusted by the best engineering teams worldwide</p>
           </div>
 
           {/* Row 1 — scrolls left */}
@@ -181,7 +178,7 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}>
               {[...LOGOS_ROW1, ...LOGOS_ROW1].map((logo, i) => (
-                <div key={i} style={{
+                <div className="marquee-item" key={i} style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.07)',
@@ -217,7 +214,7 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}>
               {[...LOGOS_ROW2, ...LOGOS_ROW2].map((logo, i) => (
-                <div key={i} style={{
+                <div className="marquee-item" key={i} style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.07)',
@@ -245,20 +242,20 @@ export default function LandingPage() {
         </section>
 
         {/* Features Grid */}
-        <section style={{ position: 'relative', zIndex: 1, padding: '100px 32px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <section style={{ position: 'relative', zIndex: 1, padding: '100px 32px', borderTop: '1px solid var(--border-light)' }}>
           <div style={{ maxWidth: 1100, margin: '0 auto' }}>
             <div style={{ textAlign: 'center', marginBottom: 64 }}>
               <div style={{ display: 'inline-block', background: 'rgba(0,229,255,0.08)', border: '1px solid rgba(0,229,255,0.2)', borderRadius: 100, padding: '5px 18px', fontSize: 11, fontWeight: 700, color: '#2dd4bf', letterSpacing: 1, textTransform: 'uppercase', marginBottom: 20 }}>PLATFORM CAPABILITIES</div>
-              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 52, fontWeight: 900, lineHeight: 1.1, letterSpacing: '-1.5px', color: '#fff', marginBottom: 16 }}>
+              <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 52, fontWeight: 900, lineHeight: 1.1, letterSpacing: '-1.5px', marginBottom: 16 }}>
                 Built for speed.<br />
                 <span style={{ background: 'linear-gradient(90deg, #2dd4bf, #b44fff)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Designed for security.</span>
               </h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.45)', maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>Everything you need to secure your modern infrastructure, packed into a single developer-centric platform.</p>
+              <p className="hero-text-secondary" style={{ fontSize: 17, maxWidth: 500, margin: '0 auto', lineHeight: 1.7 }}>Everything you need to secure your modern infrastructure, packed into a single developer-centric platform.</p>
             </div>
 
             <div className="landing-features-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
               {FEATURES.map((f, i) => (
-                <div key={i} style={{
+                <div className="marquee-item" key={i} style={{
                   padding: '36px', borderRadius: 16,
                   background: `linear-gradient(135deg, ${f.glow}, rgba(255,255,255,0.02))`,
                   border: `1px solid ${f.color}22`,
@@ -276,8 +273,8 @@ export default function LandingPage() {
                     e.currentTarget.style.boxShadow = 'none';
                   }}>
                   <div style={{ width: 48, height: 48, borderRadius: 12, background: `${f.color}18`, border: `1px solid ${f.color}30`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 20 }}>{f.icon}</div>
-                  <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 800, color: '#fff', marginBottom: 10 }}>{f.title}</h3>
-                  <p style={{ fontSize: 14.5, color: 'rgba(255,255,255,0.5)', lineHeight: 1.7, marginBottom: 24 }}>{f.desc}</p>
+                  <h3 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 20, fontWeight: 800, marginBottom: 10 }}>{f.title}</h3>
+                  <p className="hero-text-secondary" style={{ fontSize: 14.5, lineHeight: 1.7, marginBottom: 24 }}>{f.desc}</p>
                   <Link to="/features" style={{ fontSize: 13, fontWeight: 700, color: f.color, textDecoration: 'none' }}>Learn more →</Link>
                 </div>
               ))}
@@ -286,17 +283,17 @@ export default function LandingPage() {
         </section>
 
         {/* CTA Section */}
-        <section style={{ position: 'relative', zIndex: 1, padding: '100px 32px', borderTop: '1px solid rgba(255,255,255,0.05)' }}>
+        <section style={{ position: 'relative', zIndex: 1, padding: '100px 32px', borderTop: '1px solid var(--border-light)' }}>
           <div style={{ maxWidth: 780, margin: '0 auto', textAlign: 'center' }}>
             <div className="relative overflow-hidden rounded-[2rem] px-14 py-20 bg-gradient-to-br from-emerald-500/10 via-teal-500/10 to-amber-500/10 border border-emerald-500/20 shadow-2xl hover:border-emerald-500/40 transition-all duration-500 backdrop-blur-md">
               <div style={{ position: 'absolute', top: -40, right: -40, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(16,185,129,0.2), transparent 70%)' }} />
               <div style={{ position: 'absolute', bottom: -40, left: -40, width: 200, height: 200, borderRadius: '50%', background: 'radial-gradient(circle, rgba(251,191,36,0.15), transparent 70%)' }} />
-              <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 48, fontWeight: 900, color: '#fff', letterSpacing: '-1px', marginBottom: 18, lineHeight: 1.1, position: 'relative' }}>Deploy security<br />instantly.</h2>
-              <p style={{ fontSize: 17, color: 'rgba(255,255,255,0.5)', maxWidth: 460, margin: '0 auto 40px', lineHeight: 1.7, position: 'relative' }}>
+              <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 48, fontWeight: 900, letterSpacing: '-1px', marginBottom: 18, lineHeight: 1.1, position: 'relative' }}>Deploy security<br />instantly.</h2>
+              <p className="hero-text-secondary" style={{ fontSize: 17, maxWidth: 460, margin: '0 auto 40px', lineHeight: 1.7, position: 'relative' }}>
                 Join thousands of developers building fast, secure, and globally distributed applications with SentinelX.
               </p>
               <div style={{ display: 'flex', gap: 16, justifyContent: 'center', flexWrap: 'wrap', position: 'relative' }}>
-                <Link to="/dashboard" className="btn btn-primary text-base px-9 py-3.5">
+                <Link to="/login" className="btn btn-primary text-base px-9 py-3.5">
                   Start Building →
                 </Link>
                 <Link to="/contact" className="btn btn-outline text-base px-9 py-3.5">

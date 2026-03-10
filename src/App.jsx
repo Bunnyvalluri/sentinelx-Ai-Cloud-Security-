@@ -13,7 +13,8 @@ import UserManagement from './pages/UserManagement';
 import SecurityAnalytics from './pages/SecurityAnalytics';
 import AlertQueue from './pages/AlertQueue';
 import ChatbotPage from './pages/ChatbotPage';
-import LoadBalancer from './pages/LoadBalancer';
+import DevOpsPipeline from './pages/DevOpsPipeline';
+import AIDashboard from './pages/AIDashboard';
 
 // Marketing pages
 import Features from './pages/marketing/Features';
@@ -45,7 +46,8 @@ export default function App() {
           <Route path="/analytics" element={<SecurityAnalytics />} />
           <Route path="/alerts" element={<AlertQueue />} />
           <Route path="/chat" element={<ChatbotPage />} />
-          <Route path="/load-balancer" element={<LoadBalancer />} />
+          <Route path="/devops" element={<DevOpsPipeline />} />
+          <Route path="/ai-models" element={<AIDashboard />} />
 
           {/* Product */}
           <Route path="/features" element={<Features />} />

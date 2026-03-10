@@ -97,7 +97,7 @@ export default function MarketingLayout({ children }) {
             <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
             <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
           </button>
-          <Link to="/dashboard" style={{ textDecoration: 'none' }}>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
             <button style={{
               background: 'linear-gradient(135deg, #8b5cf6, #6366f1)',
               color: '#fff', border: 'none', borderRadius: 9,
@@ -142,7 +142,7 @@ export default function MarketingLayout({ children }) {
               <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
               <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
             </button>
-            <Link to="/dashboard" onClick={() => setMobileOpen(false)}>
+            <Link to="/login" onClick={() => setMobileOpen(false)}>
               <button style={{ background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', color: '#fff', border: 'none', borderRadius: 8, padding: '9px 18px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>Get a Demo</button>
             </Link>
           </div>

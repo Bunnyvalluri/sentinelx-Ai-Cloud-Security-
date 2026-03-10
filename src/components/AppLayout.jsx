@@ -89,6 +89,16 @@ const Icons = {
       <line x1="6" y1="18" x2="6.01" y2="18" />
     </svg>
   ),
+  GitBranch: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="6" y1="3" x2="6" y2="15"></line><circle cx="18" cy="6" r="3"></circle><circle cx="6" cy="18" r="3"></circle><path d="M18 9a9 9 0 0 1-9 9"></path>
+    </svg>
+  ),
+  Cpu: () => (
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+      <rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line>
+    </svg>
+  ),
 };
 
 const navSections = [
@@ -104,7 +114,12 @@ const navSections = [
   {
     section: 'ANALYTICS', items: [
       { to: '/analytics', Icon: Icons.Analytics, label: 'Security Analytics' },
-      { to: '/load-balancer', Icon: Icons.Server, label: 'LB Matrix' },
+    ]
+  },
+  {
+    section: 'ENGINEERING', items: [
+      { to: '/devops', Icon: Icons.GitBranch, label: 'CI/CD Pipeline' },
+      { to: '/ai-models', Icon: Icons.Cpu, label: 'CEREBRO Engine' },
     ]
   },
   {
@@ -122,8 +137,9 @@ const PAGE_META = {
   '/compliance': { title: 'Compliance Audit', subtitle: 'Tamper-evident immutable system records', bg: 'bg-gradient-compliance' },
   '/analytics': { title: 'Security Analytics', subtitle: 'Threat trend visualisation & intelligence', bg: 'bg-gradient-analytics' },
   '/users': { title: 'User Management', subtitle: 'Role-based access control administration', bg: 'bg-gradient-users' },
+  '/devops': { title: 'Pipeline Status', subtitle: 'CI/CD, Build Health & Vulnerability Checks', bg: 'bg-gradient-analytics' },
+  '/ai-models': { title: 'Model Diagnostics', subtitle: 'CEREBRO AI neural network topology monitoring', bg: 'bg-gradient-analytics' },
   '/chat': { title: 'CEREBRO AI', subtitle: 'Real-time RAG powered assistant for any question', bg: 'bg-gradient-analytics' },
-  '/load-balancer': { title: 'Global Load Balancer', subtitle: 'Active matrix edge-routing overview', bg: 'bg-gradient-security' },
 };
 
 export default function AppLayout({ children, title, subtitle, bgClass }) {
@@ -140,7 +156,7 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   useEffect(() => { const t = setInterval(() => setTime(new Date()), 1000); return () => clearInterval(t); }, []);
-  useEffect(() => { setSidebarOpen(false); }, [pathname]);
+  // Removed setSidebarOpen in useEffect, we'll handle this purely when clicking Links or via close button
 
   useEffect(() => {
     const handleScroll = () => {
@@ -224,6 +240,7 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
                 <NavLink
                   key={item.to}
                   to={item.to}
+                  onClick={() => setSidebarOpen(false)}
                   className={({ isActive }) => `nav-item ${isActive ? 'active' : ''}`}
                 >
                   <span className="nav-icon">

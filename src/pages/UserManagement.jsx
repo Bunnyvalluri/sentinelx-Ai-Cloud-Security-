@@ -3,43 +3,50 @@ import { useState, useEffect, useRef, useCallback } from 'react';
 
 /* ─── Seed Data ─────────────────────────────────────────────────── */
 const SEED_USERS = [
-  { id: 'u1', name: 'Alex Rivera',    email: 'alex.r@sentinelx.ai',    role: 'ADMIN',   status: 'Online',  mfa: true,  country: 'US', sessions: 2, risk: 'Low',    lastSeen: Date.now() - 120000,  img: 'https://i.pravatar.cc/100?img=11' },
-  { id: 'u2', name: 'Jordan Smith',   email: 'jordan.s@sentinelx.ai',  role: 'ANALYST', status: 'Online',  mfa: true,  country: 'UK', sessions: 1, risk: 'Low',    lastSeen: Date.now() - 3600000, img: 'https://i.pravatar.cc/100?img=12' },
-  { id: 'u3', name: 'Taylor Wong',    email: 'taylor.w@sentinelx.ai',  role: 'VIEWER',  status: 'Offline', mfa: false, country: 'SG', sessions: 0, risk: 'Medium', lastSeen: Date.now() - 259200000, img: 'https://i.pravatar.cc/100?img=13' },
-  { id: 'u4', name: 'Morgan Lee',     email: 'morgan.l@sentinelx.ai',  role: 'ANALYST', status: 'Online',  mfa: true,  country: 'AU', sessions: 3, risk: 'Low',    lastSeen: Date.now() - 10000,   img: 'https://i.pravatar.cc/100?img=14' },
-  { id: 'u5', name: 'Casey Park',     email: 'casey.p@sentinelx.ai',   role: 'VIEWER',  status: 'Idle',    mfa: true,  country: 'CA', sessions: 1, risk: 'Low',    lastSeen: Date.now() - 900000,  img: 'https://i.pravatar.cc/100?img=15' },
-  { id: 'u6', name: 'Riley Nguyen',   email: 'riley.n@sentinelx.ai',   role: 'ANALYST', status: 'Online',  mfa: false, country: 'VN', sessions: 1, risk: 'High',   lastSeen: Date.now() - 5000,    img: 'https://i.pravatar.cc/100?img=16' },
+  { id: 'u1', name: 'Alex Rivera', email: 'alex.r@sentinelx.ai', role: 'ARCHITECT', status: 'Online', mfa: true, country: 'US', sessions: 2, risk: 'Low', lastSeen: Date.now() - 120000, img: 'https://i.pravatar.cc/100?img=11' },
+  { id: 'u2', name: 'Jordan Smith', email: 'jordan.s@sentinelx.ai', role: 'AI_ENGINEER', status: 'Online', mfa: true, country: 'UK', sessions: 1, risk: 'Low', lastSeen: Date.now() - 3600000, img: 'https://i.pravatar.cc/100?img=12' },
+  { id: 'u3', name: 'Taylor Wong', email: 'taylor.w@sentinelx.ai', role: 'FRONTEND', status: 'Offline', mfa: false, country: 'SG', sessions: 0, risk: 'Medium', lastSeen: Date.now() - 259200000, img: 'https://i.pravatar.cc/100?img=13' },
+  { id: 'u4', name: 'Morgan Lee', email: 'morgan.l@sentinelx.ai', role: 'BACKEND', status: 'Online', mfa: true, country: 'AU', sessions: 3, risk: 'Low', lastSeen: Date.now() - 10000, img: 'https://i.pravatar.cc/100?img=14' },
+  { id: 'u5', name: 'Casey Park', email: 'casey.p@sentinelx.ai', role: 'DEVOPS', status: 'Idle', mfa: true, country: 'CA', sessions: 1, risk: 'Low', lastSeen: Date.now() - 900000, img: 'https://i.pravatar.cc/100?img=15' },
+  { id: 'u6', name: 'Riley Nguyen', email: 'riley.n@sentinelx.ai', role: 'QA', status: 'Online', mfa: false, country: 'VN', sessions: 1, risk: 'High', lastSeen: Date.now() - 5000, img: 'https://i.pravatar.cc/100?img=16' },
+  { id: 'u7', name: 'Sam Blake', email: 'sam.b@sentinelx.ai', role: 'PRODUCT_OWNER', status: 'Online', mfa: true, country: 'DE', sessions: 2, risk: 'Low', lastSeen: Date.now() - 8000, img: 'https://i.pravatar.cc/100?img=17' },
+  { id: 'u8', name: 'Jessie Clark', email: 'jessie.c@sentinelx.ai', role: 'DESIGNER', status: 'Offline', mfa: true, country: 'US', sessions: 0, risk: 'Low', lastSeen: Date.now() - 500000, img: 'https://i.pravatar.cc/100?img=18' }
 ];
 
 const ROLE_STYLE = {
-  ADMIN:   { bg: 'rgba(224,92,92,.12)',  c: '#e05c5c', b: 'rgba(224,92,92,.30)' },
-  ANALYST: { bg: 'rgba(91,184,212,.12)', c: '#5bb8d4', b: 'rgba(91,184,212,.30)' },
-  VIEWER:  { bg: 'rgba(107,114,128,.10)', c: '#9ca3af', b: 'rgba(107,114,128,.26)' },
+  PRODUCT_OWNER: { bg: 'rgba(249, 200, 14, .12)', c: '#f9c80e', b: 'rgba(249, 200, 14, .30)' },
+  ARCHITECT: { bg: 'rgba(156, 39, 176, .12)', c: '#c084fc', b: 'rgba(156, 39, 176, .30)' },
+  AI_ENGINEER: { bg: 'rgba(224, 92, 92, .12)', c: '#e05c5c', b: 'rgba(224, 92, 92, .30)' },
+  DEVOPS: { bg: 'rgba(91, 184, 212, .12)', c: '#5bb8d4', b: 'rgba(91, 184, 212, .30)' },
+  BACKEND: { bg: 'rgba(76, 175, 80, .12)', c: '#4ade80', b: 'rgba(76, 175, 80, .30)' },
+  FRONTEND: { bg: 'rgba(56, 189, 248, .12)', c: '#38bdf8', b: 'rgba(56, 189, 248, .30)' },
+  QA: { bg: 'rgba(251, 146, 60, .12)', c: '#fb923c', b: 'rgba(251, 146, 60, .30)' },
+  DESIGNER: { bg: 'rgba(233, 30, 99, .12)', c: '#f472b6', b: 'rgba(233, 30, 99, .30)' }
 };
 const STATUS_COLOR = { Online: '#4ecdc4', Idle: '#e8c97a', Offline: '#7a96aa' };
-const RISK_COLOR   = { Low: '#4ecdc4',    Medium: '#e8c97a', High: '#e05c5c' };
+const RISK_COLOR = { Low: '#4ecdc4', Medium: '#e8c97a', High: '#e05c5c' };
 
 const ACTIVITY_POOL = [
   (n, r) => `🔐 ${n} authenticated via ${r > 0.5 ? 'SSO' : 'password + MFA'}`,
-  (n)    => `📋 ${n} exported audit report`,
-  (n)    => `🛡 ${n} updated firewall rule set`,
-  (n)    => `🔑 ${n} rotated API credentials`,
-  (n)    => `👁 ${n} accessed classified log segment`,
-  (n)    => `⚠️ Failed login attempt on ${n}'s account`,
-  (n)    => `🌐 ${n} opened session from new IP`,
-  (n)    => `🚫 ${n} revoked access for sub-user`,
-  (n)    => `✅ ${n} completed security training`,
-  (n)    => `📡 ${n} initiated live threat scan`,
+  (n) => `📋 ${n} exported audit report`,
+  (n) => `🛡 ${n} updated firewall rule set`,
+  (n) => `🔑 ${n} rotated API credentials`,
+  (n) => `👁 ${n} accessed classified log segment`,
+  (n) => `⚠️ Failed login attempt on ${n}'s account`,
+  (n) => `🌐 ${n} opened session from new IP`,
+  (n) => `🚫 ${n} revoked access for sub-user`,
+  (n) => `✅ ${n} completed security training`,
+  (n) => `📡 ${n} initiated live threat scan`,
 ];
 
-const COUNTRIES = { US:'🇺🇸', UK:'🇬🇧', SG:'🇸🇬', AU:'🇦🇺', CA:'🇨🇦', VN:'🇻🇳', DE:'🇩🇪', IN:'🇮🇳' };
+const COUNTRIES = { US: '🇺🇸', UK: '🇬🇧', SG: '🇸🇬', AU: '🇦🇺', CA: '🇨🇦', VN: '🇻🇳', DE: '🇩🇪', IN: '🇮🇳' };
 
 function timeAgo(ts) {
   const s = Math.floor((Date.now() - ts) / 1000);
-  if (s < 60)  return `${s}s ago`;
-  if (s < 3600) return `${Math.floor(s/60)}m ago`;
-  if (s < 86400) return `${Math.floor(s/3600)}h ago`;
-  return `${Math.floor(s/86400)}d ago`;
+  if (s < 60) return `${s}s ago`;
+  if (s < 3600) return `${Math.floor(s / 60)}m ago`;
+  if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
+  return `${Math.floor(s / 86400)}d ago`;
 }
 
 function LiveDot({ color, pulse = true }) {
@@ -86,9 +93,14 @@ function EditModal({ user, onClose, onSave }) {
         <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: 1, marginBottom: 6 }}>RBAC ROLE</label>
         <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
           style={{ width: '100%', background: '#1a3a52', border: '1px solid rgba(91,184,212,.25)', borderRadius: 10, padding: '10px 14px', color: '#fff', fontSize: 14, marginBottom: 16, outline: 'none', cursor: 'pointer' }}>
-          <option value="ADMIN">ADMIN</option>
-          <option value="ANALYST">ANALYST</option>
-          <option value="VIEWER">VIEWER</option>
+          <option value="PRODUCT_OWNER">PRODUCT_OWNER</option>
+          <option value="ARCHITECT">ARCHITECT</option>
+          <option value="AI_ENGINEER">AI_ENGINEER</option>
+          <option value="DEVOPS">DEVOPS</option>
+          <option value="BACKEND">BACKEND</option>
+          <option value="FRONTEND">FRONTEND</option>
+          <option value="QA">QA</option>
+          <option value="DESIGNER">DESIGNER</option>
         </select>
         <label style={{ display: 'flex', alignItems: 'center', gap: 10, cursor: 'pointer', marginBottom: 24 }}>
           <span style={{ fontSize: 13, color: 'var(--text-secondary)' }}>MFA Enforced</span>
@@ -108,14 +120,14 @@ function EditModal({ user, onClose, onSave }) {
 
 /* ─── Main Component ─────────────────────────────────────────────── */
 export default function UserManagement() {
-  const [tab, setTab]     = useState('All');
+  const [tab, setTab] = useState('All');
   const [users, setUsers] = useState(SEED_USERS);
   const [search, setSearch] = useState('');
   const [activities, setActivities] = useState([]);
-  const [editUser, setEditUser]     = useState(null);
+  const [editUser, setEditUser] = useState(null);
   const [provisionStep, setProvisionStep] = useState('idle'); // idle | loading | done
   const [sessionKilling, setSessionKilling] = useState(null);
-  const [failedLogins, setFailedLogins]   = useState(2);
+  const [failedLogins, setFailedLogins] = useState(2);
   const [pendingInvites, setPendingInvites] = useState(4);
   const [highlight, setHighlight] = useState(null);
   const [now, setNow] = useState(Date.now());
@@ -143,7 +155,7 @@ export default function UserManagement() {
         const fn = ACTIVITY_POOL[Math.floor(Math.random() * ACTIVITY_POOL.length)];
         const msg = fn(u.name.split(' ')[0], r);
         const type = msg.includes('Failed') || msg.includes('⚠') ? 'warn'
-                   : msg.includes('🌐') ? 'alert' : 'info';
+          : msg.includes('🌐') ? 'alert' : 'info';
 
         pushActivity(msg, type);
 
@@ -176,16 +188,17 @@ export default function UserManagement() {
   const filtered = users.filter(u => {
     const matchTab =
       tab === 'All' ? true :
-      tab === 'Admins'   ? u.role === 'ADMIN' :
-      tab === 'Analysts' ? u.role === 'ANALYST' :
-      tab === 'Online'   ? u.status === 'Online' :
-      tab === 'High Risk'? u.risk === 'High' : true;
+        tab === 'Engineering' ? ['ARCHITECT', 'AI_ENGINEER', 'BACKEND', 'FRONTEND'].includes(u.role) :
+          tab === 'Product/Design' ? ['PRODUCT_OWNER', 'DESIGNER'].includes(u.role) :
+            tab === 'QA/DevOps' ? ['QA', 'DEVOPS'].includes(u.role) :
+              tab === 'Online' ? u.status === 'Online' :
+                tab === 'High Risk' ? u.risk === 'High' : true;
     const q = search.toLowerCase();
     return matchTab && (u.name.toLowerCase().includes(q) || u.email.toLowerCase().includes(q));
   });
 
   /* ── Stats ── */
-  const online  = users.filter(u => u.status === 'Online').length;
+  const online = users.filter(u => u.status === 'Online').length;
   const sessions = users.reduce((a, u) => a + u.sessions, 0);
   const highRisk = users.filter(u => u.risk === 'High').length;
 
@@ -194,14 +207,15 @@ export default function UserManagement() {
     if (provisionStep !== 'idle') return;
     setProvisionStep('loading');
     pushActivity('🔄 Provisioning new identity...', 'info');
-    const names = ['Sam Chen','Drew Patel','Jamie Osei','Robin Müller','Avery Kim'];
+    const names = ['Sam Chen', 'Drew Patel', 'Jamie Osei', 'Robin Müller', 'Avery Kim'];
     setTimeout(() => {
       const name = names[Math.floor(Math.random() * names.length)];
       const newU = {
         id: 'u' + Date.now(),
         name,
         email: `${name.toLowerCase().replace(' ', '.')}@sentinelx.ai`,
-        role: 'ANALYST', status: 'Online', mfa: false,
+        role: ['BACKEND', 'FRONTEND', 'DEVOPS', 'QA'][Math.floor(Math.random() * 4)],
+        status: 'Online', mfa: false,
         country: 'US', sessions: 0, risk: 'Low',
         lastSeen: Date.now(),
         img: `https://i.pravatar.cc/100?img=${20 + Math.floor(Math.random() * 30)}`
@@ -272,10 +286,12 @@ export default function UserManagement() {
           onClick={handleProvision}
           disabled={provisionStep === 'loading'}
           className="btn btn-primary"
-          style={{ gap: 8, fontSize: 13, display: 'flex', alignItems: 'center', gap: 8,
+          style={{
+            gap: 8, fontSize: 13, display: 'flex', alignItems: 'center', gap: 8,
             transition: 'background-color .3s, border-color .3s, color .3s, opacity .3s, box-shadow .3s, transform .3s',
             opacity: provisionStep === 'loading' ? 0.7 : 1,
-            transform: provisionStep === 'loading' ? 'scale(0.97)' : 'scale(1)' }}
+            transform: provisionStep === 'loading' ? 'scale(0.97)' : 'scale(1)'
+          }}
         >
           {provisionStep === 'loading' ? (
             <>
@@ -289,17 +305,19 @@ export default function UserManagement() {
       {/* ── Stat Cards ── */}
       <div className="grid-4" style={{ marginBottom: 28 }}>
         {[
-          { label: 'TOTAL IDENTITIES', val: users.length,       icon: '👥', color: 'var(--blue)', glow: 'glow-blue' },
-          { label: 'LIVE SESSIONS',    val: sessions,            icon: '📡', color: '#4ecdc4',     glow: 'glow-green' },
-          { label: 'PENDING INVITES',  val: pendingInvites,      icon: '✉',  color: 'var(--yellow)' },
-          { label: 'FAILED LOGINS 24H',val: failedLogins,        icon: '⚠',  color: 'var(--red)',   glow: 'glow-red' },
+          { label: 'TOTAL IDENTITIES', val: users.length, icon: '👥', color: 'var(--blue)', glow: 'glow-blue' },
+          { label: 'LIVE SESSIONS', val: sessions, icon: '📡', color: '#4ecdc4', glow: 'glow-green' },
+          { label: 'PENDING INVITES', val: pendingInvites, icon: '✉', color: 'var(--yellow)' },
+          { label: 'FAILED LOGINS 24H', val: failedLogins, icon: '⚠', color: 'var(--red)', glow: 'glow-red' },
         ].map(s => (
           <div key={s.label} className={`metric-card ${s.glow || ''}`}
             style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', padding: 24 }}>
             <div>
               <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: 1.2, color: 'var(--text-muted)', marginBottom: 10, textTransform: 'uppercase' }}>{s.label}</div>
-              <div style={{ fontSize: 34, fontWeight: 800, fontFamily: 'Outfit,sans-serif', color: s.color || '#fff',
-                transition: 'color .4s' }}>{s.val}</div>
+              <div style={{
+                fontSize: 34, fontWeight: 800, fontFamily: 'Outfit,sans-serif', color: s.color || '#fff',
+                transition: 'color .4s'
+              }}>{s.val}</div>
             </div>
             <span style={{ fontSize: 28, opacity: 0.8 }}>{s.icon}</span>
           </div>
@@ -314,7 +332,7 @@ export default function UserManagement() {
           {/* Tab row */}
           <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', background: 'rgba(91,184,212,.03)' }}>
             <div style={{ display: 'flex', gap: 4 }}>
-              {['All', 'Admins', 'Analysts', 'Online', 'High Risk'].map(t => (
+              {['All', 'Engineering', 'Product/Design', 'QA/DevOps', 'Online', 'High Risk'].map(t => (
                 <button key={t} onClick={() => setTab(t)} className="btn"
                   style={{
                     padding: '5px 14px', fontSize: 12,
@@ -495,8 +513,10 @@ export default function UserManagement() {
                   animation: i === 0 ? 'slideInFeed .3s ease' : 'none',
                   transition: 'background .4s'
                 }}>
-                  <div style={{ width: 3, borderRadius: 2, alignSelf: 'stretch', flexShrink: 0, marginTop: 2,
-                    background: isWarn ? 'var(--red)' : isSucc ? '#4ecdc4' : 'rgba(91,184,212,.5)' }} />
+                  <div style={{
+                    width: 3, borderRadius: 2, alignSelf: 'stretch', flexShrink: 0, marginTop: 2,
+                    background: isWarn ? 'var(--red)' : isSucc ? '#4ecdc4' : 'rgba(91,184,212,.5)'
+                  }} />
                   <div style={{ flex: 1, minWidth: 0 }}>
                     <div style={{ fontSize: 12, color: isWarn ? '#e8c97a' : 'var(--text-secondary)', lineHeight: 1.4, wordBreak: 'break-word' }}>{ev.msg}</div>
                     <div style={{ fontSize: 10, color: 'var(--text-muted)', marginTop: 3 }}>{timeAgo(ev.ts)}</div>

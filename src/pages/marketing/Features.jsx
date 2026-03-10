@@ -197,7 +197,7 @@ export default function Features() {
           SentinelX brings AI threat detection, compliance automation, multi-cloud visibility, and forensic investigation into one unified platform — designed for the speed and scale of modern enterprise infrastructure.
         </p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
-          <Link to="/dashboard">
+          <Link to="/login">
             <button className="btn btn-primary px-9 py-3.5 text-base" onClick={() => alert('Demo Mode: Feature coming soon!')}>Start Free Trial →</button>
           </Link>
           <Link to="/docs">
@@ -381,7 +381,7 @@ export default function Features() {
           Start a 14-day free trial with full access to every capability. No credit card, no commitment.
         </p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', marginBottom: 20 }}>
-          <Link to="/dashboard">
+          <Link to="/login">
             <button className="btn btn-primary px-9 py-3.5 text-base" onClick={() => alert('Demo Mode: Feature coming soon!')}>Start Free Trial →</button>
           </Link>
           <Link to="/contact">

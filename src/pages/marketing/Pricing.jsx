@@ -6,7 +6,7 @@ const PLANS = [
   {
     id: 'starter', name: 'Starter', color: '#fbbf24', monthlyPrice: 249, annualPrice: 207,
     tagline: 'For growing security teams getting started with cloud visibility.',
-    cta: 'Start Free Trial', ctaLink: '/dashboard',
+    cta: 'Start Free Trial', ctaLink: '/login',
     features: [
       'Up to 50 GB log ingest / day', '5 cloud source connectors', 'AI anomaly detection (base model)',
       'Alert queue with email notifications', '14-day log retention', 'SOC2 compliance mapping',
@@ -16,7 +16,7 @@ const PLANS = [
   {
     id: 'pro', name: 'Professional', color: '#10b981', monthlyPrice: 749, annualPrice: 623, popular: true,
     tagline: 'For established security teams managing complex multi-cloud environments.',
-    cta: 'Start Free Trial', ctaLink: '/dashboard',
+    cta: 'Start Free Trial', ctaLink: '/login',
     features: [
       'Up to 500 GB log ingest / day', '25 cloud source connectors', 'CEREBRO AI full anomaly suite',
       'Automated remediation playbooks', '90-day log retention', 'SOC2, GDPR, HIPAA, ISO 27001',
@@ -167,7 +167,7 @@ export default function Pricing() {
         <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 44, fontWeight: 900, color: '#fff', marginBottom: 16 }}>Start securing your cloud today</h2>
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 440, margin: '0 auto 36px', lineHeight: 1.7 }}>Full 14-day trial. No credit card. No commitment. Cancel anytime.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
-          <Link to="/dashboard">
+          <Link to="/login">
             <button className="btn btn-primary px-9 py-3.5 text-base" onClick={() => alert('Demo Mode: Feature coming soon!')}>Start Free Trial →</button>
           </Link>
           <Link to="/contact">
