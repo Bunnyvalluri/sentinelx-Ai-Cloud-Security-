@@ -213,8 +213,8 @@
 /* ── Topbar: Apple frosted glass white ── */
 [data-theme="light"] .topbar {
   background: rgba(255, 255, 255, 0.75);
-  backdrop-filter: saturate(200%) blur(24px);
-  -webkit-backdrop-filter: saturate(200%) blur(24px);
+  backdrop-filter: saturate(180%) blur(10px);
+  -webkit-backdrop-filter: saturate(180%) blur(10px);
   border-bottom: 1px solid rgba(0, 0, 0, 0.04);
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
 }
@@ -241,8 +241,8 @@
 /* ── Cards: pure white, Apple hairline border + soft shadow ── */
 [data-theme="light"] .card {
   background: rgba(255, 255, 255, 0.6) !important;
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
   border: 1px solid rgba(0, 0, 0, 0.04) !important;
   border-top-color: rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02), 0 1px 2px rgba(0, 0, 0, 0.01) !important;
@@ -256,8 +256,8 @@
 
 [data-theme="light"] .metric-card {
   background: rgba(255, 255, 255, 0.7) !important;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   border: 1px solid rgba(0, 0, 0, 0.04) !important;
   border-top-color: rgba(255, 255, 255, 0.8) !important;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.02), 0 10px 20px rgba(0, 0, 0, 0.01) !important;
@@ -2324,270 +2324,113 @@ code,
 }
 
 
-[data-theme="light"] .marketing-nav {
-  background: rgba(250, 250, 250, 0.92);
-}
-
-.marketing-nav-links {
-  display: flex;
-  gap: 6px;
-  flex: 1;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.marketing-nav-right {
-  display: flex;
+/* ─────────────────────────────────────────────────────────────────────
+   BUTTON UTILITIES
+   ───────────────────────────────────────────────────────────────────── */
+.btn {
+  display: inline-flex;
   align-items: center;
-  gap: 12px;
-}
-
-.marketing-hamburger {
-  display: none;
-  flex-direction: column;
-  background: none;
-  border: none;
+  justify-content: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
   cursor: pointer;
-  padding: 8px;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid transparent;
+  font-family: inherit;
 }
 
-.marketing-mobile-menu {
-  position: sticky;
-  top: 68px;
-  z-index: 199;
-  background: var(--bg-secondary);
-  border-bottom: 1px solid var(--border);
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+.btn-primary {
+  background: var(--blue);
+  color: #fff;
+  box-shadow: 0 4px 12px var(--blue-dim);
 }
 
-.marketing-footer-grid {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
-  gap: 48px;
-  margin-bottom: 60px;
+.btn-primary:hover {
+  background: var(--blue-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 8px 20px var(--blue-glow);
 }
 
-/* ── TABLET: 1024px and below ── */
+.btn-outline {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: var(--border-light);
+  color: var(--text-secondary);
+}
+
+.btn-outline:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--text-muted);
+  color: var(--text-primary);
+}
+
+[data-theme="light"] .btn-outline {
+  background: rgba(0, 0, 0, 0.02);
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--text-secondary);
+}
+
+[data-theme="light"] .btn-outline:hover {
+  background: rgba(0, 0, 0, 0.05);
+  border-color: rgba(0, 0, 0, 0.2);
+  color: var(--text-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SIDEBAR ALWAYS OPEN ON DESKTOP & OTHER FIXES
+   ───────────────────────────────────────────────────────────────────── */
+
+@media (min-width: 1025px) {
+  .sidebar {
+    transform: translateX(0) !important;
+    transition: none !important;
+  }
+
+  .main-content {
+    margin-left: var(--sidebar-width) !important;
+  }
+
+  .topbar {
+    left: var(--sidebar-width) !important;
+  }
+}
+
 @media (max-width: 1024px) {
-
-  /* Sidebar: off-canvas on tablet/mobile */
   .sidebar {
     transform: translateX(-100%);
-    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    z-index: 100;
     box-shadow: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   }
 
   .sidebar.sidebar-open {
     transform: translateX(0);
-    box-shadow: 4px 0 40px rgba(0, 0, 0, 0.6);
+    box-shadow: 10px 0 50px rgba(0, 0, 0, 0.6);
   }
 
   .sidebar-close-btn {
-    display: block;
-  }
-
-  /* Topbar: full width */
-  .topbar {
-    left: 0 !important;
-  }
-
-  .hamburger-btn {
-    display: flex;
-  }
-
-  /* Main content: no left margin */
-  .main-content {
-    margin-left: 0 !important;
-  }
-
-  /* Page content padding */
-  .page-content {
-    padding: 24px 20px;
-  }
-
-  /* Marketing nav */
-  .marketing-nav {
-    padding: 0 24px;
-  }
-
-  .marketing-nav-links {
-    display: none;
-  }
-
-  .marketing-nav-right {
-    display: none;
-  }
-
-  .marketing-hamburger {
-    display: flex;
-  }
-
-  /* Footer grid */
-  .marketing-footer-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-  }
-
-  /* Topbar search — hide on tablet to save space */
-  .topbar-search {
-    display: none !important;
-  }
-
-  .topbar-clock {
-    display: none !important;
-  }
-}
-
-/* ── MOBILE: 768px and below ── */
-@media (max-width: 768px) {
-
-  /* Page content */
-  .page-content {
-    padding: 16px 14px;
-  }
-
-  /* App footer */
-  .app-footer {
-    flex-direction: column !important;
-    gap: 8px !important;
-    align-items: flex-start !important;
-    padding: 14px 16px !important;
-    font-size: 11px !important;
-  }
-
-  /* Metric cards grid → 2 col */
-  .metric-card {
-    border-radius: 16px;
-    padding: 18px;
-  }
-
-  /* LandingPage hero text */
-  .landing-hero h1 {
-    font-size: 40px !important;
-    letter-spacing: -1px !important;
-  }
-
-  .landing-hero p {
-    font-size: 16px !important;
-  }
-
-  /* Footer grid */
-  .marketing-footer-grid {
-    grid-template-columns: 1fr;
-    gap: 32px;
-  }
-
-  /* Topbar help button — hide */
-  .topbar-help {
-    display: none !important;
-  }
-}
-
-/* ── EXTRA SMALL: 480px and below ── */
-@media (max-width: 480px) {
-  .page-content {
-    padding: 12px 10px;
-  }
-
-  .marketing-nav {
-    padding: 0 16px;
-    height: 58px;
-  }
-
-  .metric-card {
-    border-radius: 12px;
-    padding: 14px;
-  }
-}
-
-/* ── LoginPage responsive ── */
-@media (max-width: 900px) {
-  .login-layout {
-    grid-template-columns: 1fr !important;
-  }
-
-  .login-left-panel {
-    display: none !important;
-  }
-}
-
-/* ── LandingPage responsive ── */
-@media (max-width: 900px) {
-  .landing-features-grid {
-    grid-template-columns: 1fr !important;
-  }
-
-  .landing-stats-grid {
-    grid-template-columns: repeat(2, 1fr) !important;
-  }
-
-  .landing-footer-grid {
-    grid-template-columns: 1fr 1fr !important;
-    gap: 32px !important;
-  }
-}
-
-@media (max-width: 600px) {
-  .landing-hero {
-    padding: 100px 20px 60px !important;
-  }
-
-  .landing-stats-grid {
-    grid-template-columns: 1fr 1fr !important;
-  }
-
-  .landing-features-grid {
-    padding: 0 16px !important;
-  }
-
-  .landing-footer-grid {
-    grid-template-columns: 1fr !important;
-  }
-}
-
-/* ── Topbar text — smaller on mobile ── */
-@media (max-width: 640px) {
-  .topbar {
-    padding: 0 14px !important;
-  }
-}
-
-/* ── Sidebar always visible on large desktop ── */
-@media (min-width: 1025px) {
-  .sidebar {
-    transform: translateX(0) !important;
-  }
-
-  .hamburger-btn {
-    display: none !important;
-  }
-
-  .sidebar-close-btn {
-    display: none !important;
-  }
-
-  .marketing-nav-links {
-    display: flex !important;
-  }
-
-  .marketing-nav-right {
-    display: flex !important;
-  }
-
-  .marketing-hamburger {
-    display: none !important;
-  }
-
-  .topbar-search {
-    display: flex !important;
-  }
-
-  .topbar-clock {
     display: block !important;
   }
 
-  .topbar-help {
+  .hamburger-btn {
     display: flex !important;
   }
+
+  .topbar {
+    left: 0 !important;
+    padding: 0 16px !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+}
+
+/* Ensure data tables are scrollable on small screens */
+.table-wrapper {
+  overflow-x: auto;
+  margin: 0 -12px;
+  padding: 0 12px;
+  -webkit-overflow-scrolling: touch;
 }

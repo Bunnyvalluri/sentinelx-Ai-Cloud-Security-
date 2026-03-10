@@ -280,8 +280,8 @@ export default function ComplianceAudit() {
         ].map(s => (
           <div className="metric-card" key={s.label}>
             <div style={{ fontSize: 10, fontWeight: 700, letterSpacing: .8, color: 'var(--text-muted)', marginBottom: 10, textTransform: 'uppercase' }}>{s.label}</div>
-            <div style={{ fontSize: s.small ? 18 : 28, fontWeight: 800, fontFamily: 'Outfit,sans-serif', color: s.valC || '#fff', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8 }}>
-              {s.icon && <span>{s.icon}</span>}{s.val}
+            <div className="hero-text-primary" style={{ fontSize: s.small ? 18 : 28, fontWeight: 800, fontFamily: 'Outfit,sans-serif', marginBottom: 8, display: 'flex', alignItems: 'center', gap: 8, transition: 'all 0.3s' }}>
+              {s.icon && <span role="img" aria-label={s.label}>{s.icon}</span>}{s.val}
             </div>
             {s.sub && <div style={{ fontSize: 12, color: s.subC || 'var(--text-muted)', fontWeight: s.subC ? 700 : 500 }}>{s.sub}</div>}
           </div>
@@ -464,13 +464,14 @@ export default function ComplianceAudit() {
               { label: 'Internal Privacy Policy', badge: '↗ Updated' },
             ].map(l => (
               <div key={l.label} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-                <a href="#" style={{ color: 'var(--text-secondary)', fontSize: 13, transition: 'color .2s', display: 'flex', alignItems: 'center', gap: 6 }}
+                <button
+                  style={{ background: 'none', border: 'none', padding: 0, textAlign: 'left', font: 'inherit', color: 'var(--text-secondary)', fontSize: 13, transition: 'color .2s', display: 'flex', alignItems: 'center', gap: 6, cursor: 'pointer' }}
                   onMouseEnter={e => e.currentTarget.style.color = 'var(--blue-light)'}
                   onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
-                  onClick={e => { e.preventDefault(); push(`📄 Opening ${l.label}…`, 'info'); }}
+                  onClick={() => push(`📄 Opening ${l.label}…`, 'info')}
                 >
                   <span style={{ color: 'var(--blue)' }}>▸</span> {l.label}
-                </a>
+                </button>
                 <span style={{ fontSize: 10, color: 'var(--green)', fontWeight: 700, marginLeft: 8, flexShrink: 0 }}>{l.badge}</span>
               </div>
             ))}

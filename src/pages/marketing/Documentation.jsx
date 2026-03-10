@@ -58,7 +58,7 @@ function P({ children }) {
 function UL({ items }) {
   return (
     <ul style={{ margin: '0 0 20px 0', paddingLeft: 22 }}>
-      {items.map((it, i) => <li key={i} style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 6 }}>{it}</li>)}
+      {items.map((it) => <li key={it} style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 6 }}>{it}</li>)}
     </ul>
   );
 }
@@ -74,11 +74,11 @@ function Table({ headers, rows }) {
           </tr>
         </thead>
         <tbody>
-          {rows.map((row, i) => (
-            <tr key={i} style={{ borderBottom: i < rows.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}
+          {rows.map((row) => (
+            <tr key={row.join('-')} style={{ borderBottom: rows.indexOf(row) < rows.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}
               onMouseEnter={e => e.currentTarget.style.background = 'rgba(255,255,255,0.02)'}
               onMouseLeave={e => e.currentTarget.style.background = 'transparent'}>
-              {row.map((cell, j) => <td key={j} style={{ padding: '10px 16px', color: j === 0 ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{cell}</td>)}
+              {row.map((cell) => <td key={cell} style={{ padding: '10px 16px', color: row.indexOf(cell) === 0 ? 'var(--text-primary)' : 'var(--text-secondary)' }}>{cell}</td>)}
             </tr>
           ))}
         </tbody>
@@ -727,8 +727,8 @@ export default function Documentation() {
 
           {/* Breadcrumb */}
           <div style={{ display: 'flex', gap: 8, marginBottom: 32, alignItems: 'center', flexWrap: 'wrap' }}>
-            {SIDEBAR.find(g => g.items.includes(activeSection))?.section.split(' ').map((b, i) => (
-              <span key={i} style={{ fontSize: 12, color: 'var(--text-muted)' }}>{b} ›</span>
+            {SIDEBAR.find(g => g.items.includes(activeSection))?.section.split(' ').map((b) => (
+              <span key={b} style={{ fontSize: 12, color: 'var(--text-muted)' }}>{b} ›</span>
             ))}
             <span style={{ fontSize: 12, color: 'var(--blue-light)', fontWeight: 600 }}>{activeSection}</span>
           </div>

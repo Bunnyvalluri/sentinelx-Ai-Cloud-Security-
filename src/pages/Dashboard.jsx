@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useReducer } from 'react';
 import { useNavigate } from 'react-router-dom';
 import AppLayout from '../components/AppLayout';
 
@@ -7,18 +7,48 @@ const GEMINI_KEY = 'AIzaSyA4-uJDVQj-Sh9wndsWr473MwVqpTBLndo';
 
 const INITIAL_EVENTS = [
   { id: 'INC-901', time: '14:02:11', sev: 'INFO', col: '#10b981', type: 'System Scan', origin: 'Internal', msg: 'Initializing global scan on prod-cluster-01' },
-  { id: 'INC-902', time: '14:02:15', sev: 'SUCCESS', col: '#10b981', type: 'Verification', origin: 'Global', msg: 'TLS Handshake verified for 42 nodes.' },
-  { id: 'INC-903', time: '14:02:44', sev: 'CRITICAL', col: '#ef4444', type: 'Unauthorized Access', origin: '192.168.1.45', msg: 'Unauthorized access attempt via SSH. Source: RU.' },
-  { id: 'INC-904', time: '14:03:02', sev: 'INFO', col: '#10b981', type: 'Policy Update', origin: 'Firewall', msg: "Rule set 'anti-bruteforce-v4' applied to firewall." },
+  { id: 'INC-902', time: '14:02:15', sev: 'SUCCESS', col: '#10b981', type: 'K8s Cluster', origin: 'Global', msg: 'Terraform drift detection: No changes found in prod-us-east-1.' },
+  { id: 'INC-903', time: '14:02:44', sev: 'CRITICAL', col: '#ef4444', type: 'Docker Vulnerability', origin: 'auth-service:v2.1', msg: 'Trivy scan detected 2 Critical CVEs in Docker base image.' },
+  { id: 'INC-904', time: '14:03:02', sev: 'INFO', col: '#10b981', type: 'Jenkins Build', origin: 'pipeline-42', msg: "Jenkins job 'deploy-production' completed successfully." },
   { id: 'INC-905', time: '14:03:10', sev: 'MEDIUM', col: '#f59e0b', type: 'Network Anomaly', origin: '10.0.1.0/24', msg: 'Elevated latency detected on subnet 10.0.1.0/24.' },
   { id: 'INC-906', time: '14:03:15', sev: 'SUCCESS', col: '#10b981', type: 'Auto-Mitigation', origin: 'System', msg: 'IP 192.168.1.45 quarantined for 24 hours.' },
-  { id: 'INC-907', time: '14:04:01', sev: 'INFO', col: '#ffe066', type: 'Policy Audit', origin: 'S3-Bucket', msg: 'Access policy audit complete. 0 leaks found.' },
-  { id: 'INC-908', time: '14:04:22', sev: 'INFO', col: '#10b981', type: 'Backup', origin: 'DB-Instance', msg: 'Snapshot backup created for DB-INSTANCE-A.' },
+  { id: 'INC-907', time: '14:04:01', sev: 'INFO', col: '#ffe066', type: 'Ansible Audit', origin: 'web-nodes', msg: 'Ansible inventory audit complete. 12 nodes compliant.' },
+  { id: 'INC-908', time: '14:04:22', sev: 'INFO', col: '#10b981', type: 'Jira Sync', origin: 'SEC-409', msg: 'Jira ticket SEC-409 updated with threat report.' },
   { id: 'INC-909', time: '14:04:55', sev: 'HIGH', col: '#ef4444', type: 'File Integrity', origin: 'web-node-3', msg: 'File modification detected in /etc/passwd.' },
 ];
 
 const WAVE_POINTS_TRAFFIC = [12, 18, 22, 34, 28, 42, 55, 62, 58, 48, 38, 30, 24, 19, 28, 40, 52, 61, 58, 46, 36, 30, 25, 22, 30, 42, 54, 62, 58, 49, 38, 28, 22, 30, 44, 56, 64, 59, 46, 34, 26];
 const WAVE_POINTS_BLOCKED = [5, 8, 10, 16, 13, 20, 26, 30, 27, 22, 17, 13, 10, 8, 12, 18, 24, 29, 27, 22, 16, 13, 10, 8, 13, 19, 25, 30, 27, 23, 17, 12, 10, 14, 21, 27, 32, 28, 22, 16, 12];
+
+const dashboardReducer = (state, action) => {
+  switch (action.type) {
+    case 'SET_TIME_RANGE':
+      return {
+        ...state,
+        timeRange: action.payload,
+        trafficData: Array.from({ length: 41 }, () => Math.floor(Math.random() * 50 + 20)),
+        blockedData: Array.from({ length: 41 }, () => Math.floor(Math.random() * 25 + 5)),
+      };
+    case 'TICK': {
+      const { newMsg } = action.payload;
+      return {
+        ...state,
+        events: [newMsg, ...state.events.slice(0, 8)],
+        liveMetrics: state.liveMetrics.map((m, idx) => {
+          if (idx === 0) return { ...m, value: m.value + (newMsg.sev === 'CRITICAL' || newMsg.sev === 'HIGH' ? Math.floor(Math.random() * 3 + 1) : 0), bar: Math.max(10, Math.min(100, m.bar + (Math.random() * 4 - 2))) };
+          if (idx === 1) return { ...m, value: m.value + (newMsg.sev === 'HIGH' ? 1 : 0), bar: Math.max(10, Math.min(100, m.bar + (Math.random() * 4 - 2))) };
+          if (idx === 2) return { ...m, value: +(m.value + (Math.random() * 0.04 - 0.02)).toFixed(2), sub: `Latency ${Math.floor(Math.random() * 8 + 8)}ms` };
+          if (idx === 3) return { ...m, value: m.value + (newMsg.sev === 'CRITICAL' || newMsg.sev === 'HIGH' ? Math.floor(Math.random() * 20 + 5) : 0) };
+          return m;
+        }),
+        trafficData: [...state.trafficData.slice(1), Math.floor(Math.random() * 50 + 20)],
+        blockedData: [...state.blockedData.slice(1), Math.floor(Math.random() * 20 + 5 + (newMsg.sev === 'CRITICAL' ? 15 : 0))],
+      };
+    }
+    default:
+      return state;
+  }
+};
 
 function SVGChart({ traffic, blocked }) {
   const W = 600, H = 180;
@@ -129,56 +159,43 @@ function GeoRadar() {
 
 export default function Dashboard() {
   const navigate = useNavigate();
-  const [events, setEvents] = useState(INITIAL_EVENTS);
+  const [state, dispatch] = useReducer(dashboardReducer, {
+    events: INITIAL_EVENTS,
+    timeRange: '24H',
+    trafficData: WAVE_POINTS_TRAFFIC,
+    blockedData: WAVE_POINTS_BLOCKED,
+    liveMetrics: [
+      { label: 'TOTAL THREATS', value: 1284, delta: '↑ 12%', deltaColor: '#ef4444', icon: '🔴', sub: 'vs 24h ago', barColor: '#ef4444', bar: 78, glowClass: 'glow-red' },
+      { label: 'ACTIVE ALERTS', value: 42, delta: '↑ 5%', deltaColor: '#f59e0b', icon: '⚠', sub: 'Priority High', barColor: '#f59e0b', bar: 42, glowClass: 'glow-yellow' },
+      { label: 'SYSTEM HEALTH', value: 99.9, delta: 'Stable', deltaColor: '#10b981', icon: '💜', sub: 'Latency 12ms', barColor: '#10b981', bar: 99, glowClass: '' },
+      { label: 'BLOCKED VECTORS', value: 14500, delta: '↑ 24%', deltaColor: '#10b981', icon: '🛡', sub: 'Auto-mitigated', barColor: '#10b981', bar: 88, glowClass: 'glow-green' },
+    ]
+  });
+
   const [aiInsight, setAiInsight] = useState('');
   const [aiLoading, setAiLoading] = useState(false);
-  const [timeRange, setTimeRange] = useState('24H');
-  const [trafficData, setTrafficData] = useState(WAVE_POINTS_TRAFFIC);
-  const [blockedData, setBlockedData] = useState(WAVE_POINTS_BLOCKED);
-
-  const [liveMetrics, setLiveMetrics] = useState([
-    { label: 'TOTAL THREATS', value: 1284, delta: '↑ 12%', deltaColor: '#ef4444', icon: '🔴', sub: 'vs 24h ago', barColor: '#ef4444', bar: 78, glowClass: 'glow-red' },
-    { label: 'ACTIVE ALERTS', value: 42, delta: '↑ 5%', deltaColor: '#f59e0b', icon: '⚠', sub: 'Priority High', barColor: '#f59e0b', bar: 42, glowClass: 'glow-yellow' },
-    { label: 'SYSTEM HEALTH', value: 99.9, delta: 'Stable', deltaColor: '#10b981', icon: '💜', sub: 'Latency 12ms', barColor: '#10b981', bar: 99, glowClass: '' },
-    { label: 'BLOCKED VECTORS', value: 14500, delta: '↑ 24%', deltaColor: '#10b981', icon: '🛡', sub: 'Auto-mitigated', barColor: '#10b981', bar: 88, glowClass: 'glow-green' },
-  ]);
 
   const handleTimeRangeChange = (t) => {
-    setTimeRange(t);
-    // Simulate data loading and new network flow pattern
-    setTrafficData(Array.from({ length: 41 }, () => Math.floor(Math.random() * 50 + 20)));
-    setBlockedData(Array.from({ length: 41 }, () => Math.floor(Math.random() * 25 + 5)));
+    dispatch({ type: 'SET_TIME_RANGE', payload: t });
   };
 
   /* Simulate live event prepend every 4s and animate metrics */
   useEffect(() => {
     const msgs = [
-      { id: 'INC-910', sev: 'INFO', col: '#10b981', type: 'Packet Inspection', origin: 'vpc-prod-01', msg: 'Deep packet inspection completed on vpc-prod-01.' },
-      { id: 'INC-911', sev: 'CRITICAL', col: '#ef4444', type: 'Anomalous Traffic', origin: 'lambda-fn-42', msg: 'Anomalous outbound traffic detected: 4 GB/hr.' },
-      { id: 'INC-912', sev: 'INFO', col: '#10b981', type: 'Certificate Renew', origin: 'System', msg: 'Certificate renewed for *.sentinelx.ai.' },
-      { id: 'INC-913', sev: 'SUCCESS', col: '#10b981', type: 'Signature Update', origin: 'Database', msg: 'Threat signature updated: DB v2024.11.27.' },
-      { id: 'INC-914', sev: 'HIGH', col: '#f59e0b', type: 'Auth Failure Spikes', origin: '192.168.1.88', msg: 'Multiple failed logins against admin pane.' },
-      { id: 'INC-915', sev: 'CRITICAL', col: '#ef4444', type: 'Lateral Movement', origin: 'k8s-worker-3', msg: 'Suspicious east-west traffic bypassing namespace boundaries.' },
+      { id: 'INC-910', sev: 'INFO', col: '#10b981', type: 'K8s Deployment', origin: 'vpc-prod-01', msg: 'Kubernetes rolling update triggered for gateway-service.' },
+      { id: 'INC-911', sev: 'CRITICAL', col: '#ef4444', type: 'Docker Breach', origin: 'node-exporter', msg: 'Container breakout detected on node-exporter-4f.' },
+      { id: 'INC-912', sev: 'INFO', col: '#10b981', type: 'Terraform Plan', origin: 'IaC-Main', msg: 'Terraform plan generated for 14 new security groups.' },
+      { id: 'INC-913', sev: 'SUCCESS', col: '#10b981', type: 'Jira Closed', origin: 'Ops-Console', msg: 'Jira ticket OPS-1284 closed by Auto-Remediation.' },
+      { id: 'INC-914', sev: 'HIGH', col: '#f59e0b', type: 'Ansible Divergence', origin: 'api-nodes', msg: 'Ansible detected configuration drift on 3 api nodes.' },
+      { id: 'INC-915', sev: 'CRITICAL', col: '#ef4444', type: 'Trivy Alert', origin: 'build-agent-12', msg: 'Trivy blocking build due to high-risk package vulnerability.' },
     ];
     let i = 0;
     const id = setInterval(() => {
       const now = new Date();
       const t = `${String(now.getHours()).padStart(2, '0')}:${String(now.getMinutes()).padStart(2, '0')}:${String(now.getSeconds()).padStart(2, '0')}`;
       const newMsg = { ...msgs[i % msgs.length], time: t, id: `INC-${Math.floor(Date.now() % 10000)}` };
-      setEvents(prev => [newMsg, ...prev.slice(0, 8)]);
 
-      // Animate Metrics
-      setLiveMetrics(prev => [
-        { ...prev[0], value: prev[0].value + (newMsg.sev === 'CRITICAL' || newMsg.sev === 'HIGH' ? Math.floor(Math.random() * 3 + 1) : 0), bar: Math.max(10, Math.min(100, prev[0].bar + (Math.random() * 4 - 2))) },
-        { ...prev[1], value: prev[1].value + (newMsg.sev === 'HIGH' ? 1 : 0), bar: Math.max(10, Math.min(100, prev[1].bar + (Math.random() * 4 - 2))) },
-        { ...prev[2], value: +(prev[2].value + (Math.random() * 0.04 - 0.02)).toFixed(2), sub: `Latency ${Math.floor(Math.random() * 8 + 8)}ms` },
-        { ...prev[3], value: prev[3].value + (newMsg.sev === 'CRITICAL' || newMsg.sev === 'HIGH' ? Math.floor(Math.random() * 20 + 5) : 0) },
-      ]);
-
-      // Add slight jitter to traffic charts
-      setTrafficData(prev => [...prev.slice(1), Math.floor(Math.random() * 50 + 20)]);
-      setBlockedData(prev => [...prev.slice(1), Math.floor(Math.random() * 20 + 5 + (newMsg.sev === 'CRITICAL' ? 15 : 0))]);
-
+      dispatch({ type: 'TICK', payload: { newMsg } });
       i++;
     }, 4000);
     return () => clearInterval(id);
@@ -207,13 +224,13 @@ export default function Dashboard() {
     <AppLayout title="Global Threat Overview" subtitle="Real-time security monitoring dashboard" bgClass="bg-gradient-security">
       {/* ── Metric cards ── */}
       <div className="grid-4" style={{ marginBottom: 20 }}>
-        {liveMetrics.map(m => (
+        {state.liveMetrics.map(m => (
           <div className={`metric-card ${m.glowClass}`} key={m.label} style={{ background: 'rgba(5, 10, 20, 0.4)', backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.05)', boxShadow: '0 8px 32px rgba(0,0,0,0.2)' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 14 }}>
               <span style={{ fontSize: 10.5, fontWeight: 700, letterSpacing: 0.8, color: 'var(--text-muted)', textTransform: 'uppercase' }}>{m.label}</span>
-              <span style={{ fontSize: 18 }}>{m.icon}</span>
+              <span style={{ fontSize: 18 }} role="img" aria-label={m.label}>{m.icon}</span>
             </div>
-            <div style={{ fontSize: 'clamp(24px, 5vw, 34px)', fontWeight: 800, fontFamily: 'Outfit, sans-serif', letterSpacing: -1, color: '#fff', marginBottom: 6, transition: 'background-color 0.3s, border-color 0.3s, color 0.3s, fill 0.3s, stroke 0.3s, opacity 0.3s, box-shadow 0.3s, transform 0.3s' }}>
+            <div className="hero-text-primary" style={{ fontSize: 'clamp(24px, 5vw, 34px)', fontWeight: 800, fontFamily: 'Outfit, sans-serif', letterSpacing: -1, marginBottom: 6, transition: 'all 0.3s' }}>
               {m.label === 'SYSTEM HEALTH' ? m.value.toFixed(1) : m.value.toLocaleString()}
               {m.label === 'SYSTEM HEALTH' && <span style={{ fontSize: 18 }}>%</span>}
             </div>
@@ -234,28 +251,28 @@ export default function Dashboard() {
         <div className="card" style={{ padding: '22px 24px' }}>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: 20 }}>
             <div>
-              <div style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: '#fff', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+              <div className="hero-text-primary" style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
                 <span style={{ width: 4, height: 18, background: 'var(--blue)', borderRadius: 2, display: 'inline-block' }} />
                 Network Traffic Analysis
               </div>
               <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Inbound Packets vs Blocked Threats (Real-time)</div>
             </div>
             <div style={{ display: 'flex', gap: 6, alignItems: 'center' }}>
-              <div style={{ display: 'flex', gap: 12, fontSize: 11, marginRight: 12 }}>
-                <span style={{ color: '#10b981', fontWeight: 600 }}>● Traffic</span>
-                <span style={{ color: '#ef4444', fontWeight: 600 }}>- Blocked</span>
+              <div style={{ display: 'flex', gap: 12, fontSize: 11, marginRight: 12, color: 'var(--text-muted)' }}>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#10b981' }} /> Traffic</span>
+                <span style={{ display: 'flex', alignItems: 'center', gap: 4 }}><span style={{ width: 6, height: 6, borderRadius: '50%', background: '#ef4444' }} /> Blocked</span>
               </div>
               {['1H', '24H', '7D'].map((t) => (
                 <button
                   key={t}
                   onClick={() => handleTimeRangeChange(t)}
-                  className="btn btn-outline"
+                  className={`btn btn-outline ${state.timeRange === t ? 'active' : ''}`}
                   style={{
                     padding: '4px 12px',
                     fontSize: 11,
-                    background: timeRange === t ? 'var(--blue-glow)' : '',
-                    color: timeRange === t ? 'var(--blue-light)' : '',
-                    borderColor: timeRange === t ? 'rgba(16, 185, 129,0.3)' : ''
+                    background: state.timeRange === t ? 'var(--blue-dim)' : '',
+                    color: state.timeRange === t ? 'var(--blue-light)' : '',
+                    borderColor: state.timeRange === t ? 'var(--blue-light)' : ''
                   }}
                 >
                   {t}
@@ -263,13 +280,13 @@ export default function Dashboard() {
               ))}
             </div>
           </div>
-          <SVGChart traffic={trafficData} blocked={blockedData} />
+          <SVGChart traffic={state.trafficData} blocked={state.blockedData} />
         </div>
 
         {/* Geographic Origins */}
         <div className="card" style={{ padding: '22px 20px' }}>
-          <div style={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: '#fff', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
-            <span style={{ fontSize: 15 }}>🌐</span> Geographic Origins
+          <div className="hero-text-primary" style={{ fontWeight: 700, fontFamily: 'Outfit, sans-serif', marginBottom: 4, display: 'flex', alignItems: 'center', gap: 8 }}>
+            <span style={{ fontSize: 15 }} role="img" aria-label="Globe">🌐</span> Geographic Origins
           </div>
           <div style={{ fontSize: 11, color: 'var(--text-muted)', marginBottom: 10 }}>Live Attack Vector Sources</div>
           <GeoRadar />
@@ -284,7 +301,7 @@ export default function Dashboard() {
       <div className="card" style={{ padding: '16px 20px', marginBottom: 18, border: '1px solid rgba(16, 185, 129,0.3)', background: 'linear-gradient(90deg, rgba(16, 185, 129,0.08) 0%, rgba(20, 24, 38,0.4) 100%)', boxShadow: '0 0 32px rgba(16, 185, 129, 0.05) inset' }}>
         <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
           <div style={{ width: 44, height: 44, borderRadius: 12, background: 'linear-gradient(135deg, #10b981, #2dd4bf)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, fontSize: 20, boxShadow: '0 8px 16px rgba(16, 185, 129, 0.25)' }}>
-            <span style={{ animation: 'pulse 2s infinite' }}>🧠</span>
+            <span style={{ animation: 'pulse 2s infinite' }} role="img" aria-label="Brain">🧠</span>
           </div>
           <div style={{ flex: 1, marginTop: 2 }}>
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.5, color: '#10b981', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 6 }}>
@@ -312,8 +329,8 @@ export default function Dashboard() {
       <div className="card" style={{ overflow: 'hidden' }}>
         <div style={{ padding: '16px 20px', borderBottom: '1px solid var(--border)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div>
-            <div style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: '#fff', display: 'flex', alignItems: 'center', gap: 8 }}>
-              <span style={{ color: 'var(--yellow)' }}>⚠</span> Live Incident Feed
+            <div className="hero-text-primary" style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', display: 'flex', alignItems: 'center', gap: 8 }}>
+              <span style={{ color: 'var(--yellow)' }} role="img" aria-label="Warning">⚠</span> Live Incident Feed
             </div>
             <div style={{ fontSize: 12, color: 'var(--text-muted)' }}>Critical Events Requiring Immediate Attention</div>
           </div>
@@ -321,11 +338,12 @@ export default function Dashboard() {
             <button onClick={() => navigate('/logs?filter=critical')} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 14px' }}>⚙ FILTER</button>
             <button onClick={() => {
               const element = document.createElement('a');
-              const file = new Blob([JSON.stringify(events, null, 2)], { type: 'application/json' });
+              const file = new Blob([JSON.stringify(state.events, null, 2)], { type: 'application/json' });
               element.href = URL.createObjectURL(file);
               element.download = 'events_export.json';
               document.body.appendChild(element);
               element.click();
+              document.body.removeChild(element);
             }} className="btn btn-outline" style={{ fontSize: 12, padding: '6px 14px' }}>⬇ EXPORT LOGS</button>
           </div>
         </div>
@@ -337,7 +355,7 @@ export default function Dashboard() {
               </tr>
             </thead>
             <tbody>
-              {events.map((inc) => {
+              {state.events.map((inc) => {
                 const sev = {
                   CRITICAL: { bg: 'var(--red-dim)', c: 'var(--red)', b: 'rgba(239,68,68,.3)' },
                   HIGH: { bg: 'rgba(249,115,22,.12)', c: 'var(--orange)', b: 'rgba(249,115,22,.3)' },

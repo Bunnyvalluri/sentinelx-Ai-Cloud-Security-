@@ -17,11 +17,11 @@ const STATS = [
 /* six capability tabs */
 const TABS = [
   'AI Detection',
+  'DevOps Security',
   'Log Intelligence',
   'Cloud Posture',
   'Compliance',
   'Forensics',
-  'Identity',
 ];
 
 const TAB_DETAILS = {
@@ -42,6 +42,25 @@ const TAB_DETAILS = {
       { prefix: '  ✗ ALERT   ', cmd: 'score=98  IAM GetSessionToken anomaly on arn:aws:iam::12345:user/dev-ops-bot', color: '#ef4444' },
       { prefix: '  ↳ reason', cmd: 'First use of this credential from TOR exit node (confidence 98%)', color: '#f59e0b' },
       { prefix: '  ↳ playbook', cmd: 'Revoke session token? [y/N] y → EXECUTED', color: '#22d3ee' },
+    ],
+  },
+  'DevOps Security': {
+    headline: 'Secure your software supply chain at every step',
+    body: 'SentinelX integrates directly into your DevOps toolchain — scanning Docker images with Trivy, verifying infrastructure-as-code with Terraform drift detection, and auditing build logs in Jenkins. From Git commit to Kubernetes deployment, every step is guarded by AI that detects CI/CD poisoned builds and dependency supply-chain attacks.',
+    bullets: [
+      'Git commit & PR scanning for secrets and misconfigurations',
+      'Docker image vulnerability gating (Trivy engine)',
+      'Terraform & Ansible drift detection with auto-rollback',
+      'Jenkins & GitHub Actions pipeline integrity monitoring',
+      'Kubernetes RBAC and pod security policy enforcement',
+    ],
+    badge: { label: 'DEVOPS SECURITY', color: '#38bdf8' },
+    console: [
+      { prefix: 'sentinel >', cmd: 'pipeline scan --build-id JENKINS-402', color: '#fbbf24' },
+      { prefix: '  trivy', cmd: 'Scanning docker image auth-service:latest... [✓ SAFE]', color: '#10b981' },
+      { prefix: '  terraform', cmd: 'Checking IaC drift (env: prod)... [✓ SYNCED]', color: '#10b981' },
+      { prefix: '  alert', cmd: 'Anomaly: Build agent using unauthorized VPC endpoint', color: '#ef4444' },
+      { prefix: '  action', cmd: 'sentinel block build --reason policy-violation', color: '#f59e0b' },
     ],
   },
   'Log Intelligence': {
@@ -187,7 +206,7 @@ export default function Features() {
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(16,185,129,0.08)', border: '1px solid rgba(16,185,129,0.22)', padding: '6px 16px', borderRadius: 100, fontSize: 12, fontWeight: 700, color: 'var(--blue-light)', marginBottom: 28, letterSpacing: 0.6 }}>
           🛡 PLATFORM CAPABILITIES
         </div>
-        <h1 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 72, fontWeight: 900, color: '#fff', lineHeight: 1.05, letterSpacing: -2, marginBottom: 22, maxWidth: 860, margin: '0 auto 22px' }}>
+        <h1 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 72, fontWeight: 900, lineHeight: 1.05, letterSpacing: -2, marginBottom: 22, maxWidth: 860, margin: '0 auto 22px' }}>
           Everything you need to<br />
           <span style={{ background: 'linear-gradient(90deg,#10b981 0%,#34d399 50%,#fbbf24 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
             defend your cloud
@@ -221,7 +240,7 @@ export default function Features() {
       {/* ── DEEP DIVE TABS ── */}
       <section style={{ padding: '88px 48px', maxWidth: 1200, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 48 }}>
-          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: -0.8, marginBottom: 12 }}>
+          <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, lineHeight: 1.1, letterSpacing: -0.8, marginBottom: 12 }}>
             Deep-dive into the platform
           </h2>
           <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto' }}>
@@ -235,11 +254,11 @@ export default function Features() {
             <button key={tab} onClick={() => setActiveTab(tab)} style={{
               padding: '9px 20px', borderRadius: 8, fontSize: 14, fontWeight: 600, cursor: 'pointer', border: 'none',
               background: activeTab === tab ? 'rgba(16,185,129,0.14)' : 'rgba(255,255,255,0.04)',
-              color: activeTab === tab ? '#fff' : 'var(--text-secondary)',
+              color: activeTab === tab ? 'var(--text-primary)' : 'var(--text-secondary)',
               borderBottom: activeTab === tab ? '2px solid #10b981' : '2px solid transparent',
               transition: 'background-color .2s, border-color .2s, color .2s, fill .2s, stroke .2s, opacity .2s, box-shadow .2s, transform .2s',
             }}
-              onMouseEnter={e => { if (activeTab !== tab) { e.currentTarget.style.color = '#fff'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; } }}
+              onMouseEnter={e => { if (activeTab !== tab) { e.currentTarget.style.color = 'var(--text-primary)'; e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; } }}
               onMouseLeave={e => { if (activeTab !== tab) { e.currentTarget.style.color = 'var(--text-secondary)'; e.currentTarget.style.background = 'rgba(255,255,255,0.04)'; } }}
             >{tab}</button>
           ))}
@@ -252,7 +271,7 @@ export default function Features() {
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 6, background: `${detail.badge.color}14`, border: `1px solid ${detail.badge.color}30`, borderRadius: 100, padding: '4px 14px', fontSize: 10, fontWeight: 800, color: detail.badge.color, letterSpacing: 1.2, marginBottom: 22 }}>
               {detail.badge.label}
             </div>
-            <h3 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 30, fontWeight: 800, color: '#fff', lineHeight: 1.25, marginBottom: 18 }}>{detail.headline}</h3>
+            <h3 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 30, fontWeight: 800, lineHeight: 1.25, marginBottom: 18 }}>{detail.headline}</h3>
             <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.85, marginBottom: 28 }}>{detail.body}</p>
             <ul style={{ listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 12 }}>
               {detail.bullets.map(b => (
@@ -270,8 +289,8 @@ export default function Features() {
               <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 11, color: 'var(--text-muted)', marginLeft: 8 }}>sentinelx — zsh</span>
             </div>
             <div style={{ padding: '28px 24px', display: 'flex', flexDirection: 'column', gap: 10, minHeight: 260 }}>
-              {detail.console.map((line, i) => (
-                <div key={i} style={{ display: 'flex', gap: 0, fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5, lineHeight: 1.7 }}>
+              {detail.console.map((line) => (
+                <div key={line.prefix + line.cmd} style={{ display: 'flex', gap: 0, fontFamily: 'JetBrains Mono, monospace', fontSize: 12.5, lineHeight: 1.7 }}>
                   <span style={{ color: 'var(--text-muted)', whiteSpace: 'pre', flexShrink: 0, minWidth: 120 }}>{line.prefix}</span>
                   <span style={{ color: line.color, whiteSpace: 'pre-wrap', wordBreak: 'break-word' }}>{line.cmd}</span>
                 </div>
@@ -289,7 +308,7 @@ export default function Features() {
       <section style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '88px 48px' }}>
         <div style={{ maxWidth: 1200, margin: '0 auto' }}>
           <div style={{ textAlign: 'center', marginBottom: 56 }}>
-            <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, color: '#fff', letterSpacing: -0.8, marginBottom: 14 }}>
+            <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, letterSpacing: -0.8, marginBottom: 14 }}>
               Complete security coverage
             </h2>
             <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto' }}>
@@ -303,7 +322,7 @@ export default function Features() {
                 onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = 'none'; }}
               >
                 <div style={{ width: 46, height: 46, borderRadius: 12, background: `${cap.color}12`, border: `1px solid ${cap.color}25`, display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 22, marginBottom: 16 }}>{cap.icon}</div>
-                <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 700, color: '#fff', marginBottom: 8 }}>{cap.title}</div>
+                <div className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 700, marginBottom: 8 }}>{cap.title}</div>
                 <div style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.75 }}>{cap.desc}</div>
               </div>
             ))}
@@ -314,7 +333,7 @@ export default function Features() {
       {/* ── VS COMPARISON TABLE ── */}
       <section style={{ padding: '88px 48px', maxWidth: 1100, margin: '0 auto' }}>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
-          <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, color: '#fff', letterSpacing: -0.8, marginBottom: 14 }}>
+          <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 44, fontWeight: 900, letterSpacing: -0.8, marginBottom: 14 }}>
             Why teams switch to SentinelX
           </h2>
           <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto' }}>
@@ -333,7 +352,7 @@ export default function Features() {
             ].map(col => (
               <div key={col.name} style={{ padding: '20px 0', textAlign: 'center', background: col.accent ? 'rgba(16, 185, 129,0.06)' : 'transparent', borderLeft: col.accent ? '1px solid rgba(16, 185, 129,0.18)' : '1px solid var(--border)' }}>
                 {col.accent && <div style={{ fontSize: 8, fontWeight: 800, letterSpacing: 1, color: '#10b981', marginBottom: 4 }}>RECOMMENDED</div>}
-                <div style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 700, color: col.accent ? '#fff' : 'var(--text-secondary)' }}>{col.name}</div>
+                <div className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 15, fontWeight: 700 }}>{col.name}</div>
               </div>
             ))}
           </div>
@@ -374,7 +393,7 @@ export default function Features() {
 
       {/* ── FINAL CTA ── */}
       <section style={{ padding: '80px 48px', maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
-        <h2 style={{ fontFamily: 'Outfit, sans-serif', fontSize: 48, fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: -1, marginBottom: 18 }}>
+        <h2 className="hero-text-primary" style={{ fontFamily: 'Outfit, sans-serif', fontSize: 48, fontWeight: 900, lineHeight: 1.1, letterSpacing: -1, marginBottom: 18 }}>
           See every feature in action
         </h2>
         <p style={{ fontSize: 18, color: 'var(--text-secondary)', maxWidth: 480, margin: '0 auto 40px', lineHeight: 1.7 }}>

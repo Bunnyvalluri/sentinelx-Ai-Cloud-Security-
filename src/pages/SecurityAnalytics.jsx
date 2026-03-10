@@ -187,8 +187,8 @@ export default function SecurityAnalytics() {
         <table className="data-table">
           <thead><tr><th>RESOURCE NAME</th><th>RESOURCE TYPE</th><th>ATTACK FREQUENCY</th><th>RISK LEVEL</th><th>PROTECTION STATUS</th><th>ACTIONS</th></tr></thead>
           <tbody>
-            {TOP_RESOURCES.map((r, i) => (
-              <tr key={i}>
+            {TOP_RESOURCES.map((r) => (
+              <tr key={r.name}>
                 <td style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
                   <div style={{ width: 26, height: 26, borderRadius: 6, background: 'var(--blue-dim)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 12, color: 'var(--blue-light)' }}>≡</div>
                   <span style={{ color: 'var(--text-primary)', fontWeight: 600, fontSize: 13, fontFamily: 'JetBrains Mono, monospace' }}>{r.name}</span>

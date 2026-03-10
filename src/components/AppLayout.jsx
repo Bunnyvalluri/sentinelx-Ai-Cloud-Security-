@@ -1,5 +1,6 @@
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import Logo from './common/Logo';
 import { useTheme } from '../context/ThemeContext';
 
 /* ── Professional SVG Icons ── */
@@ -195,30 +196,21 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
 
       {/* ── SIDEBAR ── */}
       <aside className={`sidebar${sidebarOpen ? ' sidebar-open' : ''}`}>
-        {/* Logo */}
-        <div className="sidebar-logo">
-          <div className="logo-icon" style={{ background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)', boxShadow: '0 0 20px rgba(139,92,246,0.5)' }}>
-            <Icons.Shield />
-          </div>
-          <span style={{
-            background: 'linear-gradient(90deg, #a78bfa, #818cf8)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            fontFamily: 'Outfit, sans-serif',
-            fontWeight: 800,
-            fontSize: 18,
-            letterSpacing: '-0.3px',
-          }}>SentinelX</span>
-          <button
-            onClick={() => setSidebarOpen(false)}
-            className="sidebar-close-btn"
-            aria-label="Close menu"
-          >✕</button>
+        {/* Logo Section */}
+        <div className="sidebar-logo" style={{ flexDirection: 'column', gap: 8, padding: '28px 16px 20px', height: 'auto', alignItems: 'center' }}>
+          <Logo layout="vertical" size={52} glow={true} />
         </div>
 
+        {/* Mobile Close Button (Top Right) */}
+        <button
+          onClick={() => setSidebarOpen(false)}
+          className="sidebar-close-btn"
+          style={{ position: 'absolute', right: 12, top: 12, zIndex: 110 }}
+          aria-label="Close menu"
+        >✕</button>
+
         {/* New: version badge */}
-        <div style={{ padding: '10px 16px 6px', display: 'flex', gap: 8, alignItems: 'center' }}>
+        <div style={{ padding: '4px 16px 16px', display: 'flex', gap: 8, alignItems: 'center', justifyContent: 'center' }}>
           <span style={{
             fontSize: 10, fontWeight: 700, letterSpacing: 0.5,
             background: 'rgba(139,92,246,0.12)',
@@ -226,7 +218,6 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
             color: '#a78bfa', borderRadius: 6, padding: '2px 8px',
           }}>v4.2.1</span>
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 6px #22c55e', display: 'inline-block' }} />
-          <span style={{ fontSize: 10, color: 'var(--text-muted)' }}>All systems up</span>
         </div>
 
         {/* Nav */}

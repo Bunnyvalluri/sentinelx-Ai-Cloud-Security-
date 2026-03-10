@@ -127,13 +127,14 @@ export default function ThreatMonitoring() {
               </tr>
             </thead>
             <tbody>
-              {paginatedAlerts.map((a, i) => {
+              {paginatedAlerts.map((a) => {
                 const s = SEV_STYLE[a.sev] || SEV_STYLE['INFO'];
                 const statC = { OPEN: '#ef4444', INVESTIGATING: '#f59e0b', RESOLVED: '#10b981' }[a.status] || '#10b981';
                 const actualIndex = filteredAlerts.findIndex(f => f === a);
                 const isSelected = selectedAlertIdx === actualIndex;
+                const rowKey = `${a.ts}-${a.src}-${a.def}`;
                 return (
-                  <tr key={a.ts + i} onClick={() => setSelectedAlertIdx(actualIndex)} style={{ cursor: 'pointer', background: isSelected ? 'rgba(255,255,255,0.04)' : '' }}>
+                  <tr key={rowKey} onClick={() => setSelectedAlertIdx(actualIndex)} style={{ cursor: 'pointer', background: isSelected ? 'rgba(255,255,255,0.04)' : '' }}>
                     <td>
                       <span style={{ background: s.bg, color: s.c, border: `1px solid ${s.b}`, padding: '2px 8px', borderRadius: 100, fontSize: 10, fontWeight: 700 }}>{a.sev}</span>
                     </td>
@@ -226,7 +227,7 @@ export default function ThreatMonitoring() {
               {[20, 40, 60, 80].map(y => <line key={`y${y}`} x1="0" x2="200" y1={y} y2={y} stroke="rgba(255,255,255,0.02)" strokeWidth="1" />)}
               {[40, 80, 120, 160].map(x => <line key={`x${x}`} x1={x} x2={x} y1="0" y2="100" stroke="rgba(255,255,255,0.02)" strokeWidth="1" />)}
               {[[30, 40, '#ef4444'], [120, 55, '#10b981'], [160, 35, '#f59e0b'], [80, 60, '#10b981'], [140, 20, '#2dd4bf'], [50, 70, '#f97316']].map(([x, y, c], i) => (
-                <g key={i}>
+                <g key={`${x}-${y}-${c}`}>
                   <circle cx={x} cy={y} r="2.5" fill={c} opacity="0.9" />
                   <circle cx={x} cy={y} r="8" fill={c} opacity="0.2">
                     <animate attributeName="r" values="6;16;6" dur={`${1.5 + i * 0.2}s`} repeatCount="indefinite" />

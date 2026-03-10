@@ -1,5 +1,6 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
+import Logo from '../components/common/Logo';
 import {
   auth, googleProvider, githubProvider, appleProvider,
   signInWithEmailAndPassword, createUserWithEmailAndPassword,
@@ -290,10 +291,7 @@ export default function LoginPage() {
 
         {/* Logo + live clock */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 40 }}>
-          <Link to="/" style={{ display: 'flex', alignItems: 'center', gap: 10, textDecoration: 'none' }}>
-            <div style={{ width: 36, height: 36, borderRadius: 9, background: 'linear-gradient(135deg, var(--blue), var(--green))', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 18, boxShadow: '0 0 16px var(--blue-glow)' }}>🛡</div>
-            <span style={{ fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 900, color: 'var(--text-primary)' }}>SentinelX</span>
-          </Link>
+          <Logo layout="horizontal" size={32} />
           <div style={{ textAlign: 'right' }}>
             <div style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', letterSpacing: 2 }}>
               {now.toLocaleTimeString('en-GB')}
@@ -425,8 +423,10 @@ export default function LoginPage() {
           {/* Email/Password form */}
           <form onSubmit={handleEmailAuth} style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
             <div>
-              <label style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.6 }}>Email</label>
-              <input required type="email" placeholder="you@company.com" value={email}
+              <label htmlFor="login-email" style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.6 }}>Email</label>
+              <input
+                id="login-email"
+                required type="email" placeholder="you@company.com" value={email}
                 onChange={e => setEmail(e.target.value)} style={inp}
                 onFocus={e => e.target.style.borderColor = 'var(--blue)'}
                 onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'}
@@ -434,7 +434,7 @@ export default function LoginPage() {
             </div>
             <div>
               <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 6 }}>
-                <label style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 0.6 }}>Password</label>
+                <label htmlFor="login-pwd" style={{ fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 0.6 }}>Password</label>
                 {mode === 'login' && (
                   <button type="button" onClick={handleForgot} disabled={loading === 'reset'}
                     style={{ fontSize: 11.5, color: 'var(--blue-light)', fontWeight: 600, background: 'none', border: 'none', cursor: 'pointer', padding: 0 }}>
@@ -443,7 +443,9 @@ export default function LoginPage() {
                 )}
               </div>
               <div style={{ position: 'relative' }}>
-                <input required type={showPwd ? 'text' : 'password'} placeholder="••••••••••" value={pwd}
+                <input
+                  id="login-pwd"
+                  required type={showPwd ? 'text' : 'password'} placeholder="••••••••••" value={pwd}
                   onChange={e => setPwd(e.target.value)} style={{ ...inp, paddingRight: 50 }}
                   onFocus={e => e.target.style.borderColor = 'var(--blue)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'}
@@ -457,8 +459,10 @@ export default function LoginPage() {
 
             {mode === 'signup' && (
               <div>
-                <label style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.6 }}>Confirm Password</label>
-                <input required type="password" placeholder="••••••••••" value={confirmPwd}
+                <label htmlFor="confirm-pwd" style={{ display: 'block', fontSize: 10.5, fontWeight: 700, color: 'var(--text-muted)', marginBottom: 6, textTransform: 'uppercase', letterSpacing: 0.6 }}>Confirm Password</label>
+                <input
+                  id="confirm-pwd"
+                  required type="password" placeholder="••••••••••" value={confirmPwd}
                   onChange={e => setConfirmPwd(e.target.value)} style={inp}
                   onFocus={e => e.target.style.borderColor = 'var(--blue)'}
                   onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.10)'}

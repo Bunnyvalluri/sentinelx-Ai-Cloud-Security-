@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import MarketingLayout from '../components/MarketingLayout';
+import Logo from '../components/common/Logo';
 
 const LOGOS_ROW1 = [
   { name: 'Vercel', icon: '▲' },
@@ -78,6 +79,11 @@ export default function LandingPage() {
         {/* Hero Section */}
         <section className="landing-hero" style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: 860, margin: '0 auto', padding: '110px 32px 80px' }}>
 
+          {/* Main Brand Logo on Hero */}
+          <div style={{ marginBottom: 40, display: 'flex', justifyContent: 'center', animation: 'fadeInDown 0.8s ease-out' }}>
+            <Logo layout="vertical" size={120} glow={true} />
+          </div>
+
           {/* Badge */}
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.30)', borderRadius: 100, padding: '6px 18px 6px 8px', marginBottom: 32 }}>
             <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', color: '#fff', borderRadius: 100, padding: '2px 10px', fontSize: 10, fontWeight: 800, letterSpacing: 0.6 }}>NEW</span>
@@ -116,8 +122,13 @@ export default function LandingPage() {
           {/* Social proof */}
           <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 12.5, color: 'rgba(255,255,255,0.35)' }}>
             <div style={{ display: 'flex' }}>
-              {['#8b5cf6', '#6366f1', '#38bdf8', '#22c55e', '#f59e0b'].map((c, i) => (
-                <div className="marquee-item" key={i} style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: i === 0 ? 0 : -8, boxShadow: `0 0 8px ${c}55` }} />
+              {['#8b5cf6', '#6366f1', '#38bdf8', '#22c55e', '#f59e0b'].map((c) => (
+                <div
+                  className="marquee-item"
+                  key={c}
+                  role="presentation"
+                  style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: -8, firstChild: { marginLeft: 0 }, boxShadow: `0 0 8px ${c}55` }}
+                />
               ))}
             </div>
             <span>Trusted by <strong style={{ color: 'rgba(255,255,255,0.65)' }}>10,000+</strong> security teams worldwide</span>
@@ -149,8 +160,8 @@ export default function LandingPage() {
             </div>
             {/* Terminal body */}
             <div style={{ background: '#070d1a', padding: '28px 32px', fontFamily: 'JetBrains Mono, monospace', fontSize: 13.5, lineHeight: 2 }}>
-              {TERMINAL_LINES.slice(0, visibleLines).map((line, i) => (
-                <div className="marquee-item" key={i} style={{ display: 'flex', opacity: 1, animation: 'fadeInLine .3s ease' }}>
+              {TERMINAL_LINES.slice(0, visibleLines).map((line) => (
+                <div className="marquee-item" key={line.text} style={{ display: 'flex', opacity: 1, animation: 'fadeInLine .3s ease' }}>
                   <span style={{ color: 'rgba(255,255,255,0.25)', minWidth: 18 }}>{line.prefix}</span>
                   <span style={{ color: line.color }}>{line.text}</span>
                 </div>
@@ -178,7 +189,7 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}>
               {[...LOGOS_ROW1, ...LOGOS_ROW1].map((logo, i) => (
-                <div className="marquee-item" key={i} style={{
+                <div className="marquee-item" key={`${logo.name}-${i}`} style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.07)',
@@ -214,7 +225,7 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}>
               {[...LOGOS_ROW2, ...LOGOS_ROW2].map((logo, i) => (
-                <div className="marquee-item" key={i} style={{
+                <div className="marquee-item" key={`${logo.name}-${i}`} style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10,
                   background: 'rgba(255,255,255,0.04)',
                   border: '1px solid rgba(255,255,255,0.07)',
@@ -254,8 +265,8 @@ export default function LandingPage() {
             </div>
 
             <div className="landing-features-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
-              {FEATURES.map((f, i) => (
-                <div className="marquee-item" key={i} style={{
+              {FEATURES.map((f) => (
+                <div className="marquee-item" key={f.title} style={{
                   padding: '36px', borderRadius: 16,
                   background: `linear-gradient(135deg, ${f.glow}, rgba(255,255,255,0.02))`,
                   border: `1px solid ${f.color}22`,

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { useTheme } from '../context/ThemeContext';
+import Logo from './common/Logo';
 
 const NAV_LINKS = [
   { label: 'Features', to: '/features' },
@@ -43,13 +44,8 @@ export default function MarketingLayout({ children }) {
 
       {/* ── Navbar ── */}
       <nav className="marketing-nav" style={{ borderBottom: '1px solid var(--border)' }}>
-        <Link to="/" className="marketing-logo" style={{ display: 'flex', alignItems: 'center', gap: 10, fontFamily: 'Outfit, sans-serif', fontSize: 19, fontWeight: 900, textDecoration: 'none', flexShrink: 0 }}>
-          <div style={{ width: 32, height: 32, borderRadius: 9, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.45)', flexShrink: 0 }}>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            </svg>
-          </div>
-          <span style={{ background: 'linear-gradient(90deg,#a78bfa,#818cf8,#38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>SentinelX</span>
+        <Link to="/" className="marketing-logo" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <Logo layout="vertical" size={32} glow={true} />
         </Link>
 
         {/* Desktop nav */}
@@ -150,23 +146,20 @@ export default function MarketingLayout({ children }) {
       )}
 
       {/* ── Content ── */}
-      <main>{children}</main>
+      <main style={{ position: 'relative', zIndex: 1 }}>{children}</main>
 
       {/* ── Premium Footer ── */}
-      <footer style={{ background: 'rgba(3,3,10,0.98)', borderTop: '1px solid rgba(139,92,246,0.12)', padding: '72px 0 36px' }}>
+      <footer style={{ background: 'var(--bg-primary)', borderTop: '1px solid var(--border)', padding: '72px 0 36px', transition: 'background 0.3s ease' }}>
         {/* Top glow line */}
         <div className="glow-line" style={{ marginBottom: 0 }} />
 
         <div style={{ maxWidth: 1200, margin: '0 auto', padding: '0 40px' }}>
           <div className="marketing-footer-grid">
             <div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 18, fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 800, color: '#fff' }}>
-                <div style={{ width: 32, height: 32, borderRadius: 8, background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 0 16px rgba(139,92,246,0.4)' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>
-                </div>
-                SentinelX
-              </div>
-              <p style={{ fontSize: 13.5, color: 'rgba(255,255,255,0.35)', lineHeight: 1.8, maxWidth: 280, marginBottom: 24 }}>
+              <Link to="/" style={{ textDecoration: 'none', marginBottom: 18, display: 'block' }}>
+                <Logo layout="horizontal" size={32} />
+              </Link>
+              <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.8, maxWidth: 280, marginBottom: 24 }}>
                 AI-powered cloud security platform protecting enterprise infrastructure from advanced threats — in real time.
               </p>
               {/* Status */}
@@ -196,11 +189,11 @@ export default function MarketingLayout({ children }) {
               { title: 'Security', links: [{ l: 'SOC2 Report', to: '/legal' }, { l: 'Privacy Policy', to: '/legal' }, { l: 'Status Page', to: '/contact' }, { l: 'Bug Bounty', to: '/contact' }] },
             ].map(col => (
               <div key={col.title}>
-                <h5 style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: 1.4, textTransform: 'uppercase', color: 'rgba(255,255,255,0.25)', marginBottom: 20 }}>{col.title}</h5>
+                <h5 style={{ fontSize: 10.5, fontWeight: 800, letterSpacing: 1.4, textTransform: 'uppercase', color: 'var(--text-muted)', marginBottom: 20 }}>{col.title}</h5>
                 {col.links.map(l => (
-                  <Link key={l.l} to={l.to} style={{ display: 'block', marginBottom: 12, fontSize: 13.5, color: 'rgba(255,255,255,0.45)', textDecoration: 'none', transition: 'color .2s' }}
-                    onMouseEnter={e => e.currentTarget.style.color = '#fff'}
-                    onMouseLeave={e => e.currentTarget.style.color = 'rgba(255,255,255,0.45)'}
+                  <Link key={l.l} to={l.to} style={{ display: 'block', marginBottom: 12, fontSize: 13.5, color: 'var(--text-secondary)', textDecoration: 'none', transition: 'color .2s' }}
+                    onMouseEnter={e => e.currentTarget.style.color = 'var(--text-primary)'}
+                    onMouseLeave={e => e.currentTarget.style.color = 'var(--text-secondary)'}
                   >{l.l}</Link>
                 ))}
               </div>
@@ -208,7 +201,7 @@ export default function MarketingLayout({ children }) {
           </div>
 
           {/* Bottom bar */}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'rgba(255,255,255,0.3)' }}>
+          <div style={{ borderTop: '1px solid var(--border)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
             <div>© 2024 SentinelX Security Inc. All rights reserved.</div>
             <div style={{ display: 'flex', gap: 20 }}>
               {[

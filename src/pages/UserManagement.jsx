@@ -87,11 +87,15 @@ function EditModal({ user, onClose, onSave }) {
           <button onClick={onClose} style={{ background: 'rgba(255,255,255,.06)', border: '1px solid rgba(255,255,255,.1)', borderRadius: 8, color: '#9ca3af', width: 32, height: 32, cursor: 'pointer', fontSize: 16 }}>✕</button>
         </div>
         <img src={user.img} alt="" style={{ width: 52, height: 52, borderRadius: '50%', border: '2px solid rgba(91,184,212,.4)', marginBottom: 20 }} />
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: 1, marginBottom: 6 }}>DISPLAY NAME</label>
-        <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
+        <label htmlFor="edit-name" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: 1, marginBottom: 6 }}>DISPLAY NAME</label>
+        <input
+          id="edit-name"
+          value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
           style={{ width: '100%', background: 'rgba(255,255,255,.06)', border: '1px solid rgba(91,184,212,.25)', borderRadius: 10, padding: '10px 14px', color: '#fff', fontSize: 14, marginBottom: 16, outline: 'none' }} />
-        <label style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: 1, marginBottom: 6 }}>RBAC ROLE</label>
-        <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
+        <label htmlFor="edit-role" style={{ display: 'block', fontSize: 11, fontWeight: 700, color: 'var(--text-muted)', letterSpacing: 1, marginBottom: 6 }}>RBAC ROLE</label>
+        <select
+          id="edit-role"
+          value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))}
           style={{ width: '100%', background: '#1a3a52', border: '1px solid rgba(91,184,212,.25)', borderRadius: 10, padding: '10px 14px', color: '#fff', fontSize: 14, marginBottom: 16, outline: 'none', cursor: 'pointer' }}>
           <option value="PRODUCT_OWNER">PRODUCT_OWNER</option>
           <option value="ARCHITECT">ARCHITECT</option>

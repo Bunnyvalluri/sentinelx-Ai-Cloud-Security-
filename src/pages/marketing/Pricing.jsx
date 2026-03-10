@@ -152,7 +152,7 @@ export default function Pricing() {
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px 88px' }}>
         <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 38, fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 40 }}>Frequently asked questions</h2>
         {FAQS.map((faq, i) => (
-          <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, marginBottom: 10, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+          <div key={faq.q} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, marginBottom: 10, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
             <div style={{ padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
               <span style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>{faq.q}</span>
               <span style={{ fontSize: 18, color: 'var(--blue-light)', transition: 'transform .2s', transform: openFaq === i ? 'rotate(45deg)' : 'none' }}>+</span>
