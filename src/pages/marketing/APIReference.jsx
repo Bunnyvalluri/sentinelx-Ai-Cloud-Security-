@@ -65,13 +65,13 @@ export default function APIReference() {
           {/* Header */}
           <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 24 }}>
             <span style={{ padding: '6px 14px', borderRadius: 8, background: `${METHOD_COLOR[selectedEndpoint.method]}18`, color: METHOD_COLOR[selectedEndpoint.method], fontFamily: 'JetBrains Mono', fontWeight: 800, fontSize: 14 }}>{selectedEndpoint.method}</span>
-            <span style={{ fontFamily: 'JetBrains Mono', fontSize: 22, color: '#fff', fontWeight: 600 }}>{selectedEndpoint.path}</span>
+            <span style={{ fontFamily: 'JetBrains Mono', fontSize: 22, color: 'var(--text-primary)', fontWeight: 600 }}>{selectedEndpoint.path}</span>
           </div>
           <p style={{ fontSize: 16, color: 'var(--text-secondary)', marginBottom: 36, lineHeight: 1.7 }}>{selectedEndpoint.desc}. Returns paginated results ordered by creation time descending.</p>
 
           {/* Auth */}
           <div style={{ marginBottom: 36 }}>
-            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 14 }}>Authentication</h3>
+            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 14 }}>Authentication</h3>
             <div style={{ background: '#0a0e1a', border: '1px solid rgba(16, 185, 129,0.2)', borderRadius: 12, padding: '16px 20px', fontFamily: 'JetBrains Mono', fontSize: 13, color: 'var(--text-secondary)' }}>
               <span style={{ color: 'var(--text-muted)' }}>Authorization: </span>
               <span style={{ color: 'var(--blue-light)' }}>Bearer </span>
@@ -81,7 +81,7 @@ export default function APIReference() {
 
           {/* Parameters */}
           <div style={{ marginBottom: 36 }}>
-            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 14 }}>Query Parameters</h3>
+            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 14 }}>Query Parameters</h3>
             <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, overflow: 'hidden' }}>
               {[
                 { param: 'severity', type: 'string', req: false, desc: 'Filter by severity: critical, high, medium, low' },
@@ -103,7 +103,7 @@ export default function APIReference() {
 
           {/* Response */}
           <div>
-            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 14 }}>Example Response</h3>
+            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 14 }}>Example Response</h3>
             <div style={{ background: '#0a0e1a', border: '1px solid rgba(16, 185, 129,0.2)', borderRadius: 14, overflow: 'hidden' }}>
               <div style={{ padding: '10px 20px', borderBottom: '1px solid rgba(16, 185, 129,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                 <div style={{ display: 'flex', gap: 6 }}>{['#ef4444', '#f59e0b', '#10b981'].map(c => <div key={c} style={{ width: 10, height: 10, borderRadius: '50%', background: c }} />)}</div>

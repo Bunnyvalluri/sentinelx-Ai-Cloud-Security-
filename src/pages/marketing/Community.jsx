@@ -21,7 +21,7 @@ export default function Community() {
     <MarketingLayout>
       <section style={{ padding: '100px 48px 60px', textAlign: 'center', maxWidth: 1000, margin: '0 auto' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(34,211,238,0.1)', border: '1px solid rgba(34,211,238,0.25)', padding: '6px 16px', borderRadius: 100, color: 'var(--cyan)', fontSize: 12, fontWeight: 700, marginBottom: 24 }}>👥 COMMUNITY HUB</div>
-        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: '#fff', lineHeight: 1.1, marginBottom: 18, letterSpacing: -1 }}>
+        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: 18, letterSpacing: -1 }}>
           Learn, share, and build<br /><span style={{ background: 'linear-gradient(90deg,#22d3ee,#f59e0b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>with 12,000+ security pros</span>
         </h1>
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', lineHeight: 1.7 }}>The SentinelX Community is where security engineers, threat hunters, and compliance teams collaborate — sharing detection rules, discussing threats, and helping each other get the most out of the platform.</p>
@@ -40,7 +40,7 @@ export default function Community() {
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px 80px', display: 'grid', gridTemplateColumns: '1fr 300px', gap: 32 }}>
         <div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 20 }}>
-            <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 24, fontWeight: 800, color: '#fff' }}>Recent Discussions</h2>
+            <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 24, fontWeight: 800, color: 'var(--text-primary)' }}>Recent Discussions</h2>
             <button className="btn btn-primary" onClick={() => alert('Demo Mode: Feature coming soon!')}>+ New Thread</button>
           </div>
 
@@ -56,7 +56,7 @@ export default function Community() {
                     {t.pinned && <span style={{ background: 'rgba(16,185,129,0.2)', color: 'var(--blue-light)', padding: '2px 8px', borderRadius: 100, fontSize: 9, fontWeight: 800, border: '1px solid rgba(16,185,129,0.35)' }}>📌 PINNED</span>}
                     <span style={{ background: `${TAG_COLORS[t.tag]}18`, color: TAG_COLORS[t.tag], padding: '2px 10px', borderRadius: 100, fontSize: 10, fontWeight: 800, border: `1px solid ${TAG_COLORS[t.tag]}35` }}>{t.tag}</span>
                   </div>
-                  <div style={{ fontWeight: 700, color: '#fff', fontSize: 16, marginBottom: 6, lineHeight: 1.4 }}>{t.title}</div>
+                  <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 16, marginBottom: 6, lineHeight: 1.4 }}>{t.title}</div>
                   <div style={{ display: 'flex', gap: 14, fontSize: 12, color: 'var(--text-muted)', flexWrap: 'wrap' }}>
                     <span style={{ color: 'var(--blue-light)', fontWeight: 600 }}>@{t.author}</span>
                     <span>{t.role}</span>
@@ -73,18 +73,18 @@ export default function Community() {
         {/* Sidebar */}
         <div>
           <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24, marginBottom: 24 }}>
-            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 18 }}>Upcoming Events</h3>
+            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 18 }}>Upcoming Events</h3>
             {EVENTS.map((ev, i) => (
               <div key={i} style={{ paddingBottom: 16, marginBottom: 16, borderBottom: i < EVENTS.length - 1 ? '1px solid var(--border)' : 'none' }}>
                 <div style={{ fontSize: 11, fontWeight: 700, color: 'var(--blue-light)', marginBottom: 4 }}>{ev.date}</div>
-                <div style={{ fontWeight: 700, color: '#fff', fontSize: 14, marginBottom: 4 }}>{ev.title}</div>
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 14, marginBottom: 4 }}>{ev.title}</div>
                 <div style={{ fontSize: 12.5, color: 'var(--text-secondary)', lineHeight: 1.5 }}>{ev.desc}</div>
               </div>
             ))}
           </div>
 
           <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, padding: 24 }}>
-            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: '#fff', marginBottom: 18 }}>Join the Community</h3>
+            <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 18, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 18 }}>Join the Community</h3>
             <p style={{ fontSize: 13, color: 'var(--text-secondary)', lineHeight: 1.7, marginBottom: 18 }}>Connect with security engineers on Slack, GitHub, and Discord. Share detection rules and get help in real-time.</p>
             {[{ icon: '💬', label: 'Join Slack Community', color: '#4a154b' }, { icon: '🐙', label: 'GitHub Discussions', color: '#333' }, { icon: '🎮', label: 'Discord Server', color: '#5865f2' }].map(s => (
               <button onClick={() => alert('Demo Mode: Feature coming soon!')} key={s.label} className="btn btn-outline justify-start w-full mb-3 text-sm py-3 px-4">

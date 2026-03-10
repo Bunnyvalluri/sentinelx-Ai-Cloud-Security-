@@ -60,7 +60,7 @@ export default function Roadmap() {
           <span style={{ width: 6, height: 6, borderRadius: '50%', background: 'var(--blue)', display: 'inline-block', animation: 'pulse 2s infinite' }} />
           PUBLIC ROADMAP
         </div>
-        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 64, fontWeight: 900, color: '#fff', lineHeight: 1.08, letterSpacing: -2, marginBottom: 20 }}>
+        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 64, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.08, letterSpacing: -2, marginBottom: 20 }}>
           Built with your team.<br /><span style={{ background: 'linear-gradient(90deg,#10b981,#fbbf24)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>Shipped for your team.</span>
         </h1>
         <p style={{ fontSize: 18, color: 'var(--text-secondary)', maxWidth: 560, margin: '0 auto 36px', lineHeight: 1.75 }}>
@@ -86,7 +86,7 @@ export default function Roadmap() {
             <div key={qi} style={{ display: 'grid', gridTemplateColumns: '100px 1fr', gap: 42, marginBottom: 64, position: 'relative', zIndex: 1 }}>
               {/* Quarter label */}
               <div style={{ textAlign: 'right', paddingTop: 16 }}>
-                <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 16, fontWeight: 800, color: '#fff' }}>{quarter.q}</div>
+                <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 16, fontWeight: 800, color: 'var(--text-primary)' }}>{quarter.q}</div>
                 <div style={{ display: 'inline-flex', marginTop: 8, alignItems: 'center', gap: 5, background: st.bg, border: `1px solid ${st.border}`, borderRadius: 100, padding: '3px 10px', fontSize: 9, fontWeight: 800, color: st.color, letterSpacing: 0.5 }}>
                   <span style={{ width: 5, height: 5, borderRadius: '50%', background: st.dot, flexShrink: 0 }} />{quarter.label}
                 </div>
@@ -100,7 +100,7 @@ export default function Roadmap() {
                     onMouseLeave={e => { e.currentTarget.style.borderColor = quarter.status === 'in-progress' ? 'rgba(251,191,36,0.28)' : 'var(--border)'; e.currentTarget.style.transform = 'none'; }}
                   >
                     <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 8, gap: 12 }}>
-                      <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 17, fontWeight: 700, color: '#fff', lineHeight: 1.3, flex: 1 }}>{item.title}</div>
+                      <div style={{ fontFamily: 'Outfit,sans-serif', fontSize: 17, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.3, flex: 1 }}>{item.title}</div>
                       <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', justifyContent: 'flex-end', flexShrink: 0 }}>
                         {item.tags.map(tag => (
                           <span key={tag} style={{ fontSize: 9, fontWeight: 800, padding: '2px 8px', borderRadius: 100, background: tag.includes('🔥') || tag.includes('🚀') ? 'rgba(251,191,36,0.15)' : 'rgba(255,255,255,0.07)', color: tag.includes('🔥') || tag.includes('🚀') ? '#fbbf24' : 'var(--text-muted)', border: '1px solid rgba(255,255,255,0.1)' }}>{tag}</span>
@@ -119,7 +119,7 @@ export default function Roadmap() {
       {/* Feature request CTA */}
       <section style={{ margin: '0 48px 80px', background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 22, padding: '64px 48px', textAlign: 'center' }}>
         <div style={{ fontSize: 40, marginBottom: 16 }}>💡</div>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 36, fontWeight: 900, color: '#fff', marginBottom: 14 }}>Have a feature request?</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 36, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 14 }}>Have a feature request?</h2>
         <p style={{ fontSize: 16, color: 'var(--text-secondary)', maxWidth: 440, margin: '0 auto 32px', lineHeight: 1.7 }}>We build what our customers need. Upvote existing requests or submit new ones — the top requests ship next quarter.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap' }}>
           <a href="https://github.com/sentinelx/feedback/discussions" target="_blank" rel="noreferrer">

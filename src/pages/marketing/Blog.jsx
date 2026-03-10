@@ -79,7 +79,7 @@ export default function Blog() {
       {/* Hero */}
       <section style={{ padding: '96px 48px 64px', maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', gap: 7, background: 'rgba(255,107,43,0.1)', border: '1px solid rgba(255,107,43,0.22)', padding: '5px 16px', borderRadius: 100, fontSize: 12, fontWeight: 700, color: '#ff6b2b', marginBottom: 24 }}>📖 SENTINEL BLOG</div>
-        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 60, fontWeight: 900, color: '#fff', lineHeight: 1.1, letterSpacing: -1.5, marginBottom: 18 }}>
+        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 60, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.1, letterSpacing: -1.5, marginBottom: 18 }}>
           Security research,<br /><span style={{ background: 'linear-gradient(90deg,#ff3b6b,#ff6b2b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>direct from our team</span>
         </h1>
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 500, margin: '0 auto', lineHeight: 1.75 }}>
@@ -98,12 +98,12 @@ export default function Blog() {
               <span style={{ fontSize: 10, fontWeight: 800, padding: '3px 10px', borderRadius: 100, background: 'rgba(249,200,14,0.15)', color: '#f9c80e', border: '1px solid rgba(249,200,14,0.3)', letterSpacing: 0.5 }}>FEATURED</span>
               <span style={{ fontSize: 10, fontWeight: 800, padding: '3px 10px', borderRadius: 100, background: `${catColor[featured.cat]}15`, color: catColor[featured.cat], border: `1px solid ${catColor[featured.cat]}30` }}>{featured.cat.toUpperCase()}</span>
             </div>
-            <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 28, fontWeight: 800, color: '#fff', lineHeight: 1.25, marginBottom: 16 }}>{featured.title}</h2>
+            <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 28, fontWeight: 800, color: 'var(--text-primary)', lineHeight: 1.25, marginBottom: 16 }}>{featured.title}</h2>
             <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 24 }}>{featured.excerpt}</p>
             <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
               <div style={{ width: 36, height: 36, borderRadius: '50%', background: featured.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: '#fff', fontSize: 13 }}>{featured.initials}</div>
               <div>
-                <div style={{ fontWeight: 700, color: '#fff', fontSize: 13 }}>{featured.author}</div>
+                <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 13 }}>{featured.author}</div>
                 <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{featured.role} · {featured.date} · {featured.readTime} read</div>
               </div>
             </div>
@@ -140,7 +140,7 @@ export default function Blog() {
                 <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
                   <span style={{ fontSize: 10, fontWeight: 800, padding: '2px 9px', borderRadius: 100, background: `${catColor[post.cat] || '#10b981'}14`, color: catColor[post.cat] || '#10b981', border: `1px solid ${catColor[post.cat] || '#10b981'}30` }}>{post.cat.toUpperCase()}</span>
                 </div>
-                <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 17, fontWeight: 700, color: '#fff', lineHeight: 1.35, marginBottom: 10 }}>{post.title}</h3>
+                <h3 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 17, fontWeight: 700, color: 'var(--text-primary)', lineHeight: 1.35, marginBottom: 10 }}>{post.title}</h3>
                 <p style={{ fontSize: 13.5, color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 18 }}>{post.excerpt}</p>
                 <div style={{ display: 'flex', gap: 5, flexWrap: 'wrap', marginBottom: 18 }}>
                   {post.tags.map(tag => <span key={tag} style={{ fontSize: 10, fontWeight: 700, padding: '2px 8px', borderRadius: 100, background: 'rgba(255,255,255,0.05)', color: 'var(--text-muted)', border: '1px solid rgba(255,255,255,0.08)' }}>{tag}</span>)}
@@ -148,7 +148,7 @@ export default function Blog() {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, borderTop: '1px solid var(--border)', paddingTop: 14 }}>
                   <div style={{ width: 30, height: 30, borderRadius: '50%', background: post.avatarBg, display: 'flex', alignItems: 'center', justifyContent: 'center', fontWeight: 800, color: '#fff', fontSize: 11, flexShrink: 0 }}>{post.initials}</div>
                   <div>
-                    <div style={{ fontSize: 12, fontWeight: 700, color: '#fff' }}>{post.author}</div>
+                    <div style={{ fontSize: 12, fontWeight: 700, color: 'var(--text-primary)' }}>{post.author}</div>
                     <div style={{ fontSize: 11, color: 'var(--text-muted)' }}>{post.date} · {post.readTime} read</div>
                   </div>
                 </div>
@@ -162,7 +162,7 @@ export default function Blog() {
       <section style={{ background: 'var(--bg-secondary)', borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '72px 48px' }}>
         <div style={{ maxWidth: 560, margin: '0 auto', textAlign: 'center' }}>
           <div style={{ fontSize: 36, marginBottom: 16 }}>📬</div>
-          <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 36, fontWeight: 900, color: '#fff', marginBottom: 12 }}>Weekly Threat Intelligence Digest</h2>
+          <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 36, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 12 }}>Weekly Threat Intelligence Digest</h2>
           <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.75, marginBottom: 28 }}>Join 18,000+ security professionals who get our weekly digest — curated threat intel, new CVEs, and SentinelX platform updates.</p>
           {subscribed ? (
             <div style={{ display: 'inline-flex', alignItems: 'center', gap: 10, background: 'rgba(0,255,163,0.1)', border: '1px solid rgba(0,255,163,0.3)', borderRadius: 12, padding: '14px 24px', color: '#fbbf24', fontWeight: 700, fontSize: 15 }}>
@@ -171,7 +171,7 @@ export default function Blog() {
           ) : (
             <form onSubmit={e => { e.preventDefault(); setSubscribed(true); }} style={{ display: 'flex', gap: 10 }}>
               <input required type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)}
-                style={{ flex: 1, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '13px 16px', color: '#fff', fontSize: 14, fontFamily: 'Inter,sans-serif', outline: 'none' }}
+                style={{ flex: 1, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '13px 16px', color: 'var(--text-primary)', fontSize: 14, fontFamily: 'Inter,sans-serif', outline: 'none' }}
                 onFocus={e => e.target.style.borderColor = 'rgba(16, 185, 129,0.5)'}
                 onBlur={e => e.target.style.borderColor = 'var(--border)'}
               />

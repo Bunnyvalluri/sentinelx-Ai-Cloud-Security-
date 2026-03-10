@@ -47,7 +47,7 @@ export default function Legal() {
         <div style={{ position: 'sticky', top: 88, height: 'fit-content' }}>
           <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.2, color: 'var(--text-muted)', textTransform: 'uppercase', marginBottom: 20 }}>Legal Documents</div>
           {SECTIONS.map(s => (
-            <div key={s.id} onClick={() => setActive(s.id)} style={{ padding: '12px 16px', marginBottom: 6, borderRadius: 10, cursor: 'pointer', background: active === s.id ? 'rgba(16, 185, 129,0.12)' : 'transparent', color: active === s.id ? '#fff' : 'var(--text-secondary)', fontWeight: active === s.id ? 700 : 500, fontSize: 14, borderLeft: active === s.id ? '3px solid var(--blue)' : '3px solid transparent', transition: 'background-color .15s, border-color .15s, color .15s, fill .15s, stroke .15s, opacity .15s, box-shadow .15s, transform .15s' }}>{s.title}</div>
+            <div key={s.id} onClick={() => setActive(s.id)} style={{ padding: '12px 16px', marginBottom: 6, borderRadius: 10, cursor: 'pointer', background: active === s.id ? 'rgba(124, 58, 237,0.10)' : 'transparent', color: active === s.id ? 'var(--blue)' : 'var(--text-secondary)', fontWeight: active === s.id ? 700 : 500, fontSize: 14, borderLeft: active === s.id ? '3px solid var(--blue)' : '3px solid transparent', transition: 'background-color .15s, border-color .15s, color .15s, fill .15s, stroke .15s, opacity .15s, box-shadow .15s, transform .15s' }}>{s.title}</div>
           ))}
         </div>
 
@@ -56,10 +56,10 @@ export default function Legal() {
           <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(16, 185, 129,0.08)', border: '1px solid rgba(16, 185, 129,0.2)', padding: '4px 14px', borderRadius: 100, fontSize: 12, color: 'var(--text-muted)', marginBottom: 24 }}>
             📅 Last updated: {section.lastUpdated}
           </div>
-          <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 42, fontWeight: 900, color: '#fff', marginBottom: 40, lineHeight: 1.1 }}>{section.title}</h1>
+          <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 42, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 40, lineHeight: 1.1 }}>{section.title}</h1>
           {section.content.map((block, i) => (
             <div key={i} style={{ marginBottom: 36, paddingBottom: 36, borderBottom: i < section.content.length - 1 ? '1px solid var(--border)' : 'none' }}>
-              <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 700, color: '#fff', marginBottom: 14 }}>{block.h}</h2>
+              <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 20, fontWeight: 700, color: 'var(--text-primary)', marginBottom: 14 }}>{block.h}</h2>
               <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.9 }}>{block.p}</p>
             </div>
           ))}

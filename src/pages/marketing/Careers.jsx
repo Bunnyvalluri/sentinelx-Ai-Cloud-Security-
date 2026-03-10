@@ -30,7 +30,7 @@ export default function Careers() {
     <MarketingLayout>
       <section style={{ padding: '100px 48px 72px', maxWidth: 1100, margin: '0 auto', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(249,200,14,0.1)', border: '1px solid rgba(249,200,14,0.25)', padding: '6px 16px', borderRadius: 100, color: '#f9c80e', fontSize: 12, fontWeight: 700, marginBottom: 24 }}>🚀 WE'RE HIRING — {OPENINGS.length} OPEN ROLES</div>
-        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: '#fff', lineHeight: 1.1, marginBottom: 20, letterSpacing: -1 }}>
+        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.1, marginBottom: 20, letterSpacing: -1 }}>
           Join the team securing<br /><span style={{ background: 'linear-gradient(90deg,#f9c80e,#ff6b2b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>the world's enterprises</span>
         </h1>
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 600, margin: '0 auto', lineHeight: 1.75 }}>
@@ -40,7 +40,7 @@ export default function Careers() {
 
       {/* Benefits */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 48px 64px' }}>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 32, fontWeight: 800, color: '#fff', marginBottom: 32, textAlign: 'center' }}>Why SentinelX?</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 32, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 32, textAlign: 'center' }}>Why SentinelX?</h2>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 20 }}>
           {BENEFITS.map(b => (
             <div key={b.title} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, padding: 28, transition: 'background-color .2s, border-color .2s, color .2s, fill .2s, stroke .2s, opacity .2s, box-shadow .2s, transform .2s' }}
@@ -48,7 +48,7 @@ export default function Careers() {
               onMouseLeave={e => { e.currentTarget.style.borderColor = 'var(--border)'; e.currentTarget.style.transform = 'none'; }}
             >
               <div style={{ fontSize: 36, marginBottom: 14 }}>{b.icon}</div>
-              <div style={{ fontWeight: 700, color: '#fff', fontSize: 16, marginBottom: 8 }}>{b.title}</div>
+              <div style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 16, marginBottom: 8 }}>{b.title}</div>
               <div style={{ fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.7 }}>{b.desc}</div>
             </div>
           ))}
@@ -57,7 +57,7 @@ export default function Careers() {
 
       {/* Open Roles */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 48px 100px' }}>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 32, fontWeight: 800, color: '#fff', marginBottom: 32 }}>Open Positions</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 32, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 32 }}>Open Positions</h2>
         <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden' }}>
           {OPENINGS.map((job, i) => (
             <div key={i} style={{ display: 'flex', alignItems: 'center', padding: '20px 28px', borderBottom: i < OPENINGS.length - 1 ? '1px solid var(--border)' : 'none', transition: 'background .2s', cursor: 'pointer', gap: 16 }}
@@ -66,7 +66,7 @@ export default function Careers() {
             >
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 4 }}>
-                  <span style={{ fontWeight: 700, color: '#fff', fontSize: 16 }}>{job.role}</span>
+                  <span style={{ fontWeight: 700, color: 'var(--text-primary)', fontSize: 16 }}>{job.role}</span>
                   {job.badge && <span style={{ fontSize: 9, fontWeight: 800, background: 'rgba(255,59,107,0.18)', color: '#ff3b6b', border: '1px solid rgba(255,59,107,0.3)', borderRadius: 100, padding: '2px 8px' }}>{job.badge}</span>}
                 </div>
                 <div style={{ fontSize: 13, color: 'var(--text-muted)', display: 'flex', gap: 12 }}>

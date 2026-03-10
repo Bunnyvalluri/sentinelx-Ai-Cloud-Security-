@@ -66,7 +66,7 @@ export default function Pricing() {
       {/* Hero */}
       <section style={{ padding: '96px 48px 72px', maxWidth: 1000, margin: '0 auto', textAlign: 'center' }}>
         <div style={{ display: 'inline-flex', gap: 7, background: 'rgba(249,200,14,0.1)', border: '1px solid rgba(249,200,14,0.25)', padding: '5px 16px', borderRadius: 100, fontSize: 12, fontWeight: 700, color: '#f9c80e', marginBottom: 26 }}>💰 TRANSPARENT PRICING</div>
-        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 66, fontWeight: 900, color: '#fff', lineHeight: 1.08, letterSpacing: -2, marginBottom: 18 }}>
+        <h1 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 66, fontWeight: 900, color: 'var(--text-primary)', lineHeight: 1.08, letterSpacing: -2, marginBottom: 18 }}>
           Simple, predictable<br /><span style={{ background: 'linear-gradient(90deg,#f9c80e,#ff6b2b)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>pricing</span>
         </h1>
         <p style={{ fontSize: 18, color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto 40px', lineHeight: 1.75 }}>No per-seat surprises. No hidden log ingestion fees. Just powerful security at a price that scales with your team.</p>
@@ -90,10 +90,10 @@ export default function Pricing() {
             <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 1.2, color: plan.color, marginBottom: 12 }}>{plan.name.toUpperCase()}</div>
             <div style={{ marginBottom: 10 }}>
               {plan.isCustom ? (
-                <span style={{ fontFamily: 'Outfit,sans-serif', fontSize: 40, fontWeight: 900, color: '#fff' }}>Custom</span>
+                <span style={{ fontFamily: 'Outfit,sans-serif', fontSize: 40, fontWeight: 900, color: 'var(--text-primary)' }}>Custom</span>
               ) : (
                 <>
-                  <span style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: '#fff', letterSpacing: -1 }}>
+                  <span style={{ fontFamily: 'Outfit,sans-serif', fontSize: 52, fontWeight: 900, color: 'var(--text-primary)', letterSpacing: -1 }}>
                     ${annual ? plan.annualPrice : plan.monthlyPrice}
                   </span>
                   <span style={{ fontSize: 16, color: 'var(--text-muted)' }}>/mo</span>
@@ -127,7 +127,7 @@ export default function Pricing() {
 
       {/* Comparison table */}
       <section style={{ maxWidth: 1100, margin: '0 auto', padding: '0 48px 88px' }}>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 38, fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 40 }}>Full plan comparison</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 38, fontWeight: 900, color: 'var(--text-primary)', textAlign: 'center', marginBottom: 40 }}>Full plan comparison</h2>
         <div style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 18, overflow: 'hidden' }}>
           <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', borderBottom: '1px solid var(--border)' }}>
             <div style={{ padding: '18px 24px', fontSize: 12, fontWeight: 800, color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: 0.8 }}>Feature</div>
@@ -141,7 +141,7 @@ export default function Pricing() {
             <div key={row.label} style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', borderBottom: i < COMPARE_ROWS.length - 1 ? '1px solid rgba(255,255,255,0.04)' : 'none' }}>
               <div style={{ padding: '14px 24px', fontSize: 13.5, color: 'var(--text-secondary)' }}>{row.label}</div>
               {[row.starter, row.pro, row.ent].map((val, ci) => (
-                <div key={ci} style={{ padding: '14px 0', textAlign: 'center', fontSize: 13, color: val === '—' ? 'var(--text-muted)' : '#fff', fontWeight: val === '—' ? 400 : 600, background: ci === 1 ? 'rgba(16,185,129,0.04)' : 'transparent', borderLeft: '1px solid rgba(255,255,255,0.04)' }}>{val}</div>
+                <div key={ci} style={{ padding: '14px 0', textAlign: 'center', fontSize: 13, color: val === '—' ? 'var(--text-muted)' : 'var(--text-primary)', fontWeight: val === '—' ? 400 : 600, background: ci === 1 ? 'rgba(16,185,129,0.04)' : 'transparent', borderLeft: '1px solid var(--border)' }}>{val}</div>
               ))}
             </div>
           ))}
@@ -150,11 +150,11 @@ export default function Pricing() {
 
       {/* FAQ */}
       <section style={{ maxWidth: 800, margin: '0 auto', padding: '0 48px 88px' }}>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 38, fontWeight: 900, color: '#fff', textAlign: 'center', marginBottom: 40 }}>Frequently asked questions</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 38, fontWeight: 900, color: 'var(--text-primary)', textAlign: 'center', marginBottom: 40 }}>Frequently asked questions</h2>
         {FAQS.map((faq, i) => (
           <div key={faq.q} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 12, marginBottom: 10, overflow: 'hidden', cursor: 'pointer' }} onClick={() => setOpenFaq(openFaq === i ? null : i)}>
             <div style={{ padding: '18px 22px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-              <span style={{ fontSize: 15, fontWeight: 600, color: '#fff' }}>{faq.q}</span>
+              <span style={{ fontSize: 15, fontWeight: 600, color: 'var(--text-primary)' }}>{faq.q}</span>
               <span style={{ fontSize: 18, color: 'var(--blue-light)', transition: 'transform .2s', transform: openFaq === i ? 'rotate(45deg)' : 'none' }}>+</span>
             </div>
             {openFaq === i && <div style={{ padding: '0 22px 18px', fontSize: 14, color: 'var(--text-secondary)', lineHeight: 1.8, borderTop: '1px solid var(--border)' }}><br />{faq.a}</div>}
@@ -164,7 +164,7 @@ export default function Pricing() {
 
       {/* CTA */}
       <section style={{ margin: '0 48px 80px', background: 'linear-gradient(135deg,rgba(16,185,129,0.10),rgba(10,22,40,0.97))', border: '1px solid rgba(16,185,129,0.22)', borderRadius: 22, padding: '72px 48px', textAlign: 'center' }}>
-        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 44, fontWeight: 900, color: '#fff', marginBottom: 16 }}>Start securing your cloud today</h2>
+        <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 44, fontWeight: 900, color: 'var(--text-primary)', marginBottom: 16 }}>Start securing your cloud today</h2>
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 440, margin: '0 auto 36px', lineHeight: 1.7 }}>Full 14-day trial. No credit card. No commitment. Cancel anytime.</p>
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center' }}>
           <Link to="/login">
