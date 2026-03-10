@@ -123,13 +123,13 @@ export default function Blog() {
 
       {/* Category tabs + Grid */}
       <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px 72px' }}>
-        <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap', marginBottom: 36, alignItems: 'center' }}>
+        <div className="blog-categories" style={{ marginBottom: 36, alignItems: 'center' }}>
           {CATEGORIES.map(cat => (
             <button key={cat} onClick={() => setActiveCategory(cat)} style={{ padding: '8px 16px', borderRadius: 8, fontSize: 13, fontWeight: 600, cursor: 'pointer', border: 'none', background: activeCategory === cat ? 'rgba(16, 185, 129,0.14)' : 'rgba(255,255,255,0.04)', color: activeCategory === cat ? '#fff' : 'var(--text-secondary)', borderBottom: activeCategory === cat ? '2px solid #10b981' : '2px solid transparent', transition: 'background-color .15s, border-color .15s, color .15s, fill .15s, stroke .15s, opacity .15s, box-shadow .15s, transform .15s' }}>{cat}</button>
           ))}
         </div>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 22 }}>
+        <div className="blog-cards-grid">
           {filtered.map((post, i) => (
             <div key={i} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 16, overflow: 'hidden', cursor: 'pointer', transition: 'background-color .2s, border-color .2s, color .2s, fill .2s, stroke .2s, opacity .2s, box-shadow .2s, transform .2s' }}
               onMouseEnter={e => { e.currentTarget.style.borderColor = `${catColor[post.cat] || '#10b981'}40`; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 10px 32px ${catColor[post.cat] || '#10b981'}10`; }}
@@ -169,7 +169,7 @@ export default function Blog() {
               ✓ You're subscribed — check your inbox to confirm
             </div>
           ) : (
-            <form onSubmit={e => { e.preventDefault(); setSubscribed(true); }} style={{ display: 'flex', gap: 10 }}>
+            <form onSubmit={e => { e.preventDefault(); setSubscribed(true); }} style={{ display: 'flex', gap: 10, flexWrap: 'wrap' }}>
               <input required type="email" placeholder="you@company.com" value={email} onChange={e => setEmail(e.target.value)}
                 style={{ flex: 1, background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 10, padding: '13px 16px', color: 'var(--text-primary)', fontSize: 14, fontFamily: 'Inter,sans-serif', outline: 'none' }}
                 onFocus={e => e.target.style.borderColor = 'rgba(16, 185, 129,0.5)'}

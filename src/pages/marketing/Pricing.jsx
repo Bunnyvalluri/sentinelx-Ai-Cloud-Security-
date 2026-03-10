@@ -82,7 +82,7 @@ export default function Pricing() {
       </section>
 
       {/* Plans */}
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px 88px', display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 22, alignItems: 'start' }}>
+      <section className="pricing-cards-grid" style={{ maxWidth: 1200, margin: '0 auto', padding: '0 clamp(16px,4vw,48px) 88px' }}>
         {PLANS.map(plan => (
           <div key={plan.id} style={{ background: plan.popular ? 'linear-gradient(135deg,rgba(16,185,129,0.10),rgba(10,22,40,0.98))' : 'var(--bg-card)', border: `1px solid ${plan.popular ? 'rgba(16,185,129,0.45)' : 'var(--border)'}`, borderRadius: 20, padding: '36px 32px', position: 'relative', boxShadow: plan.popular ? '0 0 50px rgba(16,185,129,0.15)' : 'none' }}>
             {plan.popular && <div style={{ position: 'absolute', top: -14, left: '50%', transform: 'translateX(-50%)', background: 'linear-gradient(135deg,#10b981,#34d399)', color: '#000', fontWeight: 800, fontSize: 11, padding: '5px 20px', borderRadius: 100, letterSpacing: 0.5 }}>MOST POPULAR</div>}

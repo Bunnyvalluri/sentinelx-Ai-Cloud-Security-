@@ -2744,3 +2744,1080 @@ code,
   padding: 0 12px;
   -webkit-overflow-scrolling: touch;
 }
+
+/* ═══════════════════════════════════════════════════════════════════════
+   ███ FULL RESPONSIVE SYSTEM — Mobile · Tablet · Desktop
+   ███ Premium touch-first design with fluid scaling
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─── Touch & accessibility base ─── */
+@media (hover: none) and (pointer: coarse) {
+
+  .btn,
+  button,
+  a,
+  .nav-item,
+  .card {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .btn {
+    min-height: 44px;
+  }
+
+  .nav-item {
+    min-height: 48px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   TABLET — ≤ 1024px
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 1024px) {
+
+  /* ── App Shell ── */
+  .sidebar {
+    transform: translateX(-100%);
+    box-shadow: none;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+      box-shadow 0.4s ease;
+    z-index: 200;
+  }
+
+  .sidebar.sidebar-open {
+    transform: translateX(0);
+    box-shadow: 12px 0 60px rgba(0, 0, 0, 0.7);
+  }
+
+  .sidebar-close-btn {
+    display: flex !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  .topbar {
+    left: 0 !important;
+    padding: 0 20px !important;
+  }
+
+  .main-content {
+    margin-left: 0 !important;
+  }
+
+  /* ── Topbar search collapses ── */
+  .topbar-search {
+    display: none !important;
+  }
+
+  .topbar-clock {
+    display: none !important;
+  }
+
+  .topbar-help {
+    display: none !important;
+  }
+
+  /* ── Card grids reflow ── */
+  .grid-2 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-3 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .grid-4 {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* ── Page content padding ── */
+  .page-content {
+    padding: 24px 20px;
+  }
+
+  /* ── Marketing nav ── */
+  .marketing-nav-links {
+    display: none;
+  }
+
+  .marketing-nav-right .topbar-help {
+    display: none;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE LARGE — ≤ 768px
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* ══ GLOBAL TYPOGRAPHY SCALE ══ */
+  :root {
+    --section-spacing: 64px;
+    --mobile-spacing: 48px;
+  }
+
+  /* ── App page content ── */
+  .page-content {
+    padding: 16px 14px;
+  }
+
+  /* ── Card grids → single column ── */
+  .grid-2,
+  .grid-3,
+  .grid-4 {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  /* ── Metric cards ── */
+  .metric-card {
+    padding: 16px;
+  }
+
+  /* ── App footer ── */
+  .app-footer {
+    flex-direction: column !important;
+    gap: 10px !important;
+    font-size: 11px !important;
+    text-align: center;
+    padding: 14px 16px !important;
+  }
+
+  .app-footer>div:last-child {
+    display: none !important;
+  }
+
+  /* ══ MARKETING LAYOUT ══ */
+
+  /* ── Announcement banner ── */
+  .marketing-announcement {
+    font-size: 11px !important;
+    padding: 7px 12px !important;
+    gap: 6px !important;
+  }
+
+  /* ── Marketing nav ── */
+  .marketing-nav {
+    padding: 0 16px !important;
+    height: 56px !important;
+  }
+
+  .marketing-nav-links {
+    display: none !important;
+  }
+
+  .marketing-nav-right {
+    display: none !important;
+  }
+
+  .hamburger-btn {
+    display: flex !important;
+  }
+
+  /* ── Mobile menu overlay feel ── */
+  .marketing-mobile-menu {
+    padding: 80px 24px 40px !important;
+  }
+
+  /* ── Footer grid ── */
+  .marketing-footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 36px 24px !important;
+  }
+
+  /* ══ LANDING PAGE ══ */
+  .landing-hero {
+    padding: 100px 20px 60px !important;
+  }
+
+  .landing-hero h1 {
+    font-size: clamp(36px, 9vw, 64px) !important;
+    letter-spacing: -1.5px !important;
+    line-height: 1.1 !important;
+  }
+
+  .landing-hero p {
+    font-size: 15px !important;
+    max-width: 100% !important;
+  }
+
+  .landing-hero-ctas {
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100%;
+  }
+
+  .landing-hero-ctas .btn {
+    width: 100%;
+    max-width: 300px;
+    justify-content: center;
+  }
+
+  /* Stats grid */
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 12px !important;
+  }
+
+  .stats-card {
+    padding: 18px 14px !important;
+  }
+
+  .stats-value {
+    font-size: clamp(28px, 7vw, 40px) !important;
+  }
+
+  /* Features grid */
+  .landing-features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Marquee */
+  .marquee-track {
+    gap: 10px !important;
+  }
+
+  /* Terminal block */
+  .landing-terminal {
+    padding: 16px !important;
+    font-size: 11px !important;
+  }
+
+  /* Social proof */
+  .social-proof-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* CTA section */
+  .landing-cta-section {
+    padding: 48px 20px !important;
+  }
+
+  .landing-cta-section h2 {
+    font-size: clamp(28px, 8vw, 48px) !important;
+  }
+
+  /* ══ ABOUT PAGE ══ */
+  .about-hero h1 {
+    font-size: clamp(32px, 8vw, 52px) !important;
+  }
+
+  .about-leadership-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 16px !important;
+  }
+
+  .about-timeline {
+    padding-left: 20px !important;
+  }
+
+  /* ══ PRICING PAGE ══ */
+  .pricing-hero h1 {
+    font-size: clamp(32px, 8vw, 52px) !important;
+  }
+
+  .pricing-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+    padding: 0 16px !important;
+  }
+
+  .pricing-comparison-table {
+    display: none !important;
+  }
+
+  .pricing-faq {
+    padding: 0 16px !important;
+  }
+
+  /* ══ BLOG PAGE ══ */
+  .blog-hero h1 {
+    font-size: clamp(30px, 8vw, 52px) !important;
+  }
+
+  .blog-featured-card {
+    flex-direction: column !important;
+  }
+
+  .blog-cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .blog-categories {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* ══ CAREERS PAGE ══ */
+  .careers-hero h1 {
+    font-size: clamp(32px, 8vw, 52px) !important;
+  }
+
+  .careers-benefits-grid {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* ══ COMMUNITY PAGE ══ */
+  .community-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .community-sidebar {
+    order: -1;
+  }
+
+  /* ══ FEATURES PAGE ══ */
+  .features-hero h1 {
+    font-size: clamp(32px, 8vw, 56px) !important;
+  }
+
+  .features-tabs {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .features-tab {
+    flex-shrink: 0;
+  }
+
+  /* ══ INTEGRATIONS PAGE ══ */
+  .integrations-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px !important;
+  }
+
+  /* ══ ROADMAP PAGE ══ */
+  .roadmap-timeline {
+    grid-template-columns: 1fr !important;
+  }
+
+  .roadmap-timeline .quarter-label {
+    display: none !important;
+  }
+
+  /* ══ CONTACT PAGE ══ */
+  .contact-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .contact-offices-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* ══ LEGAL PAGE ══ */
+  .legal-layout {
+    grid-template-columns: 1fr !important;
+  }
+
+  .legal-sidebar {
+    position: static !important;
+    display: flex !important;
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+    margin-bottom: 32px;
+  }
+
+  .legal-sidebar>div {
+    padding: 8px 16px !important;
+  }
+
+  /* ══ API REFERENCE PAGE ══ */
+  .api-ref-layout {
+    flex-direction: column !important;
+  }
+
+  .api-ref-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    overflow-x: auto !important;
+    display: flex !important;
+    gap: 0;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+  }
+
+  .api-ref-main {
+    padding: 24px 20px !important;
+  }
+
+  /* ══ DOCUMENTATION PAGE ══ */
+  .docs-layout {
+    flex-direction: column !important;
+  }
+
+  .docs-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+    border-right: none !important;
+    border-bottom: 1px solid var(--border) !important;
+    overflow-y: visible !important;
+  }
+
+  /* ══ LOGIN PAGE ══ */
+  .login-page {
+    flex-direction: column !important;
+    min-height: 100vh;
+  }
+
+  .login-left {
+    display: none !important;
+  }
+
+  .login-right {
+    width: 100% !important;
+    padding: 40px 24px !important;
+    flex: 1;
+    justify-content: center !important;
+  }
+
+  .login-card {
+    max-width: 100% !important;
+    padding: 32px 24px !important;
+  }
+
+  /* ══ DASHBOARD CHARTS ══ */
+  .dashboard-charts-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  .dashboard-alerts-row {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* ══ HIDE DECORATIVE ELEMENTS ══ */
+  .hide-mobile {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE SMALL — ≤ 480px
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 480px) {
+
+  /* Typography gets smaller on tiny screens */
+  .landing-hero h1 {
+    font-size: clamp(28px, 9vw, 40px) !important;
+    letter-spacing: -1px !important;
+  }
+
+  /* Stats: stack in 2 cols */
+  .landing-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+  }
+
+  /* Integrations: single col */
+  .integrations-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Contact offices: stack */
+  .contact-offices-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* About leadership: single col */
+  .about-leadership-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  /* Footer: minimal */
+  .marketing-footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 28px !important;
+  }
+
+  .footer-bottom-badges {
+    display: none !important;
+  }
+
+  /* Page padding ultra tight */
+  .page-content {
+    padding: 12px 10px;
+  }
+
+  /* Cards */
+  .card,
+  .metric-card {
+    border-radius: 14px !important;
+  }
+
+  /* Modal-style legal sidebar */
+  .legal-sidebar {
+    display: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   DESKTOP LARGE — ≥ 1280px
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1280px) {
+  .landing-hero h1 {
+    font-size: 80px;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .grid-3 {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .pricing-cards-grid {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ULTRA-WIDE — ≥ 1600px
+   ───────────────────────────────────────────────────────────────────── */
+@media (min-width: 1600px) {
+  .page-content {
+    max-width: 1600px;
+  }
+
+  .landing-hero {
+    max-width: 1200px !important;
+  }
+
+  .grid-4 {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MARKETING LAYOUT — NAVBAR RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.marketing-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 32px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 150;
+  gap: 16px;
+}
+
+.marketing-logo {
+  flex-shrink: 0;
+}
+
+.marketing-nav-links {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex: 1;
+  justify-content: center;
+}
+
+.marketing-nav-right {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+/* ── Marketing mobile menu full-screen ── */
+.marketing-mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  background: var(--bg-primary);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 32px 40px;
+  transform: translateY(-100%);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.marketing-mobile-menu.open {
+  transform: translateY(0);
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ── Marketing footer grid ── */
+.marketing-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr 1fr;
+  gap: 40px 32px;
+  margin-bottom: 52px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LANDING PAGE — RESPONSIVE CLASSES
+   ───────────────────────────────────────────────────────────────────── */
+.landing-hero {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 140px 32px 100px;
+}
+
+.landing-hero-ctas {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.landing-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.landing-features-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.social-proof-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PRICING PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.pricing-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: start;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   BLOG PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.blog-cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.blog-featured-card {
+  display: flex;
+  gap: 40px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ABOUT PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.about-leadership-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   COMMUNITY PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.community-layout {
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  gap: 32px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CONTACT PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.contact-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+}
+
+.contact-offices-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.contact-inquiries-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CAREERS PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.careers-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   INTEGRATIONS PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.integrations-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LEGAL PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.legal-layout {
+  display: grid;
+  grid-template-columns: 240px 1fr;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 64px 48px 100px;
+}
+
+.legal-sidebar {
+  position: sticky;
+  top: 88px;
+  height: fit-content;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   API REFERENCE PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.api-ref-layout {
+  display: flex;
+  min-height: calc(100vh - 68px);
+}
+
+.api-ref-sidebar {
+  width: 280px;
+  flex-shrink: 0;
+  position: sticky;
+  top: 68px;
+  height: calc(100vh - 68px);
+  overflow-y: auto;
+}
+
+.api-ref-main {
+  flex: 1;
+  padding: 48px 56px;
+  max-width: 900px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   DASHBOARD PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.dashboard-charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.dashboard-alerts-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ROADMAP PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.roadmap-timeline {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 48px 80px;
+  position: relative;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LOGIN PAGE RESPONSIVE
+   ───────────────────────────────────────────────────────────────────── */
+.login-page {
+  display: flex;
+  min-height: 100vh;
+}
+
+.login-left {
+  flex: 1;
+  background: linear-gradient(135deg, #060608 0%, #0c0c18 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px;
+  position: relative;
+  overflow: hidden;
+}
+
+.login-right {
+  width: 480px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 40px;
+  background: var(--bg-primary);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SIDEBAR CLOSE BUTTON
+   ───────────────────────────────────────────────────────────────────── */
+.sidebar-close-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  color: var(--text-secondary);
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.2s;
+}
+
+.sidebar-close-btn:hover {
+  background: rgba(244, 63, 94, 0.12);
+  border-color: rgba(244, 63, 94, 0.25);
+  color: var(--red);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES
+   ───────────────────────────────────────────────────────────────────── */
+.hide-mobile {
+  display: initial;
+}
+
+.show-mobile {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
+  .show-mobile {
+    display: initial !important;
+  }
+
+  .show-mobile-flex {
+    display: flex !important;
+  }
+
+  .show-mobile-grid {
+    display: grid !important;
+  }
+}
+
+/* Fluid container */
+.container {
+  width: 100%;
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 clamp(16px, 5vw, 48px);
+}
+
+/* Text size fluidity */
+.text-hero {
+  font-size: clamp(36px, 7vw, 96px);
+  line-height: 1.05;
+  letter-spacing: -2px;
+}
+
+.text-display {
+  font-size: clamp(28px, 5vw, 64px);
+  line-height: 1.1;
+  letter-spacing: -1.5px;
+}
+
+.text-heading {
+  font-size: clamp(22px, 4vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -1px;
+}
+
+.text-subheading {
+  font-size: clamp(18px, 3vw, 28px);
+  line-height: 1.35;
+  letter-spacing: -0.5px;
+}
+
+/* Stack utility */
+.stack {
+  display: flex;
+  flex-direction: column;
+}
+
+.stack-sm {
+  gap: 8px;
+}
+
+.stack-md {
+  gap: 16px;
+}
+
+.stack-lg {
+  gap: 24px;
+}
+
+/* Cluster (horizontal flex wrap) */
+.cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   MOBILE NAV ENHANCEMENTS
+   ───────────────────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+
+  /* Mobile menu close button position */
+  .marketing-mobile-menu-close {
+    position: absolute;
+    top: 20px;
+    right: 24px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 18px;
+    color: var(--text-secondary);
+    cursor: pointer;
+  }
+
+  /* Announcement banner: hide on smallest */
+  .marketing-announcement-text {
+    display: none;
+  }
+
+  .marketing-announcement-new {
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Sidebar at full width */
+  .sidebar {
+    width: min(300px, 90vw);
+  }
+
+  /* Inline search bar in topbar on mobile */
+  .topbar {
+    height: 54px !important;
+  }
+
+  /* Make app pages not overflow */
+  .main-content {
+    overflow-x: hidden;
+  }
+
+  /* Scale down table cells */
+  .data-table td,
+  .data-table th {
+    padding: 12px 10px !important;
+    font-size: 12px !important;
+  }
+
+  /* Alert queue rows */
+  .alert-row {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  /* Section headings */
+  section h1 {
+    font-size: clamp(28px, 8vw, 52px) !important;
+  }
+
+  section h2 {
+    font-size: clamp(22px, 6vw, 36px) !important;
+  }
+
+  section h3 {
+    font-size: clamp(18px, 5vw, 24px) !important;
+  }
+
+  /* Remove large fixed paddings from marketing sections */
+  section[style*="padding"] {
+    padding-left: 20px !important;
+    padding-right: 20px !important;
+  }
+
+  /* Pricing: billing toggle */
+  .pricing-toggle {
+    flex-direction: row !important;
+    font-size: 13px !important;
+  }
+
+  /* CTA buttons full width */
+  .landing-cta-section .btn {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   SCROLLABLE HORIZONTAL CONTAINERS
+   (for tab bars, marquees etc. on mobile)
+   ───────────────────────────────────────────────────────────────────── */
+.scroll-x {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.scroll-x::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   PRINT RESET
+   ───────────────────────────────────────────────────────────────────── */
+@media print {
+
+  .sidebar,
+  .topbar,
+  .hamburger-btn,
+  .marketing-nav,
+  .marketing-mobile-menu,
+  .floating-chatbot {
+    display: none !important;
+  }
+
+  .main-content {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+}

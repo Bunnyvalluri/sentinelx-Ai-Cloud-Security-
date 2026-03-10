@@ -77,7 +77,7 @@ export default function LandingPage() {
 
 
         {/* Hero Section */}
-        <section className="landing-hero" style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: 1000, margin: '0 auto', padding: '140px 24px 100px' }}>
+        <section className="landing-hero" style={{ position: 'relative', zIndex: 1 }}>
 
           {/* Main Brand Logo on Hero */}
           <div style={{ marginBottom: 48, display: 'flex', justifyContent: 'center', animation: 'fadeInDown 0.8s ease-out' }}>
@@ -101,7 +101,7 @@ export default function LandingPage() {
             Monitor, detect, and automatically remediate threats across your entire cloud stack — powered by CEREBRO AI processing 1.2B events/hour.
           </p>
 
-          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+          <div className="landing-hero-ctas" style={{ justifyContent: 'center' }}>
             <button
               onClick={() => navigate('/login')}
               className="btn btn-primary"
@@ -130,7 +130,7 @@ export default function LandingPage() {
         </section>
 
         {/* Stats Bar */}
-        <section style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', padding: '0 32px 80px' }}>
+        <section style={{ position: 'relative', zIndex: 1, maxWidth: 1100, margin: '0 auto', padding: '0 clamp(16px,4vw,32px) 80px' }}>
           <div className="landing-stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 1, borderRadius: 16, overflow: 'hidden' }}>
             {STATS.map((s) => (
               <div key={s.label} className="stats-card" style={{ padding: '28px 24px', textAlign: 'center' }}>
@@ -142,7 +142,7 @@ export default function LandingPage() {
         </section>
 
         {/* Terminal Mockup */}
-        <section style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', padding: '0 32px 100px' }}>
+        <section style={{ position: 'relative', zIndex: 1, maxWidth: 900, margin: '0 auto', padding: '0 clamp(16px,4vw,32px) 100px' }}>
           <div className="rounded-2xl overflow-hidden border border-emerald-500/20 shadow-2xl backdrop-blur-md bg-slate-900/40 hover:-translate-y-1 hover:border-emerald-500/40 transition-all duration-300">
             {/* Terminal chrome */}
             <div style={{ background: '#0c1628', padding: '14px 20px', borderBottom: '1px solid rgba(255,255,255,0.06)', display: 'flex', alignItems: 'center', gap: 8 }}>

@@ -31,12 +31,12 @@ export default function Contact() {
         <p style={{ fontSize: 17, color: 'var(--text-secondary)', maxWidth: 520, margin: '0 auto', lineHeight: 1.7 }}>Whether you're evaluating SentinelX, need support, or want to partner with us — our team responds within one business day.</p>
       </section>
 
-      <section style={{ maxWidth: 1200, margin: '0 auto', padding: '0 48px 80px', display: 'grid', gridTemplateColumns: '1fr 420px', gap: 48 }}>
+      <section className="contact-layout">
         {/* Left */}
         <div>
           {/* Contact types */}
           <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 24 }}>Contact by topic</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginBottom: 56 }}>
+          <div className="contact-inquiries-grid" style={{ marginBottom: 56 }}>
             {INQUIRIES.map(inq => (
               <div key={inq.type} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: '20px 22px', transition: 'background-color .2s, border-color .2s, color .2s, fill .2s, stroke .2s, opacity .2s, box-shadow .2s, transform .2s', cursor: 'pointer' }}
                 onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(16, 185, 129,0.35)'; e.currentTarget.style.background = 'var(--bg-card-hover)'; }}
@@ -52,7 +52,7 @@ export default function Contact() {
 
           {/* Offices */}
           <h2 style={{ fontFamily: 'Outfit,sans-serif', fontSize: 24, fontWeight: 800, color: 'var(--text-primary)', marginBottom: 24 }}>Global offices</h2>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
+          <div className="contact-offices-grid">
             {OFFICES.map(o => (
               <div key={o.city} style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', borderRadius: 14, padding: '20px 22px' }}>
                 <div style={{ fontSize: 28, marginBottom: 10 }}>{o.emoji}</div>
