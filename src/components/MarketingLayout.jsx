@@ -43,7 +43,12 @@ export default function MarketingLayout({ children }) {
       </div>
 
       {/* ── Navbar ── */}
-      <nav className="marketing-nav" style={{ borderBottom: '1px solid var(--border)' }}>
+      <nav className="marketing-nav" style={{
+        borderBottom: '1px solid var(--border)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        background: 'rgba(var(--bg-primary-rgb, 6,6,8),0.85)',
+      }}>
         <Link to="/" className="marketing-logo" style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Logo layout="vertical" size={32} glow={true} />
         </Link>
@@ -125,6 +130,18 @@ export default function MarketingLayout({ children }) {
 
       {/* Mobile menu overlay */}
       <div className={`marketing-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        {/* Close button */}
+        <button onClick={() => setMobileOpen(false)} style={{
+          position: 'absolute', top: 20, right: 24,
+          width: 44, height: 44, borderRadius: '50%',
+          background: 'var(--bg-card)', border: '1px solid var(--border)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontSize: 18, color: 'var(--text-secondary)', cursor: 'pointer',
+          transition: 'all 0.2s',
+        }}
+          onMouseEnter={e => e.currentTarget.style.background = 'rgba(244,63,94,0.1)'}
+          onMouseLeave={e => e.currentTarget.style.background = 'var(--bg-card)'}
+        >✕</button>
         <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', textAlign: 'center' }}>
           {NAV_LINKS.map((l, i) => (
             <Link
