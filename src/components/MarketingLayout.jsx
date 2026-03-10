@@ -114,36 +114,55 @@ export default function MarketingLayout({ children }) {
 
         {/* Mobile hamburger */}
         <button
-          className="marketing-hamburger"
+          className={`hamburger-btn ${mobileOpen ? 'sidebar-open' : ''}`}
           onClick={() => setMobileOpen(o => !o)}
           aria-label="Toggle menu"
+          style={{ display: 'flex' }}
         >
-          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text-primary)', borderRadius: 2, transition: 'all .3s', transform: mobileOpen ? 'rotate(45deg) translate(5px,5px)' : 'none' }} />
-          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text-primary)', borderRadius: 2, transition: 'all .3s', opacity: mobileOpen ? 0 : 1, margin: '5px 0' }} />
-          <span style={{ display: 'block', width: 22, height: 2, background: 'var(--text-primary)', borderRadius: 2, transition: 'all .3s', transform: mobileOpen ? 'rotate(-45deg) translate(5px,-5px)' : 'none' }} />
+          <span /><span /><span />
         </button>
       </nav>
 
-      {/* Mobile menu */}
-      {mobileOpen && (
-        <div className="marketing-mobile-menu">
-          {NAV_LINKS.map(l => (
-            <Link key={l.to} to={l.to} onClick={() => setMobileOpen(false)}
-              style={{ display: 'block', padding: '13px 20px', fontSize: 15, fontWeight: 500, color: pathname === l.to ? 'var(--blue-light)' : 'var(--text-primary)', textDecoration: 'none', borderBottom: '1px solid var(--border)' }}
+      {/* Mobile menu overlay */}
+      <div className={`marketing-mobile-menu ${mobileOpen ? 'open' : ''}`}>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'center', textAlign: 'center' }}>
+          {NAV_LINKS.map((l, i) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setMobileOpen(false)}
+              style={{
+                display: 'block',
+                padding: '16px',
+                fontSize: 28,
+                fontWeight: 700,
+                color: pathname === l.to ? 'var(--blue-light)' : 'var(--text-primary)',
+                textDecoration: 'none',
+                opacity: mobileOpen ? 1 : 0,
+                transform: mobileOpen ? 'translateY(0)' : 'translateY(20px)',
+                transition: `all 0.5s cubic-bezier(0.16, 1, 0.3, 1) ${i * 0.05}s`
+              }}
             >{l.label}</Link>
           ))}
-          <div style={{ padding: '16px 20px', display: 'flex', alignItems: 'center', gap: 16 }}>
-            <Link to="/login" onClick={() => setMobileOpen(false)} style={{ fontSize: 14, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Sign In</Link>
-            <button onClick={toggleTheme} className="theme-toggle">
+          <div style={{
+            marginTop: 40,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            gap: 24,
+            width: '100%',
+            opacity: mobileOpen ? 1 : 0,
+            transition: 'all 0.5s ease 0.4s'
+          }}>
+            <Link to="/login" onClick={() => setMobileOpen(false)} className="btn btn-primary" style={{ width: '100%', maxWidth: 280, padding: '16px', fontSize: 16 }}>Get Started</Link>
+            <Link to="/login" onClick={() => setMobileOpen(false)} style={{ fontSize: 16, fontWeight: 600, color: 'var(--text-secondary)', textDecoration: 'none' }}>Sign In</Link>
+            <button onClick={toggleTheme} className="theme-toggle" style={{ transform: 'scale(1.2)' }}>
               <span>{theme === 'dark' ? '🌙' : '☀️'}</span>
               <div className="theme-toggle-track"><div className="theme-toggle-thumb" /></div>
             </button>
-            <Link to="/login" onClick={() => setMobileOpen(false)}>
-              <button style={{ background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', color: '#fff', border: 'none', borderRadius: 8, padding: '9px 18px', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}>Get a Demo</button>
-            </Link>
           </div>
         </div>
-      )}
+      </div>
 
       {/* ── Content ── */}
       <main style={{ position: 'relative', zIndex: 1 }}>{children}</main>

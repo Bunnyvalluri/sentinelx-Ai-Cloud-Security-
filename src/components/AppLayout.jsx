@@ -287,7 +287,7 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
       </aside>
 
       {/* ── TOPBAR ── */}
-      <header className="topbar">
+      <header className={`topbar ${sidebarOpen ? 'sidebar-open' : ''}`}>
         {/* Scroll progress */}
         <div style={{
           position: 'absolute', bottom: 0, left: 0, height: 2,
@@ -304,11 +304,12 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
             className="hamburger-btn"
             onClick={() => setSidebarOpen(true)}
             aria-label="Open menu"
+            style={{ display: sidebarOpen ? 'none' : 'flex' }}
           >
             <span /><span /><span />
           </button>
 
-          <div>
+          <div style={{ transform: sidebarOpen ? 'translateX(0)' : 'translateX(0)', transition: 'transform 0.4s' }}>
             {pageTitle && (
               <div style={{ fontSize: 16, fontWeight: 700, fontFamily: 'Outfit, sans-serif', color: 'var(--text-primary)', lineHeight: 1.2, letterSpacing: '-0.2px' }}>
                 {pageTitle}
@@ -316,7 +317,7 @@ export default function AppLayout({ children, title, subtitle, bgClass }) {
             )}
             {pageSubtitle && (
               <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginTop: 2 }}>
-                <span style={{ fontSize: 11.5, color: 'var(--text-muted)' }}>{pageSubtitle}</span>
+                <span style={{ fontSize: 11.5, color: 'var(--text-muted)' }} className="hide-mobile">{pageSubtitle}</span>
                 <span className="live-indicator">
                   <span className="live-dot" />
                   Live

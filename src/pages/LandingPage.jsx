@@ -77,61 +77,55 @@ export default function LandingPage() {
 
 
         {/* Hero Section */}
-        <section className="landing-hero" style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: 860, margin: '0 auto', padding: '110px 32px 80px' }}>
+        <section className="landing-hero" style={{ position: 'relative', zIndex: 1, textAlign: 'center', maxWidth: 1000, margin: '0 auto', padding: '140px 24px 100px' }}>
 
           {/* Main Brand Logo on Hero */}
-          <div style={{ marginBottom: 40, display: 'flex', justifyContent: 'center', animation: 'fadeInDown 0.8s ease-out' }}>
-            <Logo layout="vertical" size={120} glow={true} />
+          <div style={{ marginBottom: 48, display: 'flex', justifyContent: 'center', animation: 'fadeInDown 0.8s ease-out' }}>
+            <Logo layout="vertical" size={140} glow={true} />
           </div>
 
           {/* Badge */}
-          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.30)', borderRadius: 100, padding: '6px 18px 6px 8px', marginBottom: 32 }}>
-            <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', color: '#fff', borderRadius: 100, padding: '2px 10px', fontSize: 10, fontWeight: 800, letterSpacing: 0.6 }}>NEW</span>
-            <span style={{ fontSize: 12.5, fontWeight: 600, color: 'rgba(255,255,255,0.65)', letterSpacing: 0.3 }}>SentinelX 4.0 — CEREBRO AI is live</span>
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(139,92,246,0.8)" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(139,92,246,0.10)', border: '1px solid rgba(139,92,246,0.30)', borderRadius: 100, padding: '8px 24px 8px 10px', marginBottom: 40, animation: 'fadeIn 1s ease' }}>
+            <span style={{ background: 'linear-gradient(135deg, #8b5cf6, #6366f1)', color: '#fff', borderRadius: 100, padding: '2px 14px', fontSize: 11, fontWeight: 800, letterSpacing: 0.6 }}>NEW</span>
+            <span style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.3 }}>SentinelX 4.0 — CEREBRO AI is live</span>
           </div>
 
-          <h1 style={{ fontSize: 'clamp(48px, 8vw, 80px)', fontWeight: 900, lineHeight: 1.05, letterSpacing: '-2.5px', marginBottom: 24, fontFamily: 'Outfit, Inter, sans-serif' }}>
+          <h1 style={{ fontSize: 'clamp(52px, 10vw, 92px)', fontWeight: 800, lineHeight: 1.02, letterSpacing: '-0.04em', marginBottom: 32, fontFamily: 'Outfit, Inter, sans-serif' }}>
             <span className="hero-text-primary">Security Infrastructure</span><br />
-            <span style={{ background: 'linear-gradient(90deg, #a78bfa, #818cf8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
+            <span style={{ background: 'linear-gradient(90deg, #a78bfa, #818cf8, #38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text', padding: '0 10px' }}>
               for Modern Teams
             </span>
           </h1>
 
-          <p className="hero-text-secondary" style={{ fontSize: 18, maxWidth: 580, margin: '0 auto 44px', lineHeight: 1.75 }}>
+          <p className="hero-text-secondary" style={{ fontSize: 'clamp(17px, 2vw, 21.5px)', maxWidth: 640, margin: '0 auto 52px', lineHeight: 1.65, fontWeight: 500 }}>
             Monitor, detect, and automatically remediate threats across your entire cloud stack — powered by CEREBRO AI processing 1.2B events/hour.
           </p>
 
-          <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
-            <Link to="/login">
-              <button style={{ display: 'flex', alignItems: 'center', gap: 8, background: 'linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%)', color: '#fff', border: 'none', borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 700, cursor: 'pointer', boxShadow: '0 6px 28px rgba(139,92,246,0.38)', transition: 'all 0.25s ease', fontFamily: 'inherit' }}
-                onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; e.currentTarget.style.boxShadow = '0 10px 36px rgba(139,92,246,0.50)'; }}
-                onMouseLeave={e => { e.currentTarget.style.transform = 'none'; e.currentTarget.style.boxShadow = '0 6px 28px rgba(139,92,246,0.38)'; }}
-              >
-                Start Free
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14M12 5l7 7-7 7" /></svg>
-              </button>
-            </Link>
-            <Link to="/docs">
-              <button className="btn-outline" style={{ display: 'flex', alignItems: 'center', gap: 8, borderRadius: 12, padding: '14px 28px', fontSize: 15, fontWeight: 600, cursor: 'pointer', transition: 'all 0.2s ease', fontFamily: 'inherit' }}>
-                Read the Docs
-              </button>
-            </Link>
+          <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap', alignItems: 'center' }}>
+            <button
+              onClick={() => navigate('/login')}
+              className="btn btn-primary"
+              style={{ padding: '18px 48px', fontSize: 17, borderRadius: 100, textTransform: 'none' }}
+            >
+              Get Started for Free
+            </button>
+            <button
+              onClick={() => navigate('/docs')}
+              className="btn btn-outline"
+              style={{ padding: '18px 48px', fontSize: 17, borderRadius: 100, textTransform: 'none' }}
+            >
+              Read Documentation <span style={{ marginLeft: 8 }}>→</span>
+            </button>
           </div>
 
           {/* Social proof */}
-          <div style={{ marginTop: 36, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 12.5, color: 'rgba(255,255,255,0.35)' }}>
+          <div style={{ marginTop: 60, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 12, fontSize: 14, color: 'rgba(255,255,255,0.45)' }}>
             <div style={{ display: 'flex' }}>
               {['#8b5cf6', '#6366f1', '#38bdf8', '#22c55e', '#f59e0b'].map((c) => (
-                <div
-                  className="marquee-item"
-                  key={c}
-                  role="presentation"
-                  style={{ width: 26, height: 26, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: -8, firstChild: { marginLeft: 0 }, boxShadow: `0 0 8px ${c}55` }}
-                />
+                <div key={c} style={{ width: 28, height: 28, borderRadius: '50%', background: c, border: '2px solid #05080f', marginLeft: -8, boxShadow: `0 0 10px ${c}44` }} />
               ))}
             </div>
-            <span>Trusted by <strong style={{ color: 'rgba(255,255,255,0.65)' }}>10,000+</strong> security teams worldwide</span>
+            <span>Trusted by <strong style={{ color: 'rgba(255,255,255,0.8)' }}>10,000+</strong> cloud-native teams</span>
           </div>
         </section>
 
