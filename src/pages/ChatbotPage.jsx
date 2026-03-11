@@ -19,7 +19,7 @@ const Ic = {
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'llama3-70b-8192', label: 'LLaMA 3 70B', badge: 'Fast' },
+  { id: 'llama-3.3-70b-versatile', label: 'LLaMA 3.3 70B', badge: 'Fast' },
   { id: 'mixtral-8x7b-32768', label: 'Mixtral 8x7B', badge: 'Smart' },
   { id: 'gemma2-9b-it', label: 'Gemma 2 9B', badge: 'Advanced' },
 ];

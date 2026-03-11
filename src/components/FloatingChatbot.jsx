@@ -245,7 +245,7 @@ ${ragContext}`;
             'Accept': 'text/event-stream',
           },
           body: JSON.stringify({
-            model: 'llama3-70b-8192',
+            model: 'llama-3.3-70b-versatile',
             messages: [
               { role: 'system', content: systemPrompt },
               ...messages.filter(m => !m.streaming).slice(-8).map(m => ({ role: m.role, content: m.content })),
