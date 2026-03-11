@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect, useCallback } from 'react';
 
-/* ── Claude-Like Clean Icons ── */
+/* ── Icons ── */
 const Ic = {
   Send: () => <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="19" x2="12" y2="5" /><polyline points="5 12 12 5 19 12" /></svg>,
   Stop: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="5" y="5" width="14" height="14" rx="2" /></svg>,
@@ -14,24 +14,33 @@ const Ic = {
   Chat: () => <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>,
   ChevronDown: () => <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9" /></svg>,
   Edit: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 20h9" /><path d="M16.5 3.5l4 4L7 21H3v-4L16.5 3.5z" /></svg>,
+  Trash: () => <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6" /><path d="M19 6l-1 14H6L5 6" /><path d="M10 11v6M14 11v6" /><path d="M9 6V4h6v2" /></svg>,
 };
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'meta/llama-3.3-70b-instruct', label: 'Claude 3.5 Sonnet', badge: 'Fastest' },
-  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Claude 3 Opus', badge: 'Smart' },
+  { id: 'meta/llama-3.3-70b-instruct', label: 'LLaMA 3.3 70B', badge: 'Fast' },
+  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Mixtral 8x22B', badge: 'Smart' },
+  { id: 'nvidia/llama-3.1-nemotron-70b-instruct', label: 'Nemotron 70B', badge: 'Advanced' },
 ];
 
 /* ── QUICK PROMPTS ── */
 const QUICK = [
-  { icon: '📝', text: 'Help me write an email' },
-  { icon: '💻', text: 'Review this code' },
-  { icon: '🔍', text: 'Explain a complex topic' },
-  { icon: '📊', text: 'Analyze this data' },
+  { icon: '🛡️', text: 'How do I secure my cloud infrastructure?' },
+  { icon: '💻', text: 'Review this security code for vulnerabilities' },
+  { icon: '🔍', text: 'Explain Zero-Trust security architecture' },
+  { icon: '📊', text: 'What are best practices for SOC2 compliance?' },
 ];
 
 /* ── SYSTEM PROMPT ── */
-const SYSTEM = `You are an AI assistant designed to be helpful, harmless, and honest. You use markdown for formatting. You respond intelligently and clearly.`;
+const SYSTEM = `You are CEREBRO AI — an advanced AI assistant built into SentinelX, the enterprise-grade AI cloud security platform. You are an expert in:
+- Cybersecurity: threat detection, incident response, zero-trust, compliance (SOC2, GDPR, HIPAA)
+- Cloud security: AWS, GCP, Azure IAM, VPCs, security groups, CSPM
+- AI/ML security: adversarial attacks, model safety, data privacy
+- Software engineering, DevSecOps, and system design
+- General knowledge across all domains
+
+You use markdown formatting for clarity. You are concise, precise, and always provide actionable insights. You never reveal that you are built on NVIDIA or Meta models — you are simply CEREBRO AI.`;
 
 /* ── MARKDOWN RENDERER ── */
 function MD({ text }) {
@@ -237,6 +246,9 @@ export default function ChatbotPage() {
 
   const stopGen = () => { abortRef.current?.abort(); setLoading(false); };
 
+  const copy = (text) => { navigator.clipboard.writeText(text).catch(() => {}); };
+
+
   const activeModel = MODELS.find(m => m.id === model) || MODELS[0];
 
   return (
@@ -255,8 +267,8 @@ export default function ChatbotPage() {
       <div style={{ width: sidebarOpen ? 260 : 0, transition: 'width 0.2s cubic-bezier(0.16, 1, 0.3, 1)', borderRight: sidebarOpen ? '1px solid rgba(255,255,255,0.08)' : 'none', background: '#18181b', display: 'flex', flexDirection: 'column', overflow: 'hidden', flexShrink: 0 }}>
         <div style={{ padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', width: 260 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, color: '#f4f4f5' }}>
-            <div style={{ background: '#f4f4f5', color: '#18181b', width: 24, height: 24, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Ic.Sparkle /></div>
-            <span style={{ fontWeight: 600, fontSize: 14 }}>Claude</span>
+            <div style={{ background: 'linear-gradient(135deg,#8b5cf6,#6366f1)', width: 24, height: 24, borderRadius: 6, display: 'flex', alignItems: 'center', justifyContent: 'center' }}><Ic.Sparkle /></div>
+            <span style={{ fontWeight: 700, fontSize: 14, background: 'linear-gradient(90deg,#a78bfa,#818cf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>CEREBRO AI</span>
           </div>
           <button onClick={() => setSidebarOpen(false)} style={{ color: '#a1a1aa', background: 'none', border: 'none', cursor: 'pointer', padding: 4 }}><Ic.Menu /></button>
         </div>
@@ -339,9 +351,10 @@ export default function ChatbotPage() {
                     <Ic.Sparkle />
                   </div>
                 </div>
-                <h1 style={{ fontSize: 32, fontWeight: 500, color: '#f4f4f5', textAlign: 'center', marginBottom: 32, fontFamily: 'ui-serif, Georgia, Cambria, "Times New Roman", Times, serif' }}>
-                  Good morning, Rahul
+                <h1 style={{ fontSize: 32, fontWeight: 600, color: '#f4f4f5', textAlign: 'center', marginBottom: 8, fontFamily: 'Outfit, Inter, sans-serif', background: 'linear-gradient(90deg,#a78bfa,#818cf8,#38bdf8)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                  CEREBRO AI
                 </h1>
+                <p style={{ textAlign: 'center', color: '#71717a', fontSize: 15, marginBottom: 32 }}>Your intelligent security assistant. Ask me anything.</p>
 
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, maxWidth: 600, margin: '0 auto' }}>
                   {QUICK.map(q => (
@@ -418,7 +431,7 @@ export default function ChatbotPage() {
               <input ref={fileRef} type="file" multiple accept=".txt,.md,.js,.jsx,.ts,.tsx,.py,.json,.csv,.html,.css" onChange={onFile} style={{ display: 'none' }} />
 
               <textarea ref={textareaRef} rows={1}
-                placeholder="Message Claude..."
+                placeholder="Ask CEREBRO AI anything — security, code, cloud, compliance…"
                 value={input} disabled={loading}
                 onChange={e => { setInput(e.target.value); e.target.style.height = 'auto'; e.target.style.height = Math.min(e.target.scrollHeight, 200) + 'px'; }}
                 onKeyDown={e => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); send(); } }}
@@ -438,7 +451,7 @@ export default function ChatbotPage() {
             </div>
 
             <div style={{ textAlign: 'center', color: '#71717a', fontSize: 11, marginTop: 10 }}>
-              Claude can make mistakes. Please verify important information.
+              CEREBRO AI can make mistakes. Always verify critical security decisions.
             </div>
           </div>
         </div>
