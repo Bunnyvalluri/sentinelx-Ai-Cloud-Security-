@@ -1,0 +1,70 @@
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\components\FloatingChatbot.jsx[24m[0m
+[0m   [2m65:9[22m    [31merror[39m  'dText' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u   [2mno-unused-vars[22m[0m
+[0m   [2m73:9[22m    [31merror[39m  'qLower' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m   [2m92:25[22m   [31merror[39m  'step' is defined but never used                                                        [2mno-unused-vars[22m[0m
+[0m  [2m223:282[22m  [31merror[39m  Unnecessary escape character: \'                                                        [2mno-useless-escape[22m[0m
+[0m  [2m280:22[22m   [31merror[39m  '_' is defined but never used                                                           [2mno-unused-vars[22m[0m
+[0m  [2m280:25[22m   [31merror[39m  Empty block statement                                                                   [2mno-empty[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\components\MarketingLayout.jsx[24m[0m
+[0m  [2m43:19[22m  [31merror[39m  Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0m  41 |[0m
+[0m  42 |   // Close mobile on route change[0m
+[0m> 43 |   useEffect(() => setMobileOpen(false), [pathname]);[0m
+[0m     |                   ^^^^^^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  44 |[0m
+[0m  45 |   // Scroll-reveal observer - re-runs on route change[0m
+[0m  46 |   useEffect(() => {  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\context\ThemeContext.jsx[24m[0m
+[0m  [2m24:17[22m  [31merror[39m  Fast refresh only works when a file only exports components. Use a new file to share constants or functions between components  [2mreact-refresh/only-export-components[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\ChatbotPage.jsx[24m[0m
+[0m  [2m120:9[22m   [33mwarning[39m  The 'msgs' logical expression could make the dependencies of useEffect Hook (at line 124) change on every render. To fix this, wrap the initialization of 'msgs' in its own useMemo() Hook    [2mreact-hooks/exhaustive-deps[22m[0m
+[0m  [2m120:9[22m   [33mwarning[39m  The 'msgs' logical expression could make the dependencies of useCallback Hook (at line 245) change on every render. To fix this, wrap the initialization of 'msgs' in its own useMemo() Hook  [2mreact-hooks/exhaustive-deps[22m[0m
+[0m  [2m232:22[22m  [31merror[39m    '_' is defined but never used                                                                                                                                                                 [2mno-unused-vars[22m[0m
+[0m  [2m232:25[22m  [31merror[39m    Empty block statement                                                                                                                                                                         [2mno-empty[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\LandingPage.jsx[24m[0m
+[0m    [2m2:39[22m  [31merror[39m  'useCallback' is defined but never used. Allowed unused vars must match /^[A-Z_]/u     [2mno-unused-vars[22m[0m
+[0m  [2m157:15[22m  [31merror[39m  'start' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m  [2m660:24[22m  [31merror[39m  'handleMouseMove' is not defined                                                       [2mno-undef[22m[0m
+[0m  [2m670:49[22m  [31merror[39m  'mousePos' is not defined                                                              [2mno-undef[22m[0m
+[0m  [2m670:79[22m  [31merror[39m  'mousePos' is not defined                                                              [2mno-undef[22m[0m
+[0m  [2m789:58[22m  [31merror[39m  'i' is defined but never used                                                          [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\LoginPage.jsx[24m[0m
+[0m    [2m1:31[22m   [31merror[39m    'useRef' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            [2mno-unused-vars[22m[0m
+[0m    [2m1:39[22m   [31merror[39m    'useCallback' is defined but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       [2mno-unused-vars[22m[0m
+[0m   [2m73:6[22m    [33mwarning[39m  React Hook useEffect has a missing dependency: 'display'. Either include it or remove the dependency array                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               [2mreact-hooks/exhaustive-deps[22m[0m
+[0m   [2m86:5[22m    [31merror[39m    Error: Calling setState synchronously within an effect can trigger cascading renders[0m
+[0m[0m
+[0mEffects are intended to synchronize state between React and external systems such as manually updating the DOM, state management libraries, or other platform APIs. In general, the body of an effect should do one or both of the following:[0m
+[0m* Update external systems with the latest state from React.[0m
+[0m* Subscribe for updates from some external system, calling setState in a callback function when external state changes.[0m
+[0m[0m
+[0mCalling setState synchronously within an effect body causes cascading renders that can hurt performance, and is not recommended. (https://react.dev/learn/you-might-not-need-an-effect).[0m
+[0m[0m
+[0m  84 |   const [idx, setIdx] = useState(0);[0m
+[0m  85 |   useEffect(() => {[0m
+[0m> 86 |     setDisplayed('');[0m
+[0m     |     ^^^^^^^^^^^^ Avoid calling setState() directly within an effect[0m
+[0m  87 |     setIdx(0);[0m
+[0m  88 |   }, [text]);[0m
+[0m  89 |   useEffect(() => {  [2mreact-hooks/set-state-in-effect[22m[0m
+[0m  [2m278:9[22m    [31merror[39m    'sevColor' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 [2mno-unused-vars[22m[0m
+[0m  [2m365:130[22m  [31merror[39m    Duplicate key 'fontSize'                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 [2mno-dupe-keys[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\UserManagement.jsx[24m[0m
+[0m  [2m137:10[22m  [31merror[39m  'now' is assigned a value but never used. Allowed unused vars must match /^[A-Z_]/u  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[31m[1m✖ 25 problems (22 errors, 3 warnings)[22m[39m[0m
+[0m[31m[1m[22m[39m[0m

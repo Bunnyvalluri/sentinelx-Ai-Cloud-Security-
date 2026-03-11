@@ -1,5 +1,5 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import MarketingLayout from '../components/MarketingLayout';
 import Logo from '../components/common/Logo';
 
@@ -154,7 +154,6 @@ function AnimatedCounter({ value, suffix = '' }) {
           const num = parseFloat(numMatch[0]);
           const prefix = value.slice(0, value.indexOf(numMatch[0]));
           const postfix = value.slice(value.indexOf(numMatch[0]) + numMatch[0].length);
-          let start = 0;
           const end = num;
           const duration = 1800;
           const step = duration / 60;
@@ -183,8 +182,6 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [visibleLines, setVisibleLines] = useState(0);
   const [activeReview, setActiveReview] = useState(0);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [scrollY, setScrollY] = useState(0);
   const heroRef = useRef(null);
   const canvasRef = useRef(null);
 
@@ -198,16 +195,13 @@ export default function LandingPage() {
 
   /* Testimonial auto-rotate */
   useEffect(() => {
-    const t = setInterval(() => setActiveReview(v => (v + 1) % TESTIMONIALS.length), 5000);
-    return () => clearInterval(t);
+    const id = setInterval(() => {
+      setActiveReview(v => (v + 1) % TESTIMONIALS.length);
+    }, 5000);
+    return () => clearInterval(id);
   }, []);
 
-  /* Scroll parallax */
-  useEffect(() => {
-    const onScroll = () => setScrollY(window.scrollY);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
+
 
   /* Particle canvas */
   useEffect(() => {
@@ -274,15 +268,7 @@ export default function LandingPage() {
     };
   }, []);
 
-  /* Mouse parallax on hero */
-  const handleMouseMove = useCallback(e => {
-    if (!heroRef.current) return;
-    const rect = heroRef.current.getBoundingClientRect();
-    setMousePos({
-      x: ((e.clientX - rect.left) / rect.width - 0.5) * 40,
-      y: ((e.clientY - rect.top) / rect.height - 0.5) * 40,
-    });
-  }, []);
+
 
   return (
     <MarketingLayout>
@@ -672,20 +658,9 @@ export default function LandingPage() {
         {/* ═══════════ HERO ═══════════ */}
         <section
           ref={heroRef}
-          onMouseMove={handleMouseMove}
           className="landing-hero"
           style={{ position: 'relative', zIndex: 1, paddingBottom: 80 }}
         >
-          {/* Floating mouse-parallax glow orb */}
-          <div style={{
-            position: 'absolute', top: '50%', left: '50%',
-            width: 800, height: 800, borderRadius: '50%',
-            background: 'radial-gradient(circle, rgba(124,58,237,0.18) 0%, rgba(56,189,248,0.08) 40%, transparent 70%)',
-            filter: 'blur(80px)',
-            transform: `translate(calc(-50% + ${mousePos.x}px), calc(-50% + ${mousePos.y}px))`,
-            transition: 'transform 0.2s ease-out',
-            pointerEvents: 'none',
-          }} />
 
           {/* Logo mark */}
           <div style={{ display: 'flex', justifyContent: 'center', marginBottom: 44, animation: 'hero-in 0.8s cubic-bezier(0.16,1,0.3,1)' }}>
@@ -801,7 +776,7 @@ export default function LandingPage() {
               borderBottom: '1px solid rgba(255,255,255,0.06)',
               display: 'flex', alignItems: 'center', gap: 8,
             }}>
-              {['#ef4444', '#f59e0b', '#10b981'].map((c, i) => (
+              {['#ef4444', '#f59e0b', '#10b981'].map(c => (
                 <div key={c} style={{ width: 12, height: 12, borderRadius: '50%', background: c, opacity: 0.9 }} />
               ))}
               <span style={{ fontFamily: 'JetBrains Mono, monospace', fontSize: 12, color: 'rgba(255,255,255,0.25)', marginLeft: 12 }}>
@@ -848,8 +823,8 @@ export default function LandingPage() {
               onMouseEnter={e => e.currentTarget.style.animationPlayState = 'paused'}
               onMouseLeave={e => e.currentTarget.style.animationPlayState = 'running'}
             >
-              {[...LOGOS, ...LOGOS].map((logo, i) => (
-                <div key={i} style={{
+              {[...LOGOS, ...LOGOS].map((logo, idx) => (
+                <div key={idx} style={{
                   display: 'inline-flex', alignItems: 'center', gap: 10, padding: '12px 24px',
                   background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 14,
                   whiteSpace: 'nowrap', cursor: 'default', transition: 'all 0.3s',
@@ -857,7 +832,7 @@ export default function LandingPage() {
                   onMouseEnter={e => { e.currentTarget.style.borderColor = 'rgba(124,58,237,0.4)'; e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.background = 'rgba(124,58,237,0.08)'; e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.2)'; }}
                   onMouseLeave={e => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.07)'; e.currentTarget.style.transform = ''; e.currentTarget.style.background = 'rgba(255,255,255,0.03)'; e.currentTarget.style.boxShadow = ''; }}>
                   <span style={{ fontSize: 18 }}>{logo.icon}</span>
-                  <span style={{ fontSize: 13, fontWeight: 700, color: 'rgba(255,255,255,0.45)' }}>{logo.name}</span>
+                  <span style={{ fontSize: 14, fontWeight: 700, color: 'rgba(255,255,255,0.7)', letterSpacing: 0.1 }}>{logo.name}</span>
                 </div>
               ))}
             </div>
@@ -961,8 +936,8 @@ export default function LandingPage() {
                   onClick={() => setActiveReview(i)}>
                   {/* Stars */}
                   <div style={{ display: 'flex', gap: 3, marginBottom: 20 }}>
-                    {Array(t.rating).fill(0).map((_, si) => (
-                      <span key={si} style={{ color: '#fbbf24', fontSize: 15 }}>★</span>
+                    {Array.from({ length: 5 }).map((_, idx) => (
+                      <span key={idx} style={{ color: idx < t.rating ? '#fbbf24' : 'rgba(255,255,255,0.1)' }}>★</span>
                     ))}
                   </div>
                   <p style={{ fontSize: 15, color: 'var(--text-secondary)', lineHeight: 1.8, marginBottom: 28, fontStyle: 'italic' }}>

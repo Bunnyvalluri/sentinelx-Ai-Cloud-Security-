@@ -62,7 +62,6 @@ function tokenize(text) {
 function tfidfScore(query, doc) {
   const qTokens = tokenize(query);
   const dTokens = tokenize(doc);
-  const dText = dTokens.join(' ');
   let score = 0;
   for (const qt of qTokens) {
     const tf = dTokens.filter(t => t === qt || t.startsWith(qt.slice(0, 4))).length / Math.max(dTokens.length, 1);
@@ -70,7 +69,6 @@ function tfidfScore(query, doc) {
   }
   // Boost for topic/category exact matches
   const topic = doc.split('.')[0].toLowerCase();
-  const qLower = query.toLowerCase();
   if (qTokens.some(qt => topic.includes(qt))) score *= 2;
   return score;
 }
@@ -89,7 +87,7 @@ function retrieveChunks(query, topK = 3) {
 // ============================================================
 // PIPELINE STEP COMPONENT
 // ============================================================
-function PipelineStep({ step, status, label }) {
+function PipelineStep({ status, label }) {
   const colors = { done: '#22c55e', active: '#8b5cf6', waiting: '#52525b' };
   const c = colors[status] || colors.waiting;
   return (
@@ -173,7 +171,11 @@ export default function FloatingChatbot() {
   }, [messages, isOpen, pipeline]);
 
   useEffect(() => {
-    if (isOpen) setTimeout(() => inputRef.current?.focus(), 300);
+    try {
+      if (isOpen && inputRef.current) inputRef.current.focus();
+    } catch {
+      // ignore
+    }
   }, [isOpen]);
 
   const sendMessage = useCallback(async (userMsg) => {
@@ -218,9 +220,10 @@ ${ragContext}`;
 
       if (!hasKey) {
         // ── MOCK STREAMING fallback ──
+        const kbCount = KNOWLEDGE_BASE.length;
         const mockAnswers = {
           rag: `## Retrieval-Augmented Generation (RAG)\n\nRAG is a technique that enhances LLM responses by **retrieving relevant documents** before generating an answer.\n\n### How it works:\n1. **Query Encoding** — The user's question is converted to a vector embedding\n2. **Retrieval** — Semantically similar documents are fetched from a vector store\n3. **Augmentation** — Retrieved chunks are injected into the LLM prompt\n4. **Generation** — The LLM generates a grounded, factual response\n\n### Why RAG?\n- Reduces hallucinations by grounding responses in real data\n- Enables up-to-date knowledge without retraining\n- Provides citations and source transparency\n\nThis chatbot uses a **TF-IDF based retrieval** pipeline on ${kbCount} pre-loaded documents across multiple domains!`,
-          default: `## Great question!\n\nBased on the retrieved context from my knowledge base, here's what I found:\n\n${chunks.length > 0 ? chunks.map(c => `### ${c.topic}\n${c.text}`).join('\n\n') : `I searched ${kbCount} documents but didn't find a highly specific match. Here\'s what I know:\n\nThis topic covers important concepts that span multiple domains. I'd recommend asking a more specific question or exploring related areas like AI, security, engineering, or science.`}\n\n---\n*Answer generated using CEREBRO AI RAG Pipeline | ${chunks.length} sources retrieved*`,
+          default: `## Great question!\n\nBased on the retrieved context from my knowledge base, here's what I found:\n\n${chunks.length > 0 ? chunks.map(c => `### ${c.topic}\n${c.text}`).join('\n\n') : `I searched ${kbCount} documents but didn't find a highly specific match. Here's what I know:\n\nThis topic covers important concepts that span multiple domains. I'd recommend asking a more specific question or exploring related areas like AI, security, engineering, or science.`}\n\n---\n*Answer generated using CEREBRO AI RAG Pipeline | ${chunks.length} sources retrieved*`,
         };
         const qLower = userMsg.toLowerCase();
         const answer = qLower.includes('rag') || qLower.includes('retrieval') ? mockAnswers.rag : mockAnswers.default;
@@ -277,7 +280,9 @@ ${ragContext}`;
               const delta = parsed.choices?.[0]?.delta?.content || '';
               accum += delta;
               setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], content: accum }; return u; });
-            } catch (_) { }
+            } catch {
+              /* ignore partial json */
+            }
           }
         }
       }

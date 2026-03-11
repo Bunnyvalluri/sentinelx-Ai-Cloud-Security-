@@ -41,8 +41,8 @@ const ACTIVITY_POOL = [
 
 const COUNTRIES = { US: '🇺🇸', UK: '🇬🇧', SG: '🇸🇬', AU: '🇦🇺', CA: '🇨🇦', VN: '🇻🇳', DE: '🇩🇪', IN: '🇮🇳' };
 
-function timeAgo(ts) {
-  const s = Math.floor((Date.now() - ts) / 1000);
+function timeAgo(ts, now) {
+  const s = Math.floor(((now || Date.now()) - ts) / 1000);
   if (s < 60) return `${s}s ago`;
   if (s < 3600) return `${Math.floor(s / 60)}m ago`;
   if (s < 86400) return `${Math.floor(s / 3600)}h ago`;
@@ -134,7 +134,7 @@ export default function UserManagement() {
   const [failedLogins, setFailedLogins] = useState(2);
   const [pendingInvites, setPendingInvites] = useState(4);
   const [highlight, setHighlight] = useState(null);
-  const [now, setNow] = useState(Date.now());
+  const [now, setNow] = useState(() => Date.now());
   const activityRef = useRef(null);
   const tickRef = useRef(null);
 
@@ -291,7 +291,7 @@ export default function UserManagement() {
           disabled={provisionStep === 'loading'}
           className="btn btn-primary"
           style={{
-            gap: 8, fontSize: 13, display: 'flex', alignItems: 'center', gap: 8,
+            fontSize: 13, display: 'flex', alignItems: 'center', gap: 8,
             transition: 'background-color .3s, border-color .3s, color .3s, opacity .3s, box-shadow .3s, transform .3s',
             opacity: provisionStep === 'loading' ? 0.7 : 1,
             transform: provisionStep === 'loading' ? 'scale(0.97)' : 'scale(1)'
@@ -451,7 +451,7 @@ export default function UserManagement() {
                       <td style={{ fontSize: 12, color: 'var(--text-muted)', fontVariantNumeric: 'tabular-nums' }}>
                         {u.status === 'Online' ? (
                           <span style={{ color: '#4ecdc4', fontWeight: 600 }}>● Active</span>
-                        ) : timeAgo(u.lastSeen)}
+                        ) : timeAgo(u.lastSeen, now)}
                       </td>
 
                       {/* Actions */}

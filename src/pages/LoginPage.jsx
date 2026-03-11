@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
 import Logo from '../components/common/Logo';
 import {
@@ -70,7 +70,7 @@ function AnimCounter({ value, suffix = '', color }) {
       });
     }, 30);
     return () => clearInterval(id);
-  }, [value]);
+  }, [value, display]);
   return (
     <span style={{ color, fontFamily: 'JetBrains Mono, monospace', fontWeight: 800 }}>
       {display.toLocaleString()}{suffix}
@@ -83,7 +83,9 @@ function TypingText({ text, speed = 28 }) {
   const [displayed, setDisplayed] = useState('');
   const [idx, setIdx] = useState(0);
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setDisplayed('');
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setIdx(0);
   }, [text]);
   useEffect(() => {
@@ -275,7 +277,7 @@ export default function LoginPage() {
     <span style={{ width: 15, height: 15, border: `2px solid rgba(255,255,255,0.25)`, borderTopColor: c, borderRadius: '50%', display: 'inline-block', animation: 'spin .6s linear infinite', flexShrink: 0 }} />
   );
 
-  const sevColor = { CRIT: '#ff3b6b', HIGH: '#ff6b2b', MED: '#f9c80e', LOW: '#2dd4bf' };
+
 
   return (
     <div className="login-layout" style={{ minHeight: '100vh', display: 'grid', gridTemplateColumns: '1fr 440px', background: 'var(--bg-primary)', fontFamily: 'Inter, sans-serif', overflow: 'hidden' }}>
@@ -362,7 +364,7 @@ export default function LoginPage() {
                 transition: 'background 1s ease',
               }}>
                 <span style={{ fontSize: 8, fontWeight: 800, letterSpacing: 0.4, padding: '2px 6px', borderRadius: 3, background: `${ev.color}18`, color: ev.color, border: `1px solid ${ev.color}30`, flexShrink: 0, minWidth: 32, textAlign: 'center' }}>{ev.sev}</span>
-                <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', flexShrink: 0, fontSize: 9 }}>{ev.region}</span>
+                <span style={{ fontSize: 11, fontFamily: 'JetBrains Mono, monospace', color: 'var(--text-muted)', flexShrink: 0 }}>{ev.region}</span>
                 <span style={{ flex: 1, fontSize: 11.5, color: 'var(--text-secondary)', lineHeight: 1.4 }}>{ev.msg}</span>
                 <span style={{ fontSize: 10, color: 'var(--text-muted)', flexShrink: 0, fontFamily: 'JetBrains Mono, monospace' }}>{ev.ts}</span>
               </div>

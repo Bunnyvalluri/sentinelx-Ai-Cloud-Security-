@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
+import { useState, useEffect, useRef, useCallback, useMemo } from 'react';
 
 /* ── Icons ── */
 const Ic = {
@@ -116,8 +116,8 @@ export default function ChatbotPage() {
   const textareaRef = useRef(null);
   const fileRef = useRef(null);
 
-  const convo = conversations.find(c => c.id === activeId);
-  const msgs = convo?.messages || [];
+  const convo = useMemo(() => conversations.find(c => c.id === activeId), [conversations, activeId]);
+  const msgs = useMemo(() => convo?.messages || [], [convo]);
 
   useEffect(() => {
     endRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -229,7 +229,9 @@ export default function ChatbotPage() {
               const delta = d.choices?.[0]?.delta?.content || '';
               acc += delta;
               setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: acc } : m) } : c));
-            } catch (_) { }
+            } catch {
+              // Ignore invalid JSON chunks
+            }
           }
         }
       }

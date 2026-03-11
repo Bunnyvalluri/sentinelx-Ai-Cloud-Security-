@@ -40,6 +40,7 @@ export default function MarketingLayout({ children }) {
   }, []);
 
   // Close mobile on route change
+  // eslint-disable-next-line react-hooks/set-state-in-effect
   useEffect(() => setMobileOpen(false), [pathname]);
 
   // Scroll-reveal observer - re-runs on route change

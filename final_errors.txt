@@ -1,0 +1,12 @@
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\components\FloatingChatbot.jsx[24m[0m
+[0m   [2m66:16[22m  [31merror[39m  'dTokens' is not defined         [2mno-undef[22m[0m
+[0m   [2m66:96[22m  [31merror[39m  'dTokens' is not defined         [2mno-undef[22m[0m
+[0m  [2m175:14[22m  [31merror[39m  'err' is defined but never used  [2mno-unused-vars[22m[0m
+[0m[0m
+[0m[4mC:\Users\vallu\OneDrive\Desktop\NRCM-PJ\4-1-pj\sentinelx-platform\src\pages\LoginPage.jsx[24m[0m
+[0m  [2m88:5[22m  [33mwarning[39m  Unused eslint-disable directive (no problems were reported from 'react-hooks/set-state-in-effect')[0m
+[0m[0m
+[0m[31m[1m✖ 4 problems (3 errors, 1 warning)[22m[39m[0m
+[0m[31m[1m[22m[39m[31m[1m  0 errors and 1 warning potentially fixable with the `--fix` option.[22m[39m[0m
+[0m[31m[1m[22m[39m[0m
