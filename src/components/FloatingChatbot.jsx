@@ -213,8 +213,8 @@ ${ragContext}`;
     setMessages(prev => [...prev, { role: 'assistant', content: '', sources: chunks, streaming: true }]);
 
     try {
-      const apiKey = import.meta.env.VITE_NVIDIA_API_KEY;
-      const hasKey = apiKey && apiKey !== 'your_nvidia_api_key_here';
+      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+      const hasKey = apiKey && apiKey !== 'your_groq_api_key_here';
 
       if (!hasKey) {
         // ── MOCK STREAMING fallback ──
@@ -236,7 +236,7 @@ ${ragContext}`;
         const controller = new AbortController();
         abortRef.current = controller;
 
-        const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           signal: controller.signal,
           headers: {
@@ -245,7 +245,7 @@ ${ragContext}`;
             'Accept': 'text/event-stream',
           },
           body: JSON.stringify({
-            model: 'meta/llama-3.3-70b-instruct',
+            model: 'llama3-70b-8192',
             messages: [
               { role: 'system', content: systemPrompt },
               ...messages.filter(m => !m.streaming).slice(-8).map(m => ({ role: m.role, content: m.content })),

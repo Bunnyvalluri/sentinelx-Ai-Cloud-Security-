@@ -19,9 +19,9 @@ const Ic = {
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'meta/llama-3.3-70b-instruct', label: 'LLaMA 3.3 70B', badge: 'Fast' },
-  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Mixtral 8x22B', badge: 'Smart' },
-  { id: 'nvidia/llama-3.1-nemotron-70b-instruct', label: 'Nemotron 70B', badge: 'Advanced' },
+  { id: 'llama3-70b-8192', label: 'LLaMA 3 70B', badge: 'Fast' },
+  { id: 'mixtral-8x7b-32768', label: 'Mixtral 8x7B', badge: 'Smart' },
+  { id: 'gemma2-9b-it', label: 'Gemma 2 9B', badge: 'Advanced' },
 ];
 
 /* ── QUICK PROMPTS ── */
@@ -187,8 +187,8 @@ export default function ChatbotPage() {
     setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: [...c.messages, aMsg] } : c));
 
     try {
-      const apiKey = import.meta.env.VITE_NVIDIA_API_KEY;
-      const hasKey = apiKey && apiKey !== 'your_nvidia_api_key_here';
+      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
+      const hasKey = apiKey && apiKey !== 'your_groq_api_key_here';
 
       if (!hasKey) {
         /* MOCK STREAMING */
@@ -200,11 +200,11 @@ export default function ChatbotPage() {
           setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: acc } : m) } : c));
         }
       } else {
-        /* REAL NVIDIA API */
+        /* REAL GROQ API */
         const ctrl = new AbortController();
         abortRef.current = ctrl;
         const historyMsgs = msgs.slice(-10).map(m => ({ role: m.role, content: m.content }));
-        const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST', signal: ctrl.signal,
           headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
           body: JSON.stringify({
