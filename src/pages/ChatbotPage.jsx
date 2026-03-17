@@ -19,9 +19,9 @@ const Ic = {
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'llama-3.3-70b-versatile', label: 'LLaMA 3.3 70B', badge: 'Fast' },
-  { id: 'mixtral-8x7b-32768', label: 'Mixtral 8x7B', badge: 'Smart' },
-  { id: 'gemma2-9b-it', label: 'Gemma 2 9B', badge: 'Advanced' },
+  { id: 'meta/llama-3.1-70b-instruct', label: 'LLaMA 3.1 70B', badge: 'Fast' },
+  { id: 'meta/llama-3.1-8b-instruct', label: 'LLaMA 3.1 8B', badge: 'Smart' },
+  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Mixtral 8x22B', badge: 'Advanced' },
 ];
 
 /* ── QUICK PROMPTS ── */
@@ -187,8 +187,8 @@ export default function ChatbotPage() {
     setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: [...c.messages, aMsg] } : c));
 
     try {
-      const apiKey = import.meta.env.VITE_GROQ_API_KEY;
-      const hasKey = apiKey && apiKey !== 'your_groq_api_key_here';
+      const apiKey = import.meta.env.VITE_NVAPI_KEY;
+      const hasKey = apiKey && apiKey !== 'your_nvapi_key_here';
 
       if (!hasKey) {
         /* MOCK STREAMING */
@@ -204,7 +204,7 @@ export default function ChatbotPage() {
         const ctrl = new AbortController();
         abortRef.current = ctrl;
         const historyMsgs = msgs.slice(-10).map(m => ({ role: m.role, content: m.content }));
-        const res = await fetch('https://api.groq.com/openai/v1/chat/completions', {
+        const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
           method: 'POST', signal: ctrl.signal,
           headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
           body: JSON.stringify({

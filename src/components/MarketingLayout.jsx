@@ -116,11 +116,11 @@ export default function MarketingLayout({ children }) {
         .social-btn {
           width: 38px; height: 38px;
           border-radius: 10px;
-          border: 1px solid rgba(255,255,255,0.08);
+          border: 1px solid var(--border-light);
           display: flex; align-items: center; justify-content: center;
-          font-size: 14px; color: rgba(255,255,255,0.35);
+          font-size: 14px; color: var(--text-muted);
           cursor: pointer; transition: all 0.25s; font-weight: 700;
-          background: rgba(255,255,255,0.02);
+          background: var(--bg-card);
         }
         .social-btn:hover {
           border-color: rgba(139,92,246,0.45);
@@ -172,11 +172,11 @@ export default function MarketingLayout({ children }) {
           position: absolute; right: 20px;
           width: 24px; height: 24px;
           border-radius: 6px;
-          background: rgba(255,255,255,0.06);
-          border: 1px solid rgba(255,255,255,0.08);
-          color: rgba(255,255,255,0.4);
+          background: var(--bg-card);
+          border: 1px solid var(--border-light);
+          color: var(--text-muted);
           display: flex; align-items: center; justify-content: center;
-          cursor: pointer; font-size: 13;
+          cursor: pointer; font-size: 13px;
           transition: all 0.2s;
         }
         .close-announcement:hover {
@@ -187,8 +187,8 @@ export default function MarketingLayout({ children }) {
 
         .mobile-menu {
           position: fixed; inset: 0; z-index: 200;
-          background: rgba(4,4,10,0.97);
-          backdrop-filter: blur(24px) saturate(180%);
+          background: var(--bg-glass);
+          backdrop-filter: blur(32px) saturate(180%);
           display: flex; flex-direction: column; align-items: center; justify-content: center;
           opacity: 0; pointer-events: none;
           transition: opacity 0.35s cubic-bezier(0.16,1,0.3,1);
@@ -231,12 +231,18 @@ export default function MarketingLayout({ children }) {
         className="marketing-nav"
         style={{
           position: 'sticky', top: 0, zIndex: 100,
-          borderBottom: scrolled ? '1px solid rgba(255,255,255,0.07)' : '1px solid transparent',
-          backdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'blur(12px)',
-          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(180%)' : 'blur(12px)',
-          background: scrolled ? 'rgba(6,6,12,0.92)' : 'rgba(6,6,12,0.6)',
+          borderBottom: scrolled
+            ? (theme === 'light' ? '1px solid rgba(109,40,217,0.10)' : '1px solid rgba(255,255,255,0.07)')
+            : '1px solid transparent',
+          backdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'blur(12px)',
+          WebkitBackdropFilter: scrolled ? 'blur(24px) saturate(200%)' : 'blur(12px)',
+          background: theme === 'light'
+            ? (scrolled ? 'rgba(255,255,255,0.96)' : 'rgba(249,248,255,0.80)')
+            : (scrolled ? 'rgba(6,6,12,0.92)' : 'rgba(6,6,12,0.60)'),
           transition: 'all 0.35s cubic-bezier(0.16,1,0.3,1)',
-          boxShadow: scrolled ? '0 4px 40px rgba(0,0,0,0.3)' : 'none',
+          boxShadow: scrolled
+            ? (theme === 'light' ? '0 4px 24px rgba(109,40,217,0.08)' : '0 4px 40px rgba(0,0,0,0.3)')
+            : 'none',
         }}>
 
         {/* Logo */}
@@ -357,8 +363,10 @@ export default function MarketingLayout({ children }) {
 
       {/* ── Premium Footer ── */}
       <footer style={{
-        background: 'linear-gradient(180deg, var(--bg-primary) 0%, rgba(4,4,10,1) 100%)',
-        borderTop: '1px solid rgba(255,255,255,0.06)',
+        background: theme === 'light'
+          ? 'linear-gradient(180deg, var(--bg-primary) 0%, #ede9fe 100%)'
+          : 'linear-gradient(180deg, var(--bg-primary) 0%, rgba(4,4,10,1) 100%)',
+        borderTop: theme === 'light' ? '1px solid rgba(109,40,217,0.10)' : '1px solid rgba(255,255,255,0.06)',
         padding: '80px 0 40px',
         position: 'relative',
         overflow: 'hidden',
@@ -415,12 +423,14 @@ export default function MarketingLayout({ children }) {
                 type="email"
                 placeholder="your@company.com"
                 style={{
-                  flex: 1, padding: '10px 18px', borderRadius: 100, border: '1px solid rgba(255,255,255,0.1)',
-                  background: 'rgba(255,255,255,0.05)', color: 'var(--text-primary)', fontSize: 14,
-                  outline: 'none', transition: 'border-color 0.25s',
+                  flex: 1, padding: '10px 18px', borderRadius: 100,
+                  border: `1px solid ${theme === 'light' ? 'rgba(109,40,217,0.15)' : 'rgba(255,255,255,0.1)'}`,
+                  background: theme === 'light' ? '#ffffff' : 'rgba(255,255,255,0.05)',
+                  color: 'var(--text-primary)', fontSize: 14,
+                  outline: 'none', transition: 'border-color 0.25s, box-shadow 0.25s',
                 }}
-                onFocus={e => e.target.style.borderColor = 'rgba(139,92,246,0.5)'}
-                onBlur={e => e.target.style.borderColor = 'rgba(255,255,255,0.1)'}
+                onFocus={e => { e.target.style.borderColor = 'rgba(124,58,237,0.5)'; e.target.style.boxShadow = '0 0 0 3px rgba(124,58,237,0.12)'; }}
+                onBlur={e => { e.target.style.borderColor = theme === 'light' ? 'rgba(109,40,217,0.15)' : 'rgba(255,255,255,0.1)'; e.target.style.boxShadow = ''; }}
               />
               <button style={{ padding: '10px 22px', borderRadius: 100, border: 'none', background: 'linear-gradient(135deg, #7c3aed, #4f46e5)', color: '#fff', fontWeight: 700, fontSize: 13.5, cursor: 'pointer', whiteSpace: 'nowrap', transition: 'all 0.25s' }}
                 onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-1px)'; e.currentTarget.style.boxShadow = '0 6px 20px rgba(124,58,237,0.4)'; }}
@@ -431,7 +441,7 @@ export default function MarketingLayout({ children }) {
           </div>
 
           {/* Bottom bar */}
-          <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
+          <div style={{ borderTop: theme === 'light' ? '1px solid rgba(109,40,217,0.10)' : '1px solid rgba(255,255,255,0.06)', paddingTop: 28, display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'space-between', alignItems: 'center', fontSize: 12, color: 'var(--text-muted)' }}>
             <div>© 2025 SentinelX Security Inc. All rights reserved.</div>
             <div style={{ display: 'flex', gap: 20 }}>
               {[{ icon: '🔒', text: 'SOC2 Type II' }, { icon: '🌐', text: 'ISO 27001' }, { icon: '🛡', text: 'GDPR Compliant' }].map(b => (
