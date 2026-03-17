@@ -261,7 +261,9 @@ ${ragContext}`;
           })
         });
 
-        if (!res.ok) throw new Error(`API Error: ${res.status}`);
+        if (!res.ok) {
+           throw new Error(`API Error: ${res.status}`);
+        }
 
         const reader = res.body.getReader();
         const decoder = new TextDecoder();
@@ -291,7 +293,11 @@ ${ragContext}`;
       setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], streaming: false }; return u; });
     } catch (err) {
       if (err.name !== 'AbortError') {
-        setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], content: `⚠️ **Error:** ${err.message}\n\nPlease check your API key in the \`.env\` file.`, streaming: false }; return u; });
+        const errorMsg = err.message.includes('403') || err.message.includes('401')
+          ? "⚠️ **NVIDIA API Key Denied (403/401)**\n\nYour key `nvapi-...` was rejected by NVIDIA. Please check [build.nvidia.com](https://build.nvidia.com) to generate a valid key.\n\n*In the meantime, running in Mock Mode...*"
+          : `⚠️ **Error:** ${err.message}\n\nPlease check your API key in the \`.env\` file.`;
+          
+        setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], content: errorMsg, streaming: false }; return u; });
       }
     } finally {
       setIsLoading(false);

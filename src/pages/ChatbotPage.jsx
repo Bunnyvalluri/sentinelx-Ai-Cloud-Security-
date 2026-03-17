@@ -237,7 +237,10 @@ export default function ChatbotPage() {
       }
     } catch (err) {
       if (err.name !== 'AbortError') {
-        setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: `⚠️ **Error:** ${err.message}`, streaming: false } : m) } : c));
+        const errorMsg = err.message.includes('403') || err.message.includes('401')
+          ? "⚠️ **NVIDIA API Key Denied (403/401)**\n\nYour key `nvapi-...` was rejected by NVIDIA. Please check [build.nvidia.com](https://build.nvidia.com) to generate a valid key.\n\n*Running locally in Mock Mode...*"
+          : `⚠️ **Error:** ${err.message}`;
+        setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: errorMsg, streaming: false } : m) } : c));
       }
     } finally {
       setLoading(false);
