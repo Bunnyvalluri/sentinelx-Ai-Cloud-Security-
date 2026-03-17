@@ -237,8 +237,9 @@ export default function ChatbotPage() {
       }
     } catch (err) {
       if (err.name !== 'AbortError') {
-        const errorMsg = err.message.includes('403') || err.message.includes('401')
-          ? "⚠️ **NVIDIA API Key Denied (403/401)**\n\nYour key `nvapi-...` was rejected by NVIDIA. Please check [build.nvidia.com](https://build.nvidia.com) to generate a valid key.\n\n*Running locally in Mock Mode...*"
+        const isAuthError = err.message.includes('403') || err.message.includes('401') || err.message.includes('Failed to fetch');
+        const errorMsg = isAuthError
+          ? "⚠️ **NVIDIA API Key Denied**\n\nYour key `nvapi-...` was either rejected or blocked. Please check your key at [build.nvidia.com](https://build.nvidia.com) and ensure it is valid.\n\n*In the meantime, the app can mock these responses!*"
           : `⚠️ **Error:** ${err.message}`;
         setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: errorMsg, streaming: false } : m) } : c));
       }
