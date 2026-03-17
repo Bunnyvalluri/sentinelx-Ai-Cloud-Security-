@@ -19,9 +19,8 @@ const Ic = {
 
 /* ── MODELS ── */
 const MODELS = [
-  { id: 'meta/llama-3.1-70b-instruct', label: 'LLaMA 3.1 70B', badge: 'Fast' },
-  { id: 'meta/llama-3.1-8b-instruct', label: 'LLaMA 3.1 8B', badge: 'Smart' },
-  { id: 'mistralai/mixtral-8x22b-instruct-v0.1', label: 'Mixtral 8x22B', badge: 'Advanced' },
+  { id: 'gemini-2.5-flash', label: 'Gemini 2.5 Flash', badge: 'Fast' },
+  { id: 'gemini-2.0-flash', label: 'Gemini 2.0 Flash', badge: 'Smart' },
 ];
 
 /* ── QUICK PROMPTS ── */
@@ -40,7 +39,7 @@ const SYSTEM = `You are CEREBRO AI — an advanced AI assistant built into Senti
 - Software engineering, DevSecOps, and system design
 - General knowledge across all domains
 
-You use markdown formatting for clarity. You are concise, precise, and always provide actionable insights. You never reveal that you are built on NVIDIA or Meta models — you are simply CEREBRO AI.`;
+You use markdown formatting for clarity. You are concise, precise, and always provide actionable insights. You never reveal that you are built on Google or Gemini models — you are simply CEREBRO AI.`;
 
 /* ── MARKDOWN RENDERER ── */
 function MD({ text }) {
@@ -187,8 +186,8 @@ export default function ChatbotPage() {
     setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: [...c.messages, aMsg] } : c));
 
     try {
-      const apiKey = import.meta.env.VITE_NVAPI_KEY;
-      const hasKey = apiKey && apiKey !== 'your_nvapi_key_here';
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const hasKey = apiKey && apiKey !== 'your_gemini_key_here';
 
       if (!hasKey) {
         /* MOCK STREAMING */
@@ -204,7 +203,7 @@ export default function ChatbotPage() {
         const ctrl = new AbortController();
         abortRef.current = ctrl;
         const historyMsgs = msgs.slice(-10).map(m => ({ role: m.role, content: m.content }));
-        const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        const res = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
           method: 'POST', signal: ctrl.signal,
           headers: { 'Authorization': `Bearer ${apiKey}`, 'Content-Type': 'application/json', 'Accept': 'text/event-stream' },
           body: JSON.stringify({
@@ -237,9 +236,9 @@ export default function ChatbotPage() {
       }
     } catch (err) {
       if (err.name !== 'AbortError') {
-        const isAuthError = err.message.includes('403') || err.message.includes('401') || err.message.includes('Failed to fetch');
+        const isAuthError = err.message.includes('403') || err.message.includes('401') || err.message.includes('Failed to fetch') || err.message.includes('429');
         const errorMsg = isAuthError
-          ? "⚠️ **NVIDIA API Key Denied**\n\nYour key `nvapi-...` was either rejected or blocked. Please check your key at [build.nvidia.com](https://build.nvidia.com) and ensure it is valid.\n\n*In the meantime, the app can mock these responses!*"
+          ? "⚠️ **Google Gemini API Key Error**\n\nYour key may be out of credits or blocked (Quota Exceeded 429). Please check your key quota or billing details in the Google Cloud Console.\n\n*In the meantime, the app can mock these responses!*"
           : `⚠️ **Error:** ${err.message}`;
         setConversations(p => p.map(c => c.id === activeId ? { ...c, messages: c.messages.map((m, mi) => mi === c.messages.length - 1 ? { ...m, content: errorMsg, streaming: false } : m) } : c));
       }

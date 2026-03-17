@@ -215,8 +215,8 @@ ${ragContext}`;
     setMessages(prev => [...prev, { role: 'assistant', content: '', sources: chunks, streaming: true }]);
 
     try {
-      const apiKey = import.meta.env.VITE_NVAPI_KEY;
-      const hasKey = apiKey && apiKey !== 'your_nvapi_key_here';
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      const hasKey = apiKey && apiKey !== 'your_gemini_key_here';
 
       if (!hasKey) {
         // ── MOCK STREAMING fallback ──
@@ -239,7 +239,7 @@ ${ragContext}`;
         const controller = new AbortController();
         abortRef.current = controller;
 
-        const res = await fetch('https://integrate.api.nvidia.com/v1/chat/completions', {
+        const res = await fetch('https://generativelanguage.googleapis.com/v1beta/openai/chat/completions', {
           method: 'POST',
           signal: controller.signal,
           headers: {
@@ -248,7 +248,7 @@ ${ragContext}`;
             'Accept': 'text/event-stream',
           },
           body: JSON.stringify({
-            model: 'meta/llama-3.1-70b-instruct',
+            model: 'gemini-2.5-flash',
             messages: [
               { role: 'system', content: systemPrompt },
               ...messages.filter(m => !m.streaming).slice(-8).map(m => ({ role: m.role, content: m.content })),
@@ -293,9 +293,9 @@ ${ragContext}`;
       setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], streaming: false }; return u; });
     } catch (err) {
       if (err.name !== 'AbortError') {
-        const isAuthError = err.message.includes('403') || err.message.includes('401') || err.message.includes('Failed to fetch');
+        const isAuthError = err.message.includes('403') || err.message.includes('401') || err.message.includes('Failed to fetch') || err.message.includes('429');
         const errorMsg = isAuthError
-          ? "⚠️ **NVIDIA API Key Denied**\n\nYour key `nvapi-...` was either rejected or blocked. Please check your key at [build.nvidia.com](https://build.nvidia.com) and ensure it is valid.\n\n*In the meantime, the app can mock these responses!*"
+          ? "⚠️ **Google Gemini API Key Error**\n\nYour key may be out of credits or blocked (Quota Exceeded 429). Please check your key quota or billing details in the Google Cloud Console.\n\n*In the meantime, the app can mock these responses!*"
           : `⚠️ **Error:** ${err.message}`;
           
         setMessages(prev => { const u = [...prev]; u[u.length - 1] = { ...u[u.length - 1], content: errorMsg, streaming: false }; return u; });
